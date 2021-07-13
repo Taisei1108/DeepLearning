@@ -25,7 +25,7 @@ class ImageDataset(Dataset):
 
     def __getitem__(self, index):
         image = Image.open(self.images[index]).convert('RGB')
-        image = image.resize((self.width, self.height))
+        #image = image.resize((self.width, self.height)) //0708 transformで実装することに
         downscaled = np.asarray((image.resize((self.width // 8, self.height // 8))))
 
         if self.transform:

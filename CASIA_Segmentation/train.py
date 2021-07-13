@@ -1,19 +1,22 @@
 import os
 import sys
+import random
+import matplotlib.pyplot as plt
+
 import torch
 import torch.nn as nn
-
 import torch.optim as optim
 from torch.optim.lr_scheduler import StepLR
 from torchvision import transforms
 from torch.utils.data import DataLoader
-from torchvision.models import resnet18
-import matplotlib.pyplot as plt
+from torchvision.models import resnet101
+
 
 from data_loader import ImageDataset
 
 
 torch.manual_seed(0)
+random.seed(0)
 """
 試したこと
 ・データサイズ128*128->256*256 0.03くらい上がった
@@ -21,34 +24,39 @@ torch.manual_seed(0)
 ・学習率1e-4->1e-5
 ・ResNet50->ResNet18
 """
-#DATA_ROOT = "/home/takahashi/datasets/CASIA"
-DATA_ROOT = "/home/takahashi/datasets/ColumbiaUncompressedImageSplicingDetection/data"
+DATA_ROOT = "/home/takahashi/datasets/CASIA_new"
+#DATA_ROOT = "/home/takahashi/datasets/ColumbiaUncompressedImageSplicingDetection/data"
 width = 256
 height = 256
+crop_size = 256
 n_class = 2
-batch_size = 32
-lr = 1e-3
+batch_size = 16
+lr = 1e-5
 momentum = 0.99
-epochs = 50
+epochs = 150
 
-model = resnet18(pretrained=False)
+model = resnet101(pretrained=True)
 
 model.train()
 #print(model)
 #ResNetの最終出力をデータセットのクラス数と同じにする
-model.fc = nn.Linear(512,n_class)#(fc): Linear(in_features=2048, out_features=1000, bias=True) ResNet50のもともと
+model.fc = nn.Linear(2048,n_class)#(fc): Linear(in_features=2048, out_features=1000, bias=True) ResNet50のもともと
 #データ読み込み部分 これが帰ってくるsample = {'image': image, 'target': self.targets[index], "path": self.images[index], "downscaled": downscaled}
 train_data = ImageDataset(DATA_ROOT, width=width, height=height, transform=transforms.Compose([
+            transforms.RandomCrop(crop_size,pad_if_needed=True),
             transforms.RandomHorizontalFlip(),
             transforms.RandomAffine(degrees=[-10, 10], translate=(0.1, 0.1), scale=(0.5, 1.5)),
+            transforms.Resize((width,height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
 val_data = ImageDataset(DATA_ROOT, 'val', width=width, height=height, transform=transforms.Compose([
+            transforms.Resize((width,height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
 test_data = ImageDataset(DATA_ROOT, 'test', width=width, height=height, transform=transforms.Compose([
+            transforms.Resize((width,height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
@@ -60,14 +68,27 @@ test_loader = DataLoader(test_data, batch_size=batch_size, num_workers=0)
 #print(len(val_data)) # ->1274 /12614
 #print(len(test_data))#-> 2457 (8:2=train:test,9:1=train:val)
 
+print(train_data[0]["image"].shape)
+
+""""
+image_numb = 6 # 3の倍数を指定してください
+for i in range(0, image_numb):
+  ax = plt.subplot(int(image_numb / 3), 3, i + 1)
+  plt.tight_layout()
+  ax.set_title(str(i))
+  plt.imshow(train_data[i]['image'].transpose(0,1).transpose(1,2))#CHW  -> HWC
+  print(train_data[i]["path"])
+plt.savefig('./hoge.png')
+"""
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum) #weight decay　未設定
 scheduler = StepLR(optimizer, step_size=10, gamma=0.9)
 train_acc = []
 val_acc = []
-os._exit()
+#os._exit()
 def train():
+    max_val = 0.
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
     for epoch in range(epochs):
@@ -139,8 +160,11 @@ def train():
                     epoch_acc = epoch_corrects.double(
                     ) / len(val_loader.dataset)
                 val_acc.append(epoch_acc.item())
+                if max_val < epoch_acc.item():
+                    max_val = epoch_acc.item()
                 print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                     phase, epoch_loss, epoch_acc))
+    print("max_val=",max_val)
     #学習曲線を描く
     fig = plt.figure()
     plt.title('Training Process')
@@ -148,7 +172,7 @@ def train():
     plt.ylabel('Accuracy')
     l1, = plt.plot(range(epochs), train_acc, c='red')
     l2, = plt.plot(range(epochs), val_acc, c='blue')
-    plt.legend(handles=[l1, l2], labels=['Tra_loss', 'Val_loss'], loc='best')
+    plt.legend(handles=[l1, l2], labels=['Tra_acc', 'Val_acc'], loc='best')
     plt.savefig('./Training Process for lr-{}.png'.format(lr), dpi=600)
 
 def test():
