@@ -3,6 +3,7 @@ import sys
 import random
 import matplotlib.pyplot as plt
 import argparse
+import tempfile
 
 import torch
 import torch.nn as nn
@@ -147,12 +148,14 @@ def train():
                         epoch_corrects += torch.sum(preds == labels.data)
 
                         # show loss and accuracy per epoch
-                        epoch_loss = epoch_loss / len(train_loader.dataset)
+                        train_loss = epoch_loss / len(train_loader.dataset)
                         epoch_acc = epoch_corrects.double(
                         ) / len(train_loader.dataset)
                 train_acc.append(epoch_acc.item())
                 print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                    phase, epoch_loss, epoch_acc))
+                    phase, train_loss, epoch_acc))
+                log_scalar("train_loss",train_loss,epoch)
+                log_scalar("train_acc",epoch_acc.item(),epoch)
                 scheduler.step()
 
             elif phase == 'val':
@@ -169,14 +172,16 @@ def train():
                     epoch_loss += loss.item() * inputs.size(0)
                     epoch_corrects += torch.sum(preds == labels.data)
 
-                    epoch_loss = epoch_loss / len(val_loader.dataset)
+                    val_loss = epoch_loss / len(val_loader.dataset)
                     epoch_acc = epoch_corrects.double(
                     ) / len(val_loader.dataset)
                 val_acc.append(epoch_acc.item())
                 if max_val < epoch_acc.item():
                     max_val = epoch_acc.item()
                 print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                    phase, epoch_loss, epoch_acc))
+                    phase, val_loss, epoch_acc))
+                log_scalar("val_loss",val_loss,epoch)
+                log_scalar("val_acc",epoch_acc.item(),epoch)
     print("max_val=",max_val)
     #学習曲線を描く
     fig = plt.figure()
@@ -206,14 +211,31 @@ def test():
         epoch_loss += loss.item() * inputs.size(0)
         epoch_corrects += torch.sum(preds == labels.data)
 
-        epoch_loss = epoch_loss / len(test_loader.dataset)
+        test_loss = epoch_loss / len(test_loader.dataset)
         epoch_acc = epoch_corrects.double(
         ) / len(test_loader.dataset)
-        val_acc.append(epoch_acc.item())
     print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-        "test", epoch_loss, epoch_acc))
+        "test", test_loss, epoch_acc))
+    log_scalar("test_loss",test_loss,1)
+    log_scalar("test_acc",epoch_acc.item(),1)
+    
+def log_scalar(name, value, step):
+    """Log a scalar value to both MLflow and TensorBoard"""
+    mlflow.log_metric(name, value)
 if __name__ == '__main__':
-    train()
-    #save_path = './model'+DATASET+str(data_divide_ratio)+model_name+'.pth'
-    #torch.save(model.state_dict(), save_path)
-    test()
+    with mlflow.start_run():
+        # Log our parameters into mlflow
+        for key, value in vars(args).items():
+            print(key,value)
+            mlflow.log_param(key, value)
+        # Create a SummaryWriter to write TensorBoard events locally
+        output_dir = dirpath = tempfile.mkdtemp()
+        # Perform the training and test
+        train()
+        #save_path = './model'+DATASET+str(data_divide_ratio)+model_name+'.pth'
+        #torch.save(model.state_dict(), save_path)
+        test()
+        with tempfile.TemporaryDirectory()  as tmp:
+            filename = os.path.join(tmp, "model.pth")
+            torch.save(model.state_dict(), filename)
+            mlflow.log_artifacts(tmp, artifact_path="results")
