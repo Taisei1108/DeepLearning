@@ -13,7 +13,8 @@ from data_loader import ImageDataset
 torch.manual_seed(0)
 random.seed(0)
 
-DATA_ROOT = "/home/takahashi/datasets/CASIA_new"
+DATA_ROOT = "/home/takahashi/datasets/CASIAv2_data"
+#DATA_ROOT = "/home/takahashi/datasets/ColumbiaUncompressedImageSplicingDetection/data/"
 
 train_data = ImageDataset(DATA_ROOT,transform=transforms.ToTensor())
 val_data = ImageDataset(DATA_ROOT,'val',transform=transforms.ToTensor())
@@ -34,8 +35,8 @@ for d in dataset:
     print(count)
 
     #頻度確認
-    #c = collections.Counter(data_list_count)
-    #print(c)
+    c = collections.Counter(data_list_count)
+    print(c)
 
     #data_list_hei.sort()
     #print(data_list_hei)

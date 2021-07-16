@@ -60,7 +60,7 @@ for i in label:
     for f in files:
         print(f)
         rand_num =random.random()
-        if rand_num >= 0.9: # 10%
+        if rand_num >= 0.8: # 20%
             # valへ移動
             print('To val',f.split('/')[-1])
             shutil.copyfile(f,root+"val/"+str(i)+"/"+f.split('/')[-1])
@@ -70,7 +70,7 @@ for i in label:
             print('To train',f.split('/')[-1])
             shutil.copyfile(f,root+"train/"+str(i)+"/"+f.split('/')[-1])
             count_train += 1
-        else:                      # 30%
+        else:                      # 20%
             # testへ移動
             print('To test',f.split('/')[-1])
             shutil.copyfile(f,root+"test/"+str(i)+"/"+f.split('/')[-1])
