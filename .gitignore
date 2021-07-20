@@ -1,4 +1,4 @@
 /output/
 *.pth
 *.png
-/mlruns/
+mlruns
