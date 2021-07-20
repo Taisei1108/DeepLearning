@@ -34,12 +34,11 @@ model = resnet101()
 #ResNetの最終出力をデータセットのクラス数と同じにする
 model.fc = nn.Linear(2048,n_class)
 # weight path 
-model_path = "Columbia_0.89_ResNet101.pth"
+model_path = "mlruns/0/cb0357f7e5ec46a0abae186dd85ac824/artifacts/results/model.pth"
 model.load_state_dict(torch.load(model_path, map_location={'cuda:0': 'cpu'}))
 model.eval()
 
 test_data = ImageDataset(DATA_ROOT, 'test', width=width, height=height, transform=transforms.Compose([
-            transforms.Resize((width,height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
@@ -173,7 +172,8 @@ def test():
             img = torch.unsqueeze(inputs[i],0)
             outputs = model(img)
             _, preds = torch.max(outputs, 1)
-            print("preds=",preds.item())
+            epoch_corrects += torch.sum(preds == labels[i].data)
+            
             ConfM = "Null"
             # out 1 label 1 -> TP ,out 1 label0 ->FP, out 0 label -> 1 FN, out 0 label 0 -> TN
             if preds[i].item() == 1 and labels[i].item() == 1:
@@ -198,9 +198,12 @@ def test():
             path_name = im_paths[i].split('/')[-1].split('.')[0]
             print(path_name)
             save_image(result_pp,"./output/"+path_name+ConfM+".png")
+            save_image(heatmap_pp,"./output/"+path_name+ConfM+"_heatmap.png")
             #blended,preds = cam(torch.unsqueeze(inputs[i],0),labels[i])
             #print("label&preds",labels[0].item(),preds[0].item()) #preds= tensor([1])
             #cam_save_image(blended,im_paths[i],labels[i],preds)
+    epoch_acc = epoch_corrects.double() / len(test_loader.dataset)
+    print("test_acc=",epoch_acc)
     #print(images)
     #grid_image = make_grid(images, nrow=4)
     #結果の保存

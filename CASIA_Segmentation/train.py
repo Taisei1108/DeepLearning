@@ -71,12 +71,10 @@ train_data = ImageDataset(DATA_ROOT, width=args.width, height=args.height, trans
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
 val_data = ImageDataset(DATA_ROOT, 'val', width=args.width, height=args.height, transform=transforms.Compose([
-            transforms.Resize((args.width,args.height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
 test_data = ImageDataset(DATA_ROOT, 'test', width=args.width, height=args.height, transform=transforms.Compose([
-            transforms.Resize((args.width,args.height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
