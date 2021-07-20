@@ -1,4 +1,6 @@
 /output/
 *.pth
 *.png
+*.jpg
+*.tif
 mlruns
