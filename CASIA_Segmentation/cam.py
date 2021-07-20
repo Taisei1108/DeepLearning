@@ -50,8 +50,9 @@ test_loader = DataLoader(test_data, batch_size=batch_size, num_workers=0)
 target_layer = model.layer4
 gradcam = GradCAM(model, target_layer)
 gradcam_pp = GradCAMpp(model, target_layer)
-print(target_layer)
-#os._exit()
+#print(next(model.parameters()).is_cuda) #cudaチェック
+
+
 def makedir():
     path1 = "./output"
     path2 = "./output/Out1_Ans1/"
@@ -167,15 +168,36 @@ def test():
         im_paths = batch["path"]
         # print(torch.unsqueeze(inputs[0],0).shape) ->torch.Size([1, 3, 256, 256])
         print("labels",labels[0].item())
+        #grad-cam参考https://www.yurui-deep-learning.com/2021/02/08/grad-campytorch-google-colab/
         for i in range(inputs.shape[0]): #batchsize分回す
             img = torch.unsqueeze(inputs[i],0)
+            outputs = model(img)
+            _, preds = torch.max(outputs, 1)
+            print("preds=",preds.item())
+            ConfM = "Null"
+            # out 1 label 1 -> TP ,out 1 label0 ->FP, out 0 label -> 1 FN, out 0 label 0 -> TN
+            if preds[i].item() == 1 and labels[i].item() == 1:
+                print("TP")
+                ConfM = "TP"
+            elif preds[i].item() == 1 and labels[i].item() == 0:
+                print("FP")
+                ConfM = "FP"
+            elif preds[i].item() == 0 and labels[i].item() == 1:
+                print("FN")
+                ConfM = "FN"
+            else:
+                print("TN")
+                ConfM = "TN"
+            
+            #grad-camの部分
             mask, _ = gradcam(img)
             heatmap, result = visualize_cam(mask, img)
-
             mask_pp, _ = gradcam_pp(img)
             heatmap_pp, result_pp = visualize_cam(mask_pp, img)
             images.extend([img.cpu(), heatmap, heatmap_pp, result, result_pp])
-            save_image(result_pp,"./output/"+im_paths[i].split('/')[-1]+"_cam.png")
+            path_name = im_paths[i].split('/')[-1].split('.')[0]
+            print(path_name)
+            save_image(result_pp,"./output/"+path_name+ConfM+".png")
             #blended,preds = cam(torch.unsqueeze(inputs[i],0),labels[i])
             #print("label&preds",labels[0].item(),preds[0].item()) #preds= tensor([1])
             #cam_save_image(blended,im_paths[i],labels[i],preds)

@@ -2,6 +2,8 @@ import os
 import sys
 import random
 import matplotlib.pyplot as plt
+import argparse
+import tempfile
 
 import torch
 import torch.nn as nn
@@ -10,89 +12,105 @@ from torch.optim.lr_scheduler import StepLR
 from torchvision import transforms
 from torch.utils.data import DataLoader
 from torchvision.models import resnet101
-
+import mlflow
 
 from data_loader import ImageDataset
 
 
 torch.manual_seed(0)
 random.seed(0)
-"""
-試したこと
-・データサイズ128*128->256*256 0.03くらい上がった
-・randomAffineの追加 追加前0.74 追加後 0.77(上振れで)
-・学習率1e-4->1e-5
-・ResNet50->ResNet18
-"""
-DATA_ROOT = "/home/takahashi/datasets/CASIA_new"
-#DATA_ROOT = "/home/takahashi/datasets/ColumbiaUncompressedImageSplicingDetection/data"
-width = 256
-height = 256
-crop_size = 256
-n_class = 2
-batch_size = 16
-lr = 1e-5
-momentum = 0.99
-epochs = 150
 
-model = resnet101(pretrained=True)
+parser = argparse.ArgumentParser(description='CASIA or Columbia データセットの学習')
+parser.add_argument('--batch-size', type=int, default=16, metavar='N',
+                    help='input batch size for training (default: 64)')
+parser.add_argument('--dataset', choices=['CASIAv2', 'Columbia'],type=str, default='Columbia', metavar='D',
+                    help='input Dataset for training (default: Columbia)') 
+parser.add_argument('--model', type=str, default='resnet101', metavar='M',
+                    help='input models name for training (default: resnet101)') 
+parser.add_argument('--width', type=int, default=256, metavar='N',
+                    help='input  resize for training (default: 256)')
+parser.add_argument('--height', type=int, default=256, metavar='N',
+                    help='input  resize for training (default: 256)')  
+parser.add_argument('--crop', type=int, default=400, metavar='N',
+                    help='input  crop size for training (default: 400)')  
+parser.add_argument('--n-class', type=int, default=2, metavar='N',
+                    help='input n_class for training (default: 2)')
+parser.add_argument('--lr', type=float, default=1e-5, metavar='LR',
+                    help='input  learning late for training (default: 256)')    
+parser.add_argument('--momentum', type=int, default=0.99, metavar='M',
+                    help='input  momentum for training (default: 0.99)')
+parser.add_argument('--epochs', type=int, default=150, metavar='N',
+                    help='input epochs for training (default: 150)')                                                                                        
+parser.add_argument('--cuda-port', type=str, choices=['cuda:0','cuda:1'], default='cuda:1',
+                    help='choose cuda port for  CUDA training')
+parser.add_argument('--affine_degree', type=int, default=10, metavar='N',
+                    help='input affine_degree for transform (default: 10)')       
+parser.add_argument('--scale', type=float, default=1.5, metavar='N',
+                    help='input scale for transform (default: 1.5)')       
+args = parser.parse_args()
+if args.dataset == "CASIAv2":
+    DATA_ROOT = "/home/takahashi/datasets/CASIAv2_data"
+elif args.dataset == "Columbia":
+    DATA_ROOT = "/home/takahashi/datasets/ColumbiaUncompressedImageSplicingDetection/data"
+
+if args.model=="resnet101":
+    model = resnet101(pretrained=True)
 
 model.train()
 #print(model)
 #ResNetの最終出力をデータセットのクラス数と同じにする
-model.fc = nn.Linear(2048,n_class)#(fc): Linear(in_features=2048, out_features=1000, bias=True) ResNet50のもともと
+model.fc = nn.Linear(2048,args.n_class)#(fc): Linear(in_features=2048, out_features=1000, bias=True) ResNet50のもともと
 #データ読み込み部分 これが帰ってくるsample = {'image': image, 'target': self.targets[index], "path": self.images[index], "downscaled": downscaled}
-train_data = ImageDataset(DATA_ROOT, width=width, height=height, transform=transforms.Compose([
-            transforms.RandomCrop(crop_size,pad_if_needed=True),
+train_data = ImageDataset(DATA_ROOT, width=args.width, height=args.height, transform=transforms.Compose([
+            #transforms.RandomCrop(crop_size),
             transforms.RandomHorizontalFlip(),
-            transforms.RandomAffine(degrees=[-10, 10], translate=(0.1, 0.1), scale=(0.5, 1.5)),
-            transforms.Resize((width,height)),
+            transforms.RandomAffine(degrees=[-1*args.affine_degree, args.affine_degree], scale=(1.0, args.scale)),
+            #transforms.CenterCrop(args.crop),
+            transforms.Resize((args.width,args.height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
-val_data = ImageDataset(DATA_ROOT, 'val', width=width, height=height, transform=transforms.Compose([
-            transforms.Resize((width,height)),
+val_data = ImageDataset(DATA_ROOT, 'val', width=args.width, height=args.height, transform=transforms.Compose([
+            transforms.Resize((args.width,args.height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
-test_data = ImageDataset(DATA_ROOT, 'test', width=width, height=height, transform=transforms.Compose([
-            transforms.Resize((width,height)),
+test_data = ImageDataset(DATA_ROOT, 'test', width=args.width, height=args.height, transform=transforms.Compose([
+            transforms.Resize((args.width,args.height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
-train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=4)
-val_loader = DataLoader(val_data, batch_size=batch_size, num_workers=0)
-test_loader = DataLoader(test_data, batch_size=batch_size, num_workers=0)
+train_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, num_workers=4)
+val_loader = DataLoader(val_data, batch_size=args.batch_size, num_workers=0)
+test_loader = DataLoader(test_data, batch_size=args.batch_size, num_workers=0)
 
 #print(len(train_data)) # ->8883 /12614
 #print(len(val_data)) # ->1274 /12614
 #print(len(test_data))#-> 2457 (8:2=train:test,9:1=train:val)
 
-print(train_data[0]["image"].shape)
 
-""""
-image_numb = 6 # 3の倍数を指定してください
+image_numb = 9 # 3の倍数を指定してください
 for i in range(0, image_numb):
   ax = plt.subplot(int(image_numb / 3), 3, i + 1)
   plt.tight_layout()
   ax.set_title(str(i))
   plt.imshow(train_data[i]['image'].transpose(0,1).transpose(1,2))#CHW  -> HWC
   print(train_data[i]["path"])
-plt.savefig('./hoge.png')
-"""
+plt.savefig('./train_sample.png')
+
 
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum) #weight decay　未設定
+optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum) #weight decay　未設定
 scheduler = StepLR(optimizer, step_size=10, gamma=0.9)
 train_acc = []
 val_acc = []
 #os._exit()
 def train():
     max_val = 0.
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model.to(device)
-    for epoch in range(epochs):
-        print('Epoch {}/{}'.format(epoch + 1, epochs))
+    device = torch.device(args.cuda_port if torch.cuda.is_available() else "cpu")
+    model.to(device)    
+    for epoch in range(args.epochs):
+        print('Epoch {}/{}'.format(epoch + 1, args.epochs))
         print('-------------')
 
         # train and validation per epoch
@@ -134,12 +152,14 @@ def train():
                         epoch_corrects += torch.sum(preds == labels.data)
 
                         # show loss and accuracy per epoch
-                        epoch_loss = epoch_loss / len(train_loader.dataset)
+                        train_loss = epoch_loss / len(train_loader.dataset)
                         epoch_acc = epoch_corrects.double(
                         ) / len(train_loader.dataset)
                 train_acc.append(epoch_acc.item())
                 print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                    phase, epoch_loss, epoch_acc))
+                    phase, train_loss, epoch_acc))
+                log_scalar("train_loss",train_loss,epoch)
+                log_scalar("train_acc",epoch_acc.item(),epoch)
                 scheduler.step()
 
             elif phase == 'val':
@@ -156,27 +176,31 @@ def train():
                     epoch_loss += loss.item() * inputs.size(0)
                     epoch_corrects += torch.sum(preds == labels.data)
 
-                    epoch_loss = epoch_loss / len(val_loader.dataset)
+                    val_loss = epoch_loss / len(val_loader.dataset)
                     epoch_acc = epoch_corrects.double(
                     ) / len(val_loader.dataset)
                 val_acc.append(epoch_acc.item())
                 if max_val < epoch_acc.item():
                     max_val = epoch_acc.item()
+                    max_val_state = model.state_dict()
                 print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-                    phase, epoch_loss, epoch_acc))
+                    phase, val_loss, epoch_acc))
+                log_scalar("val_loss",val_loss,epoch)
+                log_scalar("val_acc",epoch_acc.item(),epoch)
+    log_scalar("max_val",max_val,0)
     print("max_val=",max_val)
     #学習曲線を描く
     fig = plt.figure()
     plt.title('Training Process')
     plt.xlabel('epoch')
     plt.ylabel('Accuracy')
-    l1, = plt.plot(range(epochs), train_acc, c='red')
-    l2, = plt.plot(range(epochs), val_acc, c='blue')
+    l1, = plt.plot(range(args.epochs), train_acc, c='red')
+    l2, = plt.plot(range(args.epochs), val_acc, c='blue')
     plt.legend(handles=[l1, l2], labels=['Tra_acc', 'Val_acc'], loc='best')
-    plt.savefig('./Training Process for lr-{}.png'.format(lr), dpi=600)
-
+    #plt.savefig('./Training Process for lr-{}'+DATASET+str(data_divide_ratio)+model_name+'.png'.format(lr), dpi=600)
+    return max_val_state
 def test():
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device(args.cuda_port if torch.cuda.is_available() else "cpu")
     model.to(device)
     model.eval()  # inference
     epoch_loss = 0.0  # loss sum per epoch
@@ -193,14 +217,32 @@ def test():
         epoch_loss += loss.item() * inputs.size(0)
         epoch_corrects += torch.sum(preds == labels.data)
 
-        epoch_loss = epoch_loss / len(test_loader.dataset)
+        test_loss = epoch_loss / len(test_loader.dataset)
         epoch_acc = epoch_corrects.double(
         ) / len(test_loader.dataset)
-        val_acc.append(epoch_acc.item())
     print('{} Loss: {:.4f} Acc: {:.4f}'.format(
-        "test", epoch_loss, epoch_acc))
+        "test", test_loss, epoch_acc))
+    log_scalar("test_loss",test_loss,1)
+    log_scalar("test_acc",epoch_acc.item(),1)
+    
+def log_scalar(name, value, step):
+    """Log a scalar value to both MLflow and TensorBoard"""
+    mlflow.log_metric(name, value)
 if __name__ == '__main__':
-    train()
-    save_path = './hogetaro.pth'
-    torch.save(model.state_dict(), save_path)
-    test()
+    with mlflow.start_run():
+        mlflow.log_artifact('train_sample.png')
+        # Log our parameters into mlflow
+        for key, value in vars(args).items():
+            print(key,value)
+            mlflow.log_param(key, value)
+        # Create a SummaryWriter to write TensorBoard events locally
+        output_dir = dirpath = tempfile.mkdtemp()
+        # Perform the training and test
+        max_val_state = train()
+        #save_path = './model'+DATASET+str(data_divide_ratio)+model_name+'.pth'
+        #torch.save(model.state_dict(), save_path)
+        test()
+        with tempfile.TemporaryDirectory()  as tmp:
+            filename = os.path.join(tmp, "model.pth")
+            torch.save(max_val_state, filename)
+            mlflow.log_artifacts(tmp, artifact_path="results")
