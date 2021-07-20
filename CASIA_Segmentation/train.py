@@ -35,7 +35,7 @@ parser.add_argument('--crop', type=int, default=400, metavar='N',
                     help='input  crop size for training (default: 400)')  
 parser.add_argument('--n-class', type=int, default=2, metavar='N',
                     help='input n_class for training (default: 2)')
-parser.add_argument('--lr', type=int, default=1e-5, metavar='LR',
+parser.add_argument('--lr', type=float, default=1e-5, metavar='LR',
                     help='input  learning late for training (default: 256)')    
 parser.add_argument('--momentum', type=int, default=0.99, metavar='M',
                     help='input  momentum for training (default: 0.99)')
@@ -43,7 +43,10 @@ parser.add_argument('--epochs', type=int, default=150, metavar='N',
                     help='input epochs for training (default: 150)')                                                                                        
 parser.add_argument('--cuda-port', type=str, choices=['cuda:0','cuda:1'], default='cuda:1',
                     help='choose cuda port for  CUDA training')
-
+parser.add_argument('--affine_degree', type=int, default=10, metavar='N',
+                    help='input affine_degree for transform (default: 10)')       
+parser.add_argument('--scale', type=float, default=1.5, metavar='N',
+                    help='input scale for transform (default: 1.5)')       
 args = parser.parse_args()
 if args.dataset == "CASIAv2":
     DATA_ROOT = "/home/takahashi/datasets/CASIAv2_data"
@@ -60,9 +63,10 @@ model.fc = nn.Linear(2048,args.n_class)#(fc): Linear(in_features=2048, out_featu
 #データ読み込み部分 これが帰ってくるsample = {'image': image, 'target': self.targets[index], "path": self.images[index], "downscaled": downscaled}
 train_data = ImageDataset(DATA_ROOT, width=args.width, height=args.height, transform=transforms.Compose([
             #transforms.RandomCrop(crop_size),
-            transforms.Resize((args.width,args.height)),
             transforms.RandomHorizontalFlip(),
-            transforms.RandomAffine(degrees=[-10, 10], translate=(0.1, 0.1), scale=(1.0, 1.5)),
+            transforms.RandomAffine(degrees=[-1*args.affine_degree, args.affine_degree], scale=(1.0, args.scale)),
+            #transforms.CenterCrop(args.crop),
+            transforms.Resize((args.width,args.height)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 ]))
@@ -84,7 +88,7 @@ test_loader = DataLoader(test_data, batch_size=args.batch_size, num_workers=0)
 #print(len(val_data)) # ->1274 /12614
 #print(len(test_data))#-> 2457 (8:2=train:test,9:1=train:val)
 
-"""
+
 image_numb = 9 # 3の倍数を指定してください
 for i in range(0, image_numb):
   ax = plt.subplot(int(image_numb / 3), 3, i + 1)
@@ -92,8 +96,8 @@ for i in range(0, image_numb):
   ax.set_title(str(i))
   plt.imshow(train_data[i]['image'].transpose(0,1).transpose(1,2))#CHW  -> HWC
   print(train_data[i]["path"])
-plt.savefig('./train_sample'+DATASET+str(data_divide_ratio)+'.png')
-"""
+plt.savefig('./train_sample.png')
+
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum) #weight decay　未設定
@@ -178,10 +182,12 @@ def train():
                 val_acc.append(epoch_acc.item())
                 if max_val < epoch_acc.item():
                     max_val = epoch_acc.item()
+                    max_val_state = model.state_dict()
                 print('{} Loss: {:.4f} Acc: {:.4f}'.format(
                     phase, val_loss, epoch_acc))
                 log_scalar("val_loss",val_loss,epoch)
                 log_scalar("val_acc",epoch_acc.item(),epoch)
+    log_scalar("max_val",max_val,0)
     print("max_val=",max_val)
     #学習曲線を描く
     fig = plt.figure()
@@ -192,7 +198,7 @@ def train():
     l2, = plt.plot(range(args.epochs), val_acc, c='blue')
     plt.legend(handles=[l1, l2], labels=['Tra_acc', 'Val_acc'], loc='best')
     #plt.savefig('./Training Process for lr-{}'+DATASET+str(data_divide_ratio)+model_name+'.png'.format(lr), dpi=600)
-
+    return max_val_state
 def test():
     device = torch.device(args.cuda_port if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -224,6 +230,7 @@ def log_scalar(name, value, step):
     mlflow.log_metric(name, value)
 if __name__ == '__main__':
     with mlflow.start_run():
+        mlflow.log_artifact('train_sample.png')
         # Log our parameters into mlflow
         for key, value in vars(args).items():
             print(key,value)
@@ -231,11 +238,11 @@ if __name__ == '__main__':
         # Create a SummaryWriter to write TensorBoard events locally
         output_dir = dirpath = tempfile.mkdtemp()
         # Perform the training and test
-        train()
+        max_val_state = train()
         #save_path = './model'+DATASET+str(data_divide_ratio)+model_name+'.pth'
         #torch.save(model.state_dict(), save_path)
         test()
         with tempfile.TemporaryDirectory()  as tmp:
             filename = os.path.join(tmp, "model.pth")
-            torch.save(model.state_dict(), filename)
+            torch.save(max_val_state, filename)
             mlflow.log_artifacts(tmp, artifact_path="results")

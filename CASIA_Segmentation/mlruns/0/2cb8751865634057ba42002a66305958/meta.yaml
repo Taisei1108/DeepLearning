@@ -1,0 +1,15 @@
+artifact_uri: file:///home/takahashi/DeepLearning/CASIA_Segmentation/mlruns/0/2cb8751865634057ba42002a66305958/artifacts
+end_time: 1626427215349
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 2cb8751865634057ba42002a66305958
+run_uuid: 2cb8751865634057ba42002a66305958
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1626427029836
+status: 3
+tags: []
+user_id: takahashi
