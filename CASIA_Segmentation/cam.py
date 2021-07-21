@@ -19,7 +19,8 @@ from data_loader import ImageDataset
 from gradcam.utils import visualize_cam
 from gradcam import GradCAM, GradCAMpp
 #https://deepblue-ts.co.jp/image-processing/pytorch_guided_grad_cam/
-
+# directoryの./out_segを設定する必要がある ()
+# CAMの結果は./outputに入る
 
 DATA_ROOT = "/home/takahashi/datasets/ColumbiaUncompressedImageSplicingDetection/data"
 width = 256
@@ -34,7 +35,7 @@ model = resnet101()
 #ResNetの最終出力をデータセットのクラス数と同じにする
 model.fc = nn.Linear(2048,n_class)
 # weight path 
-model_path = "Columbia_0.89_ResNet101.pth"
+model_path = "mlruns/0/cb0357f7e5ec46a0abae186dd85ac824/artifacts/results/model.pth"
 model.load_state_dict(torch.load(model_path, map_location={'cuda:0': 'cpu'}))
 model.eval()
 
@@ -47,7 +48,7 @@ test_loader = DataLoader(test_data, batch_size=batch_size, num_workers=0)
 #print(model)
 
 # Grad-CAM
-target_layer = model.layer4
+target_layer = model.layer2
 gradcam = GradCAM(model, target_layer)
 gradcam_pp = GradCAMpp(model, target_layer)
 #print(next(model.parameters()).is_cuda) #cudaチェック
@@ -157,7 +158,22 @@ def cam_save_image(blended,path,label,pred):
     plt.imshow(image)
     plt.axis('off')
     plt.savefig(save_dir+im_name)
+
+def heatmap_seg(heatmap,path_name,ConfM):
+    #print(heatmap)
+    image0 = transforms.functional.to_pil_image(heatmap)
+    pixelSizeTuple = image0.size
+    new_image0 = Image.new('RGB', image0.size)
+
+    for i in range(pixelSizeTuple[0]):
+        for j in range(pixelSizeTuple[1]):
+            r,g,b = image0.getpixel((i,j))
+            if r > 120:  #R100~120くらいがよさそう、30くらいまで下げると黄色も含む、10くらいまで下げると緑とかも
+                new_image0.putpixel((i,j), (255,255,255)) 
+        else:
+            new_image0.putpixel((i,j), (0,0,0)) 
     
+    new_image0.save('./out_seg/'+path_name+'_'+ConfM+'.png',quality=100)
 
 def test():
     epoch_corrects = 0  # number of correct answers
@@ -173,7 +189,8 @@ def test():
             img = torch.unsqueeze(inputs[i],0)
             outputs = model(img)
             _, preds = torch.max(outputs, 1)
-            print("preds=",preds.item())
+            epoch_corrects += torch.sum(preds == labels[i].data)
+            
             ConfM = "Null"
             # out 1 label 1 -> TP ,out 1 label0 ->FP, out 0 label -> 1 FN, out 0 label 0 -> TN
             if preds[i].item() == 1 and labels[i].item() == 1:
@@ -197,14 +214,19 @@ def test():
             images.extend([img.cpu(), heatmap, heatmap_pp, result, result_pp])
             path_name = im_paths[i].split('/')[-1].split('.')[0]
             print(path_name)
+            heatmap_seg(heatmap_pp,path_name,ConfM)
             save_image(result_pp,"./output/"+path_name+ConfM+".png")
+            save_image(heatmap_pp,"./output/"+path_name+ConfM+"_heatmap.png")
             #blended,preds = cam(torch.unsqueeze(inputs[i],0),labels[i])
             #print("label&preds",labels[0].item(),preds[0].item()) #preds= tensor([1])
             #cam_save_image(blended,im_paths[i],labels[i],preds)
+    epoch_acc = epoch_corrects.double() / len(test_loader.dataset)
+    print("test_acc=",epoch_acc)
     #print(images)
     #grid_image = make_grid(images, nrow=4)
     #結果の保存
     #save_image(grid_image,"grid_images")
     #transforms.ToPILImage()(grid_image)
+
 if __name__ == '__main__':
     test()
