@@ -56,20 +56,8 @@ gradcam_pp = GradCAMpp(model, target_layer)
 
 def makedir():
     path1 = "./output"
-    path2 = "./output/Out1_Ans1/"
-    path3 = "./output/Out1_Ans0/"
-    path4 = "./output/Out0_Ans1/"
-    path5 = "./output/Out0_Ans0/"
     if not os.path.isdir(path1):
         os.mkdir(path1)
-    if not os.path.isdir(path2):
-        os.mkdir(path2)
-    if not os.path.isdir(path3):
-        os.mkdir(path3)
-    if not os.path.isdir(path4):
-        os.mkdir(path4)
-    if not os.path.isdir(path5):
-        os.mkdir(path5)
 makedir()
 print("test_data_len=",len(test_data))
 
@@ -97,67 +85,6 @@ def cam_calc(feature,input):
     blended = img1*alpha + img2*(1-alpha)
     return blended
 
-def cam(input,label):
-    feature_extractor = net.features
-    classifier = net.classifier
-    feature_extractor = feature_extractor.eval()
-    classifier = classifier.eval()
-    #print(inputs.shape) = torch.Size([32, 3, 128, 128])
-    with torch.no_grad():
-        output = net(input)
-    _, preds = torch.max(output, 1)
-    feature = feature_extractor(input) #特徴マップを計算
-    
-    #print('特徴マップのサイズは　{}'.format(feature.shape)) 特徴マップのサイズは　torch.Size([1, 16, 5, 5])
-    feature = feature.clone().detach().requires_grad_(True) #勾配を計算するようにコピー
-    y_pred = classifier(feature.view(-1,16*5*5)) #予測を行う
-    #print(y_pred.shape) =torch.Size([32, 2])
-    #print(y_pred) tensor([[0.9921, 0.0079]], grad_fn=<SoftmaxBackward>)
-    #print(torch.argmax(y_pred))tensor(0)
-    y_pred[0][torch.argmax(y_pred)].backward() # 予測でもっとも高い値をとったクラスの勾配を計算
-    blended = cam_calc(feature,input)
-    return blended,preds
-
-def save_dir_chk(label,pred):
-    label_data = label.item()
-    pred_data = pred.item()
-    save_dir =""
-    if label_data == 1 and pred_data == 1:
-        save_dir = "./output/Out1_Ans1/"
-    elif label_data == 1 and pred_data == 0:
-        save_dir = "./output/Out0_Ans1/"
-    elif label_data == 0 and pred_data == 1:
-        save_dir = "./output/Out1_Ans0/"
-    elif label_data == 0 and pred_data == 0:
-        save_dir = "./output/Out0_Ans0/"
-    return save_dir
-
-def cam_save_image(blended,path,label,pred):
-    #問1 blendedとimageとmaskを保存するプログラムを書け 各20点
-    #print(path)../../datasets/CASIA/test/1/Tp_S_NNN_S_N_arc00035_arc00035_01089.jpg
-    save_dir = save_dir_chk(label,pred)
-    im_name = path.split('/')[-1]
-    im_mask_name = im_name.split('.')[0]+"_mask.png"
-    # print(im_mask_name) Tp_D_CNN_M_N_arc00086_xxx00000_00306_mask.png
-    image = Image.open(path).convert('RGB')
-    if label.item() == 1: #編集画像だったらマスクを保存
-        #maskを読み込んで保存する処理
-        im_mask_path = "../../datasets/CASIAv2/mask/"+im_mask_name 
-        mask = Image.open(im_mask_path).convert('RGB')
-        #plt.figure(figsize=(10,10))
-        plt.imshow(mask)
-        plt.axis('off')
-        plt.savefig(save_dir+im_mask_name)
-
-    #plt.figure(figsize=(10,10))
-    plt.imshow(blended)
-    plt.axis('off')
-    plt.savefig(save_dir+im_name.split('.')[0]+'_cam.png')
-    
-    #plt.figure(figsize=(10,10))
-    plt.imshow(image)
-    plt.axis('off')
-    plt.savefig(save_dir+im_name)
 
 def heatmap_seg(heatmap,path_name,ConfM):
     #print(heatmap)
@@ -230,3 +157,67 @@ def test():
 
 if __name__ == '__main__':
     test()
+
+
+#現在使っていない
+def cam(input,label):
+    feature_extractor = net.features
+    classifier = net.classifier
+    feature_extractor = feature_extractor.eval()
+    classifier = classifier.eval()
+    #print(inputs.shape) = torch.Size([32, 3, 128, 128])
+    with torch.no_grad():
+        output = net(input)
+    _, preds = torch.max(output, 1)
+    feature = feature_extractor(input) #特徴マップを計算
+    
+    #print('特徴マップのサイズは　{}'.format(feature.shape)) 特徴マップのサイズは　torch.Size([1, 16, 5, 5])
+    feature = feature.clone().detach().requires_grad_(True) #勾配を計算するようにコピー
+    y_pred = classifier(feature.view(-1,16*5*5)) #予測を行う
+    #print(y_pred.shape) =torch.Size([32, 2])
+    #print(y_pred) tensor([[0.9921, 0.0079]], grad_fn=<SoftmaxBackward>)
+    #print(torch.argmax(y_pred))tensor(0)
+    y_pred[0][torch.argmax(y_pred)].backward() # 予測でもっとも高い値をとったクラスの勾配を計算
+    blended = cam_calc(feature,input)
+    return blended,preds
+
+def save_dir_chk(label,pred):
+    label_data = label.item()
+    pred_data = pred.item()
+    save_dir =""
+    if label_data == 1 and pred_data == 1:
+        save_dir = "./output/Out1_Ans1/"
+    elif label_data == 1 and pred_data == 0:
+        save_dir = "./output/Out0_Ans1/"
+    elif label_data == 0 and pred_data == 1:
+        save_dir = "./output/Out1_Ans0/"
+    elif label_data == 0 and pred_data == 0:
+        save_dir = "./output/Out0_Ans0/"
+    return save_dir
+
+def cam_save_image(blended,path,label,pred):
+    #問1 blendedとimageとmaskを保存するプログラムを書け 各20点
+    #print(path)../../datasets/CASIA/test/1/Tp_S_NNN_S_N_arc00035_arc00035_01089.jpg
+    save_dir = save_dir_chk(label,pred)
+    im_name = path.split('/')[-1]
+    im_mask_name = im_name.split('.')[0]+"_mask.png"
+    # print(im_mask_name) Tp_D_CNN_M_N_arc00086_xxx00000_00306_mask.png
+    image = Image.open(path).convert('RGB')
+    if label.item() == 1: #編集画像だったらマスクを保存
+        #maskを読み込んで保存する処理
+        im_mask_path = "../../datasets/CASIAv2/mask/"+im_mask_name 
+        mask = Image.open(im_mask_path).convert('RGB')
+        #plt.figure(figsize=(10,10))
+        plt.imshow(mask)
+        plt.axis('off')
+        plt.savefig(save_dir+im_mask_name)
+
+    #plt.figure(figsize=(10,10))
+    plt.imshow(blended)
+    plt.axis('off')
+    plt.savefig(save_dir+im_name.split('.')[0]+'_cam.png')
+    
+    #plt.figure(figsize=(10,10))
+    plt.imshow(image)
+    plt.axis('off')
+    plt.savefig(save_dir+im_name)
