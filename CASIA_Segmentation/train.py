@@ -245,4 +245,4 @@ if __name__ == '__main__':
         with tempfile.TemporaryDirectory()  as tmp:
             filename = os.path.join(tmp, "model.pth")
             torch.save(max_val_state, filename)
-            mlflow.log_artifacts(tmp, artifact_path="results")
+            mlflow.log_artifacts(tmp, artifact_path="results") #mlrun内のartifacts/resultにモデル生成

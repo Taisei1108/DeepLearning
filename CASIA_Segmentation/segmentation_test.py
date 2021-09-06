@@ -9,7 +9,8 @@ from torchvision import transforms
 #必要なもの：CAMの結果(r = n1 , g = n2 の閾値で2値化)のディレクトリとコロンビアのマスクとそのパス
 #CAMは学習時にリサイズされているので、Maskにも同じようにリサイズを施す
 #./out_mask_segに マスクとCAMの結果が入る、 CAMのsegはout_segにも同じものが入っているが、マスクと一緒に入っていて見やすい
-CAM_ROOT ="./out_seg_r120/"
+#CAM_ROOT ="./out_seg_r120/"
+CAM_ROOT = "./out_seg_r120/"
 MASK_ROOT = "../../datasets/ColumbiaUncompressedImageSplicingDetection/edgemask/"
 width = 256
 height = 256
@@ -48,6 +49,12 @@ def calc_iou(cam_image,mask_image):
                     TP += 1
     print("interesection/union",intersection,"/",union,"=",intersection/union)
     print("TP/(TP+FN+FP)",TP,"/",TP,"+",FN,"+",FP,"=",TP/(TP+FN+FP)) #一応TP,FPの概念で確かめ算
+    precision = TP /(TP+FP)
+    recall = TP /(TP+FN)
+    F_measure = 2*recall*precision/(recall+precision)
+    print("precision=",precision)
+    print("recall=",recall)
+    print("F-measure",F_measure)
     return intersection/union
 
 if __name__ == '__main__':
