@@ -20,42 +20,10 @@ from data_loader import ImageDataset
 torch.manual_seed(0)
 random.seed(0)
 
-parser = argparse.ArgumentParser(description='CASIA or Columbia データセットの学習')
-parser.add_argument('--batch-size', type=int, default=16, metavar='N',
-                    help='input batch size for training (default: 64)')
-parser.add_argument('--dataset', choices=['CASIAv2', 'Columbia'],type=str, default='Columbia', metavar='D',
-                    help='input Dataset for training (default: Columbia)') 
-parser.add_argument('--model', type=str, default='resnet101', metavar='M',
-                    help='input models name for training (default: resnet101)') 
-parser.add_argument('--width', type=int, default=256, metavar='N',
-                    help='input  resize for training (default: 256)')
-parser.add_argument('--height', type=int, default=256, metavar='N',
-                    help='input  resize for training (default: 256)')  
-parser.add_argument('--crop', type=int, default=400, metavar='N',
-                    help='input  crop size for training (default: 400)')  
-parser.add_argument('--n-class', type=int, default=2, metavar='N',
-                    help='input n_class for training (default: 2)')
-parser.add_argument('--lr', type=float, default=1e-5, metavar='LR',
-                    help='input  learning late for training (default: 256)')    
-parser.add_argument('--momentum', type=int, default=0.99, metavar='M',
-                    help='input  momentum for training (default: 0.99)')
-parser.add_argument('--epochs', type=int, default=150, metavar='N',
-                    help='input epochs for training (default: 150)')                                                                                        
-parser.add_argument('--cuda-port', type=str, choices=['cuda:0','cuda:1'], default='cuda:1',
-                    help='choose cuda port for  CUDA training')
-parser.add_argument('--affine_degree', type=int, default=10, metavar='N',
-                    help='input affine_degree for transform (default: 10)')       
-parser.add_argument('--scale', type=float, default=1.5, metavar='N',
-                    help='input scale for transform (default: 1.5)')       
-args = parser.parse_args()
-if args.dataset == "CASIAv2":
-    DATA_ROOT = "/home/takahashi/datasets/CASIAv2_data"
-elif args.dataset == "Columbia":
-    DATA_ROOT = "/home/takahashi/datasets/ColumbiaUncompressedImageSplicingDetection/data"
+def run(args):
+    print(args.cam_crop_size)
 
-if args.model=="resnet101":
-    model = resnet101(pretrained=True)
-
+"""
 model.train()
 #print(model)
 #ResNetの最終出力をデータセットのクラス数と同じにする
@@ -226,7 +194,7 @@ def test():
     log_scalar("test_acc",epoch_acc.item(),1)
     
 def log_scalar(name, value, step):
-    """Log a scalar value to both MLflow and TensorBoard"""
+    Log a scalar value to both MLflow and TensorBoard
     mlflow.log_metric(name, value)
 if __name__ == '__main__':
     with mlflow.start_run():
@@ -246,3 +214,4 @@ if __name__ == '__main__':
             filename = os.path.join(tmp, "model.pth")
             torch.save(max_val_state, filename)
             mlflow.log_artifacts(tmp, artifact_path="results") #mlrun内のartifacts/resultにモデル生成
+"""
