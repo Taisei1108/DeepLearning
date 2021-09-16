@@ -13,7 +13,7 @@ if __name__ == '__main__':
                     help='choose cuda port for  CUDA training')
     #train_cam
     parser.add_argument('--cam_batch-size', type=int, default=16)
-    parser.add_argument('--cam_network', type=str, default='resnet101')
+    parser.add_argument('--cam_network', type=str, default='resnet50_cam')
     parser.add_argument('--cam_crop_size', type=int, default=256)
     parser.add_argument('--cam_output_class', type=int, default=2)
     parser.add_argument('--cam_learning_rate', type=float, default=1e-5)  

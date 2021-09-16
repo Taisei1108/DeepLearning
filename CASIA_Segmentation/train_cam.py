@@ -14,40 +14,45 @@ from torch.utils.data import DataLoader
 from torchvision.models import resnet101
 import mlflow
 
+import importlib
+
 from data_loader import ImageDataset
 
-
+from torchvision.models import resnet50
 torch.manual_seed(0)
 random.seed(0)
 
 def run(args):
     print(args.cam_crop_size)
-
-"""
-model.train()
-#print(model)
-#ResNetの最終出力をデータセットのクラス数と同じにする
-model.fc = nn.Linear(2048,args.n_class)#(fc): Linear(in_features=2048, out_features=1000, bias=True) ResNet50のもともと
-#データ読み込み部分 これが帰ってくるsample = {'image': image, 'target': self.targets[index], "path": self.images[index], "downscaled": downscaled}
-train_data = ImageDataset(DATA_ROOT, width=args.width, height=args.height, transform=transforms.Compose([
+    model = getattr(importlib.import_module(args.cam_network), 'Net')()
+    model.fc = nn.Linear(2048,args.cam_output_class)
+    """
+    9/16この辺はクラスのメソッドにしたい,scaleもマルチスケールに対応させる。transformを使うかどうかも
+    train_dataset = ImageDataset(args.dataset_root, width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
             #transforms.RandomCrop(crop_size),
             transforms.RandomHorizontalFlip(),
-            transforms.RandomAffine(degrees=[-1*args.affine_degree, args.affine_degree], scale=(1.0, args.scale)),
+            transforms.RandomAffine(degrees=[-1*args.cam_affine_degree, args.cam_affine_degree], scale=args.cam_scale),
             #transforms.CenterCrop(args.crop),
-            transforms.Resize((args.width,args.height)),
+            transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-]))
-val_data = ImageDataset(DATA_ROOT, 'val', width=args.width, height=args.height, transform=transforms.Compose([
-            transforms.Resize((args.width,args.height)),
+            ]))
+    val_data = ImageDataset(args.dataset_root, 'val', width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
+            transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-]))
-test_data = ImageDataset(DATA_ROOT, 'test', width=args.width, height=args.height, transform=transforms.Compose([
-            transforms.Resize((args.width,args.height)),
+            ]))
+    test_data = ImageDataset(args.dataset_root, 'test', width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
+            transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
             transforms.ToTensor(),
             transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-]))
+            ]))
+    """
+    model.train()
+
+"""
+
+
 train_loader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True, num_workers=4)
 val_loader = DataLoader(val_data, batch_size=args.batch_size, num_workers=0)
 test_loader = DataLoader(test_data, batch_size=args.batch_size, num_workers=0)
