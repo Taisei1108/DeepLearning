@@ -4,3 +4,5 @@
 *.jpg
 *.tif
 mlruns
+sess
+result
