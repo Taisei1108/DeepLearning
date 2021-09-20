@@ -1,6 +1,5 @@
 alembic==1.4.1
 certifi==2020.12.5
-cffi @ file:///tmp/build/80754af9/cffi_1613246439577/work
 charset-normalizer==2.0.2
 click==8.0.1
 cloudpickle==1.6.0
@@ -29,9 +28,6 @@ kiwisolver==1.3.1
 Mako==1.1.4
 MarkupSafe==2.0.1
 matplotlib==3.3.3
-mkl-fft==1.3.0
-mkl-random==1.1.1
-mkl-service==2.3.0
 mlflow==1.19.0
 networkx==2.5.1
 numpy==1.19.5
@@ -42,8 +38,6 @@ Pillow==8.2.0
 prometheus-client==0.11.0
 prometheus-flask-exporter==0.18.2
 protobuf==3.17.3
-pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
-pydensecrf @ git+https://github.com/lucasb-eyer/pydensecrf.git@0d53acbcf5123d4c88040fe68fbb9805fc5b2fb9
 pyparsing==2.4.7
 python-dateutil==2.8.1
 python-editor==1.0.4
@@ -57,7 +51,6 @@ scikit-image==0.17.2
 scikit-learn==0.24.1
 scipy==1.5.4
 seaborn==0.11.1
-six @ file:///tmp/build/80754af9/six_1605205335545/work
 smmap==4.0.0
 SQLAlchemy==1.4.21
 sqlparse==0.4.1
