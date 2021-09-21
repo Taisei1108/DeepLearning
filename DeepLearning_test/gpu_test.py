@@ -7,12 +7,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision.models import resnet50
 
+import gpu_test_func1
+
 model = resnet50(pretrained=True)
 
 print(torch.cuda.is_available())
 print(torch.cuda.device_count())
 print(torch.cuda.current_device())
 
+gpu_test_func1.print_hoge()
 """
 ＋nvidia-smiでポート数、実行中かどうかを確かめれる
 
