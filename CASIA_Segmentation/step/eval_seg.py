@@ -1,4 +1,3 @@
-from DeepLearning.CASIA_Segmentation.segmentation_test import MASK_ROOT
 import os
 import glob
 from PIL import Image
