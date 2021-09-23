@@ -14,7 +14,7 @@ from data_loader import ImageDataset
 from gradcam.utils import visualize_cam
 from gradcam import GradCAM, GradCAMpp
 
-def save_segmentation_image(args,heatmap,path_name,ConfM):
+def save_segmentation_image(args,heatmap,path_name,pred_mani):
     #ヒートマップをセグメンテーション(２値)に変換して保存する
     
     #PILで操作
@@ -31,7 +31,18 @@ def save_segmentation_image(args,heatmap,path_name,ConfM):
         else:
             new_image0.putpixel((i,j), (0,0,0)) 
     
-    new_image0.save(args.cam_out_dir+path_name+'_'+ConfM+'_seg.png',quality=100)
+    new_image0.save(args.segmentation_out_dir+path_name+'_'+pred_mani+'_seg.png',quality=100)
+
+def get_prediction_manipulation(pred,label): #item()して入力されることを仮定
+    if pred == 1 and label == 1:
+        pred_mani = "TP"
+    elif pred == 1 and label == 0:
+        pred_mani = "FP"
+    elif pred == 0 and label == 1:
+        pred_mani = "FN"
+    else:
+        pred_mani = "TN"
+    return pred_mani
 
 def run(args):
     #乱数の初期設定
@@ -68,43 +79,29 @@ def run(args):
         inputs = batch["image"].cuda()
         labels = batch["target"].cuda()
         im_paths = batch["path"]
-        print(torch.unsqueeze(inputs[0],0).shape) #->torch.Size([1, 3, 256, 256])
-        print("labels",labels[0].item())
         #grad-cam参考https://www.yurui-deep-learning.com/2021/02/08/grad-campytorch-google-colab/
-        for i in range(inputs.shape[0]): #batchsize分回す
+        for i in range(inputs.shape[0]): #batchsize分回す,単一のデータごとに処理
             img = torch.unsqueeze(inputs[i],0)
             outputs = model(img)
-            _, preds = torch.max(outputs, 1)
-            epoch_corrects += torch.sum(preds == labels[i].data)
-            print(preds.item())
-            ConfM = "Null"
-            # out 1 label 1 -> TP ,out 1 label0 ->FP, out 0 label -> 1 FN, out 0 label 0 -> TN
-            #ここ絶対治す
-            if preds.item() == 1 and labels[i].item() == 1:
-                print("TP")
-                ConfM = "TP"
-            elif preds.item() == 1 and labels[i].item() == 0:
-                print("FP")
-                ConfM = "FP"
-            elif preds.item() == 0 and labels[i].item() == 1:
-                print("FN")
-                ConfM = "FN"
-            else:
-                print("TN")
-                ConfM = "TN"
-            
+            _, pred = torch.max(outputs, 1) #ここargmaxじゃなくていいのか？
+            epoch_corrects += torch.sum(pred == labels[i].data)
+            pred_mani = get_prediction_manipulation(pred.item(),labels[i].item())
+            # pred 1 label 1 -> TP ,pred 1 label0 ->FP, pred 0 label -> 1 FN, pred 0 label 0 -> TN
+                
             #grad-camの部分
             mask, _ = gradcam(img)
             heatmap, result = visualize_cam(mask, img)
             mask_pp, _ = gradcam_pp(img)
             heatmap_pp, result_pp = visualize_cam(mask_pp, img)
+            
+            #パス保存用
             path_name = im_paths[i].split('/')[-1].split('.')[0]
-            print(path_name)
-
+        
             #画像保存部
-            save_segmentation_image(args,heatmap_pp,path_name,ConfM) #評価に使います
-            save_image(result_pp,args.cam_out_dir+path_name+ConfM+"_result.png") #確認用
-            save_image(heatmap_pp,args.cam_out_dir+path_name+ConfM+"_heatmap.png") #確認用
+            save_segmentation_image(args,heatmap_pp,path_name,pred_mani) #評価に使います
+            save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用
+            save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
+            print(path_name,":",pred_mani,"(",pred.itme(),",",labels[i].item(),")")
     #一応２値分類結果も表示        
     epoch_acc = epoch_corrects.double() / len(test_loader.dataset)
     print("test_acc=",epoch_acc)

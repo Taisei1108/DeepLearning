@@ -5,6 +5,11 @@ import numpy as np
 from matplotlib import pylab as plt
 from torchvision import transforms
 
+"""
+マスク画像を読み込んで、make_cam.pyで作成したセグメンテーション画像と比較
+iouとF値を計算して評価を行う
+"""
+
 def calc_iou(cam_image,mask_image):
     pixelSizeTuple = cam_image.size
     intersection = 0 #積集合
@@ -38,30 +43,32 @@ def calc_iou(cam_image,mask_image):
 
 
 def run(args):
+    MASK_ROOT = args.dataset_root + "edgemask/"
+    seg_data_files = glob.glob(args.segmentation_out_dir+"*")
+    print(len(seg_data_files))
+
     transform=transforms.Compose([
             transforms.Resize((args.cam_crop_size,args.cam_crop_size))
     ])
     iou = 0
     count = 0
     
-    files = glob.glob(args.segmentation_out_dir+"*")
-    print(len(files))
-    MASK_ROOT = args.dataset_root + "MASK/"
-    for f in files:
+    for f in seg_data_files:
         print(f)
         path_name = f.split('/')[-1].split('.')[0]
         print(path_name)
-        cam_image = Image.open(f).convert('L')
+        seg_image = Image.open(f).convert('L') #恐らく、２値化した状態で読み込めているはず(チャンネル１)
         if path_name.split('_')[-1] == "TP":# or path_name.split('_')[-1] == "FN":
             count+=1
             mask_path = path_name[:-3]
             print(MASK_ROOT+mask_path+'_edgemask_3.jpg')
-            mask_image_gray = transform(Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L'))
-            mask_image=mask_image_gray.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
+            mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
+            mask_image_crop = transform(mask_image_gray)
+            mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
             
             #Mask化したnew_imageとおそらく2値化されてるcam_imageと比較してIoU計算(convert(L)でいいのか)
-            iou += calc_iou(cam_image,mask_image)
-            cam_image.save('./out_mask_seg/'+path_name+'_cam.png')
-            mask_image.save('./out_mask_seg/'+path_name+'_mask.png')
+            iou += calc_iou(seg_image,mask_image_binary)
+            #seg_image.save('./out_mask_seg/'+path_name+'_cam.png')
+            #mask_image_binary.save('./out_mask_seg/'+path_name+'_mask.png')
         
     print("IoU:",iou,"/",count,"=",iou/count)
