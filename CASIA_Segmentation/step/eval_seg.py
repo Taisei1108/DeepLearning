@@ -10,7 +10,8 @@ from torchvision import transforms
 iouとF値を計算して評価を行う
 """
 
-def calc_iou(cam_image,mask_image):
+def calc_iou_F_measure(cam_image,mask_image): 
+    #cam_imageとmask_imageはバイナリの必要がある 0 or 255
     pixelSizeTuple = cam_image.size
     intersection = 0 #積集合
     union = 0 #和集合
@@ -31,20 +32,20 @@ def calc_iou(cam_image,mask_image):
                 if cam_pix == 255 and mask_pix ==255: #TP
                     intersection += 1
                     TP += 1
-    print("interesection/union",intersection,"/",union,"=",intersection/union)
-    print("TP/(TP+FN+FP)",TP,"/",TP,"+",FN,"+",FP,"=",TP/(TP+FN+FP)) #一応TP,FPの概念で確かめ算
+    #print("interesection/union",intersection,"/",union,"=",intersection/union)
+    #print("TP/(TP+FN+FP)",TP,"/",TP,"+",FN,"+",FP,"=",TP/(TP+FN+FP)) #一応TP,FPの概念で確かめ算
     precision = TP /(TP+FP)
     recall = TP /(TP+FN)
     F_measure = 2*recall*precision/(recall+precision)
-    print("precision=",precision)
-    print("recall=",recall)
-    print("F-measure",F_measure)
-    return intersection/union
+    IoU = intersection/union
+
+    return IoU, F_measure
 
 
-def run(args):
+def run(args,seg_dir_path):
+
     MASK_ROOT = args.dataset_root + "edgemask/"
-    seg_data_files = glob.glob(args.segmentation_out_dir+"*")
+    seg_data_files = glob.glob("./"+seg_dir_path+"*")
     print(len(seg_data_files))
 
     transform=transforms.Compose([
@@ -52,23 +53,23 @@ def run(args):
     ])
     iou = 0
     count = 0
-    
+    F_measure = 0
     for f in seg_data_files:
-        print(f)
-        path_name = f.split('/')[-1].split('.')[0]
-        print(path_name)
+        seg_name = f.split('/')[-1].split('.')[0] #pathやpingを取り外す
         seg_image = Image.open(f).convert('L') #恐らく、２値化した状態で読み込めているはず(チャンネル１)
-        if path_name.split('_')[-1] == "TP":# or path_name.split('_')[-1] == "FN":
+        if seg_name.split('_')[-2] == "TP":# or path_name.split('_')[-1] == "FN":
             count+=1
-            mask_path = path_name[:-3]
-            print(MASK_ROOT+mask_path+'_edgemask_3.jpg')
+            mask_path = seg_name[:-7] #_TP_segのところを削る
+           
             mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
             mask_image_crop = transform(mask_image_gray)
             mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
             
             #Mask化したnew_imageとおそらく2値化されてるcam_imageと比較してIoU計算(convert(L)でいいのか)
-            iou += calc_iou(seg_image,mask_image_binary)
-            #seg_image.save('./out_mask_seg/'+path_name+'_cam.png')
-            #mask_image_binary.save('./out_mask_seg/'+path_name+'_mask.png')
-        
-    print("IoU:",iou,"/",count,"=",iou/count)
+            print("debag:",mask_path)
+            iou_tmp , F_measure_tmp = calc_iou_F_measure(seg_image,mask_image_binary)
+            iou += iou_tmp
+            F_measure += F_measure_tmp
+            print("img_name:",mask_path,"IoU:",iou_tmp,"F-measure:",F_measure_tmp)
+    print("Result IoU:",iou,"/",count,"=",iou/count)
+    print("Result F_measure:",F_measure,"/",count,"=",F_measure/count)

@@ -2,10 +2,10 @@ import argparse
 import os
 import mlflow
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '3,4'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
-#/../../datasets/Columbia/data/
-
+#../../datasets/Columbia/data/
+#python run.py --dataset_root ../../datasets/Columbia/data/ --cam_num_epochs 5
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
@@ -29,7 +29,8 @@ if __name__ == '__main__':
     # Output Path
     parser.add_argument("--cam_weights_name", default="sess/res50_cam.pth", type=str)
     parser.add_argument("--cam_out_dir", default="result/cam/", type=str)
-    parser.add_argument("--segmentation_out_dir", default="result/seg/", type=str)
+    parser.add_argument("--segmentation_out_dir_CAM", default="result/seg/CAM/", type=str)
+    parser.add_argument("--segmentation_out_dir_CRF", default="result/seg/CRF/", type=str)
     # Step
     parser.add_argument("--train_cam_pass", default=True)
     parser.add_argument("--eval_cam_pass", default=True)
@@ -39,8 +40,8 @@ if __name__ == '__main__':
 
     os.makedirs("sess", exist_ok=True)
     os.makedirs(args.cam_out_dir, exist_ok=True)
-    os.makedirs(args.segmentation_out_dir, exist_ok=True)
-
+    os.makedirs(args.segmentation_out_dir_CAM, exist_ok=True)
+    os.makedirs(args.segmentation_out_dir_CRF, exist_ok=True)
     print(vars(args))
     with mlflow.start_run():
         for key, value in vars(args).items():
@@ -57,4 +58,7 @@ if __name__ == '__main__':
             step.make_cam.run(args)
         if args.eval_seg_pass is True:
             import step.eval_seg
-            step.eval_seg.run(args)
+            step.eval_seg.run(args,args.segmentation_out_dir_CAM)
+        if args.eval_seg_pass is True:
+            import step.eval_seg
+            step.eval_seg.run(args,args.segmentation_out_dir_CRF)
