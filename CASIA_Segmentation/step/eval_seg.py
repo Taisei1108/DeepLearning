@@ -8,6 +8,10 @@ from torchvision import transforms
 """
 マスク画像を読み込んで、make_cam.pyで作成したセグメンテーション画像と比較
 iouとF値を計算して評価を行う
+
+画像を保存した名前によってプログラムの定数を変えたり、汎化性がなかったりするので
+変えたい2021/09/25
+
 """
 
 def calc_iou_F_measure(cam_image,mask_image): 
@@ -18,6 +22,8 @@ def calc_iou_F_measure(cam_image,mask_image):
     FP=0
     FN=0
     TP=0
+    print(cam_image.size)
+    print(mask_image.size)
     for i in range(pixelSizeTuple[0]):
             for j in range(pixelSizeTuple[1]):
                 
@@ -34,14 +40,15 @@ def calc_iou_F_measure(cam_image,mask_image):
                     TP += 1
     #print("interesection/union",intersection,"/",union,"=",intersection/union)
     #print("TP/(TP+FN+FP)",TP,"/",TP,"+",FN,"+",FP,"=",TP/(TP+FN+FP)) #一応TP,FPの概念で確かめ算
-    precision = TP /(TP+FP)
-    recall = TP /(TP+FN)
-    F_measure = 2*recall*precision/(recall+precision)
-    IoU = intersection/union
+    if TP!=0 and FP!=0:
+        precision = TP /(TP+FP)
+        recall = TP /(TP+FN)
+        F_measure = 2*recall*precision/(recall+precision)
+        IoU = intersection/union
 
-    return IoU, F_measure
+        return IoU, F_measure
 
-
+    return 0,0
 def run(args,seg_dir_path):
 
     MASK_ROOT = args.dataset_root + "edgemask/"
@@ -55,19 +62,27 @@ def run(args,seg_dir_path):
     count = 0
     F_measure = 0
     for f in seg_data_files:
-        seg_name = f.split('/')[-1].split('.')[0] #pathやpingを取り外す
+        #2021年9月25日現在　fは./result/seg/CAM/canong3_canonxt_sub_03_FN_binary_CAM.pngみたいな感じ
+        seg_name = f.split('/')[-1][:-15] #pathやpingを取り外す(保存の名前変わると変えなきゃいけないの変えないとだな)
         seg_image = Image.open(f).convert('L') #恐らく、２値化した状態で読み込めているはず(チャンネル１)
-        if seg_name.split('_')[-2] == "TP":# or path_name.split('_')[-1] == "FN":
+        print("seg_debag",seg_image.size)
+        #普通にimage openしただけなのに (3,65536)になるの意味不だな
+        #ここの条件分岐エラーでやすい
+   
+        if seg_name.split('_')[-1] == "TP":# or path_name.split('_')[-1] == "FN":
             count+=1
-            mask_path = seg_name[:-7] #_TP_segのところを削る
-           
+            # mask_path = seg_name[:-7] #_TP_segのところを削る
+            mask_path = seg_name[:-3]
             mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
             mask_image_crop = transform(mask_image_gray)
             mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
             
             #Mask化したnew_imageとおそらく2値化されてるcam_imageと比較してIoU計算(convert(L)でいいのか)
             print("debag:",mask_path)
+            print("debag_seg_image",seg_image.size)
+            print("debag_mask_image",mask_image_binary.size)
             iou_tmp , F_measure_tmp = calc_iou_F_measure(seg_image,mask_image_binary)
+                                                #データサイズ　seg_image(256,256) image_binary(256,256)
             iou += iou_tmp
             F_measure += F_measure_tmp
             print("img_name:",mask_path,"IoU:",iou_tmp,"F-measure:",F_measure_tmp)

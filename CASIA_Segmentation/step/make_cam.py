@@ -133,7 +133,7 @@ def run(args):
     test_loader = DataLoader(test_data, batch_size=args.cam_batch_size)
 
     # Grad-CAMを使えるようにする
-    target_layer = model.module.layer2
+    target_layer = model.module.layer4
     gradcam = GradCAM(model, target_layer)
     gradcam_pp = GradCAMpp(model, target_layer)
 
@@ -169,12 +169,13 @@ def run(args):
             CAM_binary =CAM_image2binary(args,heatmap_pp,path_name,pred_mani) #評価に使います
             CAM_binary_torch = transforms.functional.to_tensor(CAM_binary)
             CRF_result = CRF(args,img,CAM_binary) #この時CAM_binaryはPIL
-            CRF_result_torch=torch.from_numpy(CRF_result.astype(np.float32)).clone()
-            print(CAM_binary_torch)
+            CRF_result_torch=torch.from_numpy(CRF_result.astype(np.float32)).clone() #データサイズが([65536,3])でエグい
+            CRF_result_torch = CRF_result_torch.view(3,256,256)
             #画像保存部
-            save_image(CAM_binary_torch,args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png')
-            save_image(CRF_result_torch,args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png')
-            save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用
+       
+            save_image(CAM_binary_torch,args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png')#torch.Size([3, 256, 256])
+            save_image(CRF_result_torch,args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png')#torch.Size([3, 256, 256])
+            save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])
             save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
             print(path_name,":",pred_mani,"(",pred.item(),",",labels[i].item(),")")
     #一応２値分類結果も表示        
