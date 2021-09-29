@@ -2,17 +2,25 @@ import argparse
 import os
 import mlflow
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2,3'
 
 #../../datasets/Columbia/data/
 #python run.py --dataset_root ../../datasets/Columbia/data/ --cam_num_epochs 5
+
+#pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
     #Common args
     parser.add_argument('--dataset_root', required=True,type=str,
-                        help='input Dataset path for training') 
+                        help='データセットのROOTを入力する。サブディレクトリに全画像を持つ/imagesと正解画像を持つ/mask_binaryがあるようにする') 
+
+    #dataset
+    parser.add_argument("--train_list", default="data_manage/train.txt", type=str)
+    parser.add_argument("--val_list", default="data_manage/val.txt", type=str)
+    parser.add_argument("--test_list", default="data_manage/test.txt", type=str)
+
     #train_cam
     parser.add_argument('--cam_batch-size', type=int, default=16)
     parser.add_argument('--cam_network', type=str, default='resnet50_cam')

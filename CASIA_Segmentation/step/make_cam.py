@@ -10,7 +10,7 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
 
-from data_loader import ImageDataset
+from data_manage.data_loader import ImageDataset
 
 # Grad-CAM
 from gradcam.utils import visualize_cam
@@ -122,10 +122,12 @@ def run(args):
     model = getattr(importlib.import_module(args.cam_network), 'Net')()
     model.fc = nn.Linear(2048,args.cam_output_class)
     model.load_state_dict(torch.load(args.cam_weights_name),strict=True)
-
-    #データの読み込み
     model = torch.nn.DataParallel(model).cuda()
-    test_data = ImageDataset(args.dataset_root, 'test', width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
+    #データの読み込み
+ 
+    images_path = args.dataset_root + "images/"
+
+    test_data = ImageDataset(images_path,args.test_list, width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
         transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))

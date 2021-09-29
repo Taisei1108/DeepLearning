@@ -51,7 +51,7 @@ def calc_iou_F_measure(cam_image,mask_image):
     return 0,0
 def run(args,seg_dir_path):
 
-    MASK_ROOT = args.dataset_root + "edgemask/"
+    MASK_ROOT = args.dataset_root + "mask_binary/"
     seg_data_files = glob.glob("./"+seg_dir_path+"*")
     print(len(seg_data_files))
 
