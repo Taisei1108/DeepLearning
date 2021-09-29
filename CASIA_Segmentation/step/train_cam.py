@@ -16,7 +16,7 @@ import mlflow
 
 import importlib
 
-from data_loader import ImageDataset
+from data_manage.data_loader import ImageDataset
 
 from torchvision.models import resnet50
 
@@ -30,10 +30,10 @@ def run(args):
     #モデルの読み込みと最終層の変更
     model = getattr(importlib.import_module(args.cam_network), 'Net')()
     model.fc = nn.Linear(2048,args.cam_output_class)
-
+    images_path = args.dataset_root + "images/"
     #データセット読み込み部
     #9/16この辺はクラスのメソッドにしたい,scaleもマルチスケールに対応させる。transformを使うかどうかも
-    train_dataset = ImageDataset(args.dataset_root, width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
+    train_dataset = ImageDataset(images_path,args.train_list,width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
                     #transforms.RandomCrop(crop_size),
                     transforms.RandomHorizontalFlip(),
                     transforms.RandomAffine(degrees=[-1*args.cam_affine_degree, args.cam_affine_degree], scale=args.cam_scale),
@@ -42,7 +42,7 @@ def run(args):
                     transforms.ToTensor(),
                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
                     ]))
-    val_dataset = ImageDataset(args.dataset_root, 'val', width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
+    val_dataset = ImageDataset(images_path,args.val_list, width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
                     transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
                     transforms.ToTensor(),
                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))

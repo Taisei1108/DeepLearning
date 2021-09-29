@@ -35,7 +35,7 @@ if __name__ == '__main__':
         for path_name in all_files[class_label]:
             path_name_split = path_name.split("/")[-1].split(".")[0]
             print(path_name_split,":",class_label)
-            dataset[path_name_split] = class_label
+            dataset[path_name_split] = class_label #"data_path_name":class_labelで保存される
     
 
     np.save(args.out, dataset)
