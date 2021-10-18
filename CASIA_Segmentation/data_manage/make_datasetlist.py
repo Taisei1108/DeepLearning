@@ -24,6 +24,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--dataset_root',required=True,type=str)
     parser.add_argument('--class_num',required=True,type=int)
+    #デフォルトで8:1:1に分割する
     parser.add_argument('--divide_ratio',default=(8,1,1),help='データセットの割合を決める、いい案が浮かばないのでタプルにする')
 
     args = parser.parse_args()
