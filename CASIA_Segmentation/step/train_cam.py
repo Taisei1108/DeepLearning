@@ -94,6 +94,7 @@ def run(args):
                     with torch.set_grad_enabled(phase == 'train'):
                         outputs = model(inputs)
                         loss = criterion(outputs, labels)  #
+                        print(outputs.shape,labels.shape)
                         _, preds = torch.max(outputs, 1) #2Dテンソルなので、第２引数axisが必要
                         loss.backward()
                         optimizer.step()
