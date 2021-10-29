@@ -18,6 +18,9 @@ from gradcam import GradCAM, GradCAMpp
 #CRF
 import pydensecrf.densecrf as dcrf
 from pydensecrf.utils import unary_from_labels, create_pairwise_bilateral, create_pairwise_gaussian
+
+from cv2 import imread, imwrite
+from utils import np_img_HWC_debug
 def CAM_image2binary(args,heatmap,path_name,pred_mani):
     #ヒートマップをセグメンテーション(２値)に変換して保存する
     
@@ -34,8 +37,7 @@ def CAM_image2binary(args,heatmap,path_name,pred_mani):
                 new_image0.putpixel((i,j), (255,255,255)) 
         else:
             new_image0.putpixel((i,j), (0,0,0)) 
-    
-    return new_image0
+    new_image0.save(args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png',quality=100)
 
 def get_prediction_manipulation(pred,label): #item()して入力されることを仮定
     if pred == 1 and label == 1:
@@ -50,16 +52,19 @@ def get_prediction_manipulation(pred,label): #item()して入力されること�
 
 def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionがanno_rgb
     anno_rgb=np.array(CAM_binary,dtype=np.uint32)
+    anno_rgb = anno_rgb
     img = img.to('cpu').detach().numpy().copy() #tensorからnumpyへ
-    img = np.squeeze(img).transpose(1,2,0)
+    img = np.squeeze(img).transpose(1,2,0) #256,256,3に合わせる
+    np_img_HWC_debug(img,np_img_str="img")
     anno_lbl = anno_rgb[:,:,0] + (anno_rgb[:,:,1] << 8) + (anno_rgb[:,:,2] << 16)
     colors, labels = np.unique(anno_lbl, return_inverse=True) #color [  0 16777215] labels[1 1 1 ... 0 0 0] (.shape = 65536,)
-
     colorize = np.empty((len(colors), 3), np.uint8)
     colorize[:,0] = (colors & 0x0000FF)
     colorize[:,1] = (colors & 0x00FF00) >> 8
     colorize[:,2] = (colors & 0xFF0000) >> 16
+
     n_labels = len(set(labels.flat))
+    print("n_labels",labels)
     #n_labels = len(set(labels.flat)) - int(HAS_UNK)
     use_2d = False     
 
@@ -103,9 +108,12 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         
 
         # 5 times reasoning
-        Q = d.inference(5)
+        Q = d.inference(10)
 
         # Find the most likely class for each pixel
+        Q_np = np.array(Q)
+        np_img_HWC_debug(Q_np[0].reshape(256,256),np_img_str="Q1_value")
+        np_img_HWC_debug(Q_np[1].reshape(256,256),np_img_str="Q2_value")
         MAP = np.argmax(Q, axis=0)
 
         # Convert predicted_image back to the appropriate color and save the image
@@ -129,8 +137,8 @@ def run(args):
 
     test_data = ImageDataset(images_path,args.test_list, width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
         transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        transforms.ToTensor()
+        #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
         ]))
     test_loader = DataLoader(test_data, batch_size=args.cam_batch_size)
 
@@ -168,15 +176,22 @@ def run(args):
             #パス保存用
             path_name = im_paths[i].split('/')[-1].split('.')[0]
 
-            CAM_binary =CAM_image2binary(args,heatmap_pp,path_name,pred_mani) #評価に使います
-            CAM_binary_torch = transforms.functional.to_tensor(CAM_binary)
-            CRF_result = CRF(args,img,CAM_binary) #この時CAM_binaryはPIL
-            CRF_result_torch=torch.from_numpy(CRF_result.astype(np.float32)).clone() #データサイズが([65536,3])でエグい
-            CRF_result_torch = CRF_result_torch.view(3,256,256)
+            CAM_image2binary(args,heatmap_pp,path_name,pred_mani) #評価に使います
+            CAM_binary = imread(args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png').astype(np.uint32)
+            CRF_result = CRF(args,img*255,CAM_binary) #この時CAM_binaryはPIL
+            
+            CRF_result = CRF_result.reshape(img.shape[2],img.shape[3],img.shape[1])
+            np_img_HWC_debug(np.array(CAM_binary,dtype=np.uint32),np_img_str="CAM_binary")
+            np_img_HWC_debug(CRF_result,np_img_str="CRF_result")
+      
+            #CRF_result_torch=torch.from_numpy(CRF_result.astype(np.float32)).clone() 
+            #print("debgaa",CRF_result_torch.shape)
+
             #画像保存部
-       
-            save_image(CAM_binary_torch,args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png')#torch.Size([3, 256, 256])
-            save_image(CRF_result_torch,args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png')#torch.Size([3, 256, 256])
+            #CAM_binary_torch = transforms.functional.to_tensor(CAM_binary)
+            #save_image(CAM_binary_torch,args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png')#torch.Size([3, 256, 256])
+            #save_image(CRF_result_torch,args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png')#torch.Size([3, 256, 256])
+            imwrite(args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png',CRF_result)
             save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])
             save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
             print(path_name,":",pred_mani,"(",pred.item(),",",labels[i].item(),")")
