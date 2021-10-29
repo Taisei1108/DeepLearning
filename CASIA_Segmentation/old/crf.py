@@ -13,6 +13,7 @@ from torchvision import transforms
 
 from data_loader import ImageDataset
 
+
 #参考サイト　https://www.programmersought.com/article/45791248551/
 width = 256
 height = 256

@@ -22,8 +22,7 @@ def calc_iou_F_measure(cam_image,mask_image):
     FP=0
     FN=0
     TP=0
-    print(cam_image.size)
-    print(mask_image.size)
+
     for i in range(pixelSizeTuple[0]):
             for j in range(pixelSizeTuple[1]):
                 
@@ -65,12 +64,13 @@ def run(args,seg_dir_path):
         #2021年9月25日現在　fは./result/seg/CAM/canong3_canonxt_sub_03_FN_binary_CAM.pngみたいな感じ
         seg_name = f.split('/')[-1][:-15] #pathやpingを取り外す(保存の名前変わると変えなきゃいけないの変えないとだな)
         seg_image = Image.open(f).convert('L') #恐らく、２値化した状態で読み込めているはず(チャンネル１)
-        print("seg_debag",seg_image.size)
+       
         #普通にimage openしただけなのに (3,65536)になるの意味不だな
         #ここの条件分岐エラーでやすい
    
         if seg_name.split('_')[-1] == "TP":# or path_name.split('_')[-1] == "FN":
             count+=1
+            print("debag_seg_name",seg_name)
             # mask_path = seg_name[:-7] #_TP_segのところを削る
             mask_path = seg_name[:-3]
             mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
@@ -78,9 +78,7 @@ def run(args,seg_dir_path):
             mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
             
             #Mask化したnew_imageとおそらく2値化されてるcam_imageと比較してIoU計算(convert(L)でいいのか)
-            print("debag:",mask_path)
-            print("debag_seg_image",seg_image.size)
-            print("debag_mask_image",mask_image_binary.size)
+            print("debag_mask:",mask_path)
             iou_tmp , F_measure_tmp = calc_iou_F_measure(seg_image,mask_image_binary)
                                                 #データサイズ　seg_image(256,256) image_binary(256,256)
             iou += iou_tmp
