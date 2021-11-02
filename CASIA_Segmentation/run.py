@@ -5,8 +5,7 @@ import mlflow
 os.environ['CUDA_VISIBLE_DEVICES'] = '2,3'
 
 #../../datasets/Columbia/data/
-#python run.py --dataset_root ../../datasets/Columbia/data/ --cam_num_epochs 5
-
+#python run.py --dataset_root ../../datasets/Columbia/ --cam_num_epochs 100
 #pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 if __name__ == '__main__':
 

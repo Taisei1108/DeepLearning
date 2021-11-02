@@ -55,7 +55,6 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
     anno_rgb = anno_rgb
     img = img.to('cpu').detach().numpy().copy() #tensorからnumpyへ
     img = np.squeeze(img).transpose(1,2,0) #256,256,3に合わせる
-    np_img_HWC_debug(img,np_img_str="img")
     anno_lbl = anno_rgb[:,:,0] + (anno_rgb[:,:,1] << 8) + (anno_rgb[:,:,2] << 16)
     colors, labels = np.unique(anno_lbl, return_inverse=True) #color [  0 16777215] labels[1 1 1 ... 0 0 0] (.shape = 65536,)
     colorize = np.empty((len(colors), 3), np.uint8)
@@ -112,8 +111,6 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
 
         # Find the most likely class for each pixel
         Q_np = np.array(Q)
-        np_img_HWC_debug(Q_np[0].reshape(256,256),np_img_str="Q1_value")
-        np_img_HWC_debug(Q_np[1].reshape(256,256),np_img_str="Q2_value")
         MAP = np.argmax(Q, axis=0)
 
         # Convert predicted_image back to the appropriate color and save the image
@@ -137,8 +134,8 @@ def run(args):
 
     test_data = ImageDataset(images_path,args.test_list, width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
         transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
-        transforms.ToTensor()
-        #transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
         ]))
     test_loader = DataLoader(test_data, batch_size=args.cam_batch_size)
 
