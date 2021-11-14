@@ -8,13 +8,13 @@ import torch.nn as nn
 #    def __init__(self):
 
 
-"""
+
 def Net():
     return resnet50(pretrained=True)
-"""
+
 
 CLASS_NUM = 2
-
+"""
 class Net(nn.Module):
 
     def __init__(self):
@@ -39,8 +39,7 @@ class Net(nn.Module):
         x = self.layer2(x).detach()
 
         x = self.layer3(x)
-        print(x.shape)
-        x = self.Self_Attn1(x)
+        #x = self.Self_Attn1(x)
         x = self.layer4(x)
         
         x = gap2d(x, keepdims=True)
@@ -59,7 +58,7 @@ class Net(nn.Module):
 
         return (list(self.backbone.parameters()), list(self.newly_added.parameters()))
 
-
+"""
 
 class Self_Attn(nn.Module):
     """ Self attention Layer"""
@@ -80,7 +79,6 @@ class Self_Attn(nn.Module):
                 attention: B X N X N (N is Width*Height)
         """
         batchsize, C, width, height = input.size()
-        print("debag",batchsize,C,width,height)
         proj_query = self.query_conv(input).view(batchsize, -1, width * height).permute(0, 2, 1)  # B X CX(N)
         proj_key = self.key_conv(input).view(batchsize, -1, width * height)  # B X C x (*W*H)
         energy = torch.bmm(proj_query, proj_key)  # transpose check

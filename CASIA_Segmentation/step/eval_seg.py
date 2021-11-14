@@ -70,7 +70,7 @@ def run(args,seg_dir_path):
    
         if seg_name.split('_')[-1] == "TP":# or path_name.split('_')[-1] == "FN":
             count+=1
-            print("debag_seg_name",seg_name)
+            
             # mask_path = seg_name[:-7] #_TP_segのところを削る
             mask_path = seg_name[:-3]
             mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
@@ -78,11 +78,11 @@ def run(args,seg_dir_path):
             mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
             
             #Mask化したnew_imageとおそらく2値化されてるcam_imageと比較してIoU計算(convert(L)でいいのか)
-            print("debag_mask:",mask_path)
+            
             iou_tmp , F_measure_tmp = calc_iou_F_measure(seg_image,mask_image_binary)
                                                 #データサイズ　seg_image(256,256) image_binary(256,256)
             iou += iou_tmp
             F_measure += F_measure_tmp
-            print("img_name:",mask_path,"IoU:",iou_tmp,"F-measure:",F_measure_tmp)
+            
     print("Result IoU:",iou,"/",count,"=",iou/count)
     print("Result F_measure:",F_measure,"/",count,"=",F_measure/count)

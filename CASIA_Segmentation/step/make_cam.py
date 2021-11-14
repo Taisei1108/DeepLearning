@@ -63,7 +63,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
     colorize[:,2] = (colors & 0xFF0000) >> 16
 
     n_labels = len(set(labels.flat))
-    print("n_labels",labels)
+    
     #n_labels = len(set(labels.flat)) - int(HAS_UNK)
     use_2d = False     
 
@@ -138,7 +138,7 @@ def run(args):
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
         ]))
     test_loader = DataLoader(test_data, batch_size=args.cam_batch_size)
-
+    
     # Grad-CAMを使えるようにする
     target_layer = model.module.layer4
     gradcam = GradCAM(model, target_layer)
@@ -155,22 +155,25 @@ def run(args):
         inputs = batch["image"].cuda()
         labels = batch["target"].cuda()
         im_paths = batch["path"]
+
+        outputs = model(inputs)
+        _, preds = torch.max(outputs, 1)
         #grad-cam参考https://www.yurui-deep-learning.com/2021/02/08/grad-campytorch-google-colab/
-        for i in range(inputs.shape[0]): #batchsize分回す,単一のデータごとに処理
-            img = torch.unsqueeze(inputs[i],0)
-            outputs = model(img)
-            _, pred = torch.max(outputs, 1) #ここargmaxじゃなくていいのか？
-            epoch_corrects += torch.sum(pred == labels[i].data)
-            pred_mani = get_prediction_manipulation(pred.item(),labels[i].item())
+        
+        for i in range(inputs.shape[0]):
+            epoch_corrects += torch.sum(preds[i] == labels[i])
+            pred_mani = get_prediction_manipulation(preds[i].item(),labels[i].item())
             # pred 1 label 1 -> TP ,pred 1 label0 ->FP, pred 0 label -> 1 FN, pred 0 label 0 -> TN
-                
+
             #grad-camの部分
+            img = torch.unsqueeze(inputs[i],0)
             mask, _ = gradcam(img)
             heatmap, result = visualize_cam(mask, img)
             mask_pp, _ = gradcam_pp(img)
             heatmap_pp, result_pp = visualize_cam(mask_pp, img)
             
-            #パス保存用
+
+             #パス保存用
             path_name = im_paths[i].split('/')[-1].split('.')[0]
 
             CAM_image2binary(args,heatmap_pp,path_name,pred_mani) #評価に使います
@@ -178,8 +181,8 @@ def run(args):
             CRF_result = CRF(args,img*255,CAM_binary) #この時CAM_binaryはPIL
             
             CRF_result = CRF_result.reshape(img.shape[2],img.shape[3],img.shape[1])
-            np_img_HWC_debug(np.array(CAM_binary,dtype=np.uint32),np_img_str="CAM_binary")
-            np_img_HWC_debug(CRF_result,np_img_str="CRF_result")
+            #np_img_HWC_debug(np.array(CAM_binary,dtype=np.uint32),np_img_str="CAM_binary")
+            #np_img_HWC_debug(CRF_result,np_img_str="CRF_result")
       
             #CRF_result_torch=torch.from_numpy(CRF_result.astype(np.float32)).clone() 
             #print("debgaa",CRF_result_torch.shape)
@@ -189,9 +192,10 @@ def run(args):
             #save_image(CAM_binary_torch,args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png')#torch.Size([3, 256, 256])
             #save_image(CRF_result_torch,args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png')#torch.Size([3, 256, 256])
             imwrite(args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png',CRF_result)
-            save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])
+            save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])　#リザルトというのはheatmapと実画像を重ね合わせているということ
             save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
-            print(path_name,":",pred_mani,"(",pred.item(),",",labels[i].item(),")")
+            print(path_name,":",pred_mani,"(",preds[i].item(),",",labels[i].item(),")")
+      
     #一応２値分類結果も表示        
     epoch_acc = epoch_corrects.double() / len(test_loader.dataset)
     print("test_acc=",epoch_acc)

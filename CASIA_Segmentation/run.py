@@ -2,7 +2,7 @@ import argparse
 import os
 import mlflow
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '2,3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '4,5'
 
 #../../datasets/Columbia/data/
 #python run.py --dataset_root ../../datasets/Columbia/ --cam_num_epochs 100
