@@ -7,6 +7,7 @@ import torch.nn as nn
 #class Net(nn.module):
 #    def __init__(self):
 
+torch.manual_seed(0)
 
 
 def Net():
@@ -28,11 +29,14 @@ class Net(nn.Module):
         self.layer3 = nn.Sequential(self.resnet50.layer3)
         self.layer4 = nn.Sequential(self.resnet50.layer4)
         self.Self_Attn1 = Self_Attn(1024)
-        self.classifier = nn.Conv2d(2048, CLASS_NUM, 1, bias=False)
+        self.avgpool = self.resnet50.avgpool
+        self.fc = self.resnet50.fc
 
-        self.backbone = nn.ModuleList([self.layer1, self.layer2, self.layer3, self.layer4])
-        self.newly_added = nn.ModuleList([self.classifier])
+        #self.classifier = nn.Conv2d(2048, CLASS_NUM, 1, bias=False)
 
+        #self.backbone = nn.ModuleList([self.layer1, self.layer2, self.layer3, self.layer4])
+        #self.newly_added = nn.ModuleList([self.classifier])
+ 
     def forward(self, x):
 
         x = self.layer1(x)
@@ -41,11 +45,14 @@ class Net(nn.Module):
         x = self.layer3(x)
         #x = self.Self_Attn1(x)
         x = self.layer4(x)
+        x = self.avgpool(x)
+        x = torch.flatten(x, 1)
+        x = self.fc(x)
         
-        x = gap2d(x, keepdims=True)
-        x = self.classifier(x)
-        x = x.view(-1, CLASS_NUM)
-
+        #x = gap2d(x, keepdims=True)
+        #x = self.classifier(x)
+        #x = x.view(-1, CLASS_NUM)
+        
         return x
 
     def train(self, mode=True):
@@ -57,6 +64,7 @@ class Net(nn.Module):
     def trainable_parameters(self):
 
         return (list(self.backbone.parameters()), list(self.newly_added.parameters()))
+
 
 """
 

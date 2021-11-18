@@ -50,6 +50,8 @@ def calc_iou_F_measure(cam_image,mask_image):
     return 0,0
 def run(args,seg_dir_path):
 
+    np.random.seed(seed=0)
+
     MASK_ROOT = args.dataset_root + "mask_binary/"
     seg_data_files = glob.glob("./"+seg_dir_path+"*")
     print(len(seg_data_files))
@@ -82,6 +84,8 @@ def run(args,seg_dir_path):
             iou_tmp , F_measure_tmp = calc_iou_F_measure(seg_image,mask_image_binary)
                                                 #データサイズ　seg_image(256,256) image_binary(256,256)
             iou += iou_tmp
+
+            print(mask_path,":iou:",iou_tmp,"F_measure:",F_measure_tmp)
             F_measure += F_measure_tmp
             
     print("Result IoU:",iou,"/",count,"=",iou/count)

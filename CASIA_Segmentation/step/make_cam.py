@@ -89,16 +89,18 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         d = dcrf.DenseCRF(img.shape[1] * img.shape[0], n_labels)
 
                  # Get a dollar potential (negative log probability)
-        U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=None)  
+        U = unary_from_labels(labels, n_labels, gt_prob=0.9, zero_unsure=None)  
                  #U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=HAS_UNK)## If there is an indeterminate area, replace the previous line with this line of code
         d.setUnaryEnergy(U)
 
                  # This will create color-independent features and then add them to the CRF
+        
         feats = create_pairwise_gaussian(sdims=(3, 3), shape=img.shape[:2])
         d.addPairwiseEnergy(feats, compat=3,kernel=dcrf.DIAG_KERNEL,
                             normalization=dcrf.NORMALIZE_SYMMETRIC)
 
                  # This will create color-related features and then add them to the CRF
+        
         feats = create_pairwise_bilateral(sdims=(80, 80), schan=(13, 13, 13),
                                           img=img, chdim=2)
         d.addPairwiseEnergy(feats, compat=10,
@@ -107,7 +109,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         
 
         # 5 times reasoning
-        Q = d.inference(10)
+        Q = d.inference(5)
 
         # Find the most likely class for each pixel
         Q_np = np.array(Q)
@@ -122,7 +124,7 @@ def run(args):
     #乱数の初期設定
     torch.manual_seed(0)
     random.seed(0)
-
+    np.random.seed(seed=0)
     #モデルの読み込み
     model = getattr(importlib.import_module(args.cam_network), 'Net')()
     model.fc = nn.Linear(2048,args.cam_output_class)

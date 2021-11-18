@@ -1,0 +1,137 @@
+シンプルなresnet50を使って(F値0.50)、CRFの単一項の確率を0.7→0.9にするとどうなるのかを確かめた後に、CRFのinference回数を１０ー＞５にした。あとにpt_glob（単一項の確率）を0.2にしてみた
+{'dataset_root': '../../datasets/Columbia/', 'train_list': 'data_manage/train.txt', 'val_list': 'data_manage/val.txt', 'test_list': 'data_manage/test.txt', 'cam_batch_size': 16, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 150, 'cam_affine_degree': 10, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'ex_result/result_1118/sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'train_cam_pass': 'False', 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/Columbia/
+train_list data_manage/train.txt
+val_list data_manage/val.txt
+test_list data_manage/test.txt
+cam_batch_size 16
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 150
+cam_affine_degree 10
+cam_scale (1.0, 1.5)
+cam_weights_name ex_result/result_1118/sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+train_cam_pass False
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage/test.txt
+36
+36
+test Loss: 0.3648 Acc: 0.8333
+data_manage/test.txt
+36
+36
+CRF Done!
+canong3_05_sub_04 : TN ( 0 , 0 )
+CRF Done!
+nikond70_02_sub_04 : FP ( 1 , 0 )
+CRF Done!
+canong3_02_sub_04 : TN ( 0 , 0 )
+CRF Done!
+canonxt_kodakdcs330_sub_29 : TP ( 1 , 1 )
+CRF Done!
+canong3_nikond70_sub_19 : TP ( 1 , 1 )
+CRF Done!
+nikond70_08_sub_09 : TN ( 0 , 0 )
+CRF Done!
+canong3_canonxt_sub_30 : TP ( 1 , 1 )
+CRF Done!
+canong3_08_sub_02 : TN ( 0 , 0 )
+CRF Done!
+nikond70_kodakdcs330_sub_19 : TP ( 1 , 1 )
+CRF Done!
+canonxt_20_sub_08 : TN ( 0 , 0 )
+CRF Done!
+nikond70_canonxt_sub_18 : FN ( 0 , 1 )
+CRF Done!
+nikond70_canonxt_sub_20 : FN ( 0 , 1 )
+CRF Done!
+nikond70_canonxt_sub_15 : FN ( 0 , 1 )
+CRF Done!
+canonxt_38_sub_01 : TN ( 0 , 0 )
+CRF Done!
+canong3_kodakdcs330_sub_20 : TP ( 1 , 1 )
+CRF Done!
+canonxt_kodakdcs330_sub_26 : TP ( 1 , 1 )
+CRF Done!
+canonxt_02_sub_07 : TN ( 0 , 0 )
+CRF Done!
+canonxt_11_sub_05 : TN ( 0 , 0 )
+CRF Done!
+canong3_canonxt_sub_04 : TP ( 1 , 1 )
+CRF Done!
+canong3_05_sub_07 : TN ( 0 , 0 )
+CRF Done!
+canong3_kodakdcs330_sub_21 : TP ( 1 , 1 )
+CRF Done!
+nikond70_kodakdcs330_sub_07 : TP ( 1 , 1 )
+CRF Done!
+canonxt_kodakdcs330_sub_20 : TP ( 1 , 1 )
+CRF Done!
+canonxt_11_sub_08 : FP ( 1 , 0 )
+CRF Done!
+nikond70_kodakdcs330_sub_14 : TP ( 1 , 1 )
+CRF Done!
+canonxt_20_sub_06 : TN ( 0 , 0 )
+CRF Done!
+canong3_nikond70_sub_13 : TP ( 1 , 1 )
+CRF Done!
+canong3_kodakdcs330_sub_24 : TP ( 1 , 1 )
+CRF Done!
+canong3_05_sub_02 : TN ( 0 , 0 )
+CRF Done!
+canong3_canonxt_sub_22 : TP ( 1 , 1 )
+CRF Done!
+canonxt_08_sub_04 : TN ( 0 , 0 )
+CRF Done!
+canonxt_02_sub_08 : TN ( 0 , 0 )
+CRF Done!
+nikond70_canonxt_sub_24 : FN ( 0 , 1 )
+CRF Done!
+canonxt_26_sub_03 : TN ( 0 , 0 )
+CRF Done!
+canonxt_23_sub_05 : TN ( 0 , 0 )
+CRF Done!
+canonxt_02_sub_05 : TN ( 0 , 0 )
+test_acc= tensor(0.8333, device='cuda:0', dtype=torch.float64)
+36
+canonxt_kodakdcs330_sub_29 :iou: 0.49432262504301044 F_measure: 0.6616009377878255
+canong3_canonxt_sub_22 :iou: 0.18608125492799935 F_measure: 0.31377488541338655
+canonxt_kodakdcs330_sub_26 :iou: 0.502098232756073 F_measure: 0.6685291571574722
+canong3_kodakdcs330_sub_24 :iou: 0.703065056737875 F_measure: 0.8256467408057288
+canonxt_kodakdcs330_sub_20 :iou: 0.7450813630436015 F_measure: 0.8539216323347846
+canong3_canonxt_sub_30 :iou: 0.06858415575438731 F_measure: 0.1283645380385956
+canong3_nikond70_sub_19 :iou: 0.12200021143884132 F_measure: 0.21746914161876946
+canong3_canonxt_sub_04 :iou: 0.2148273484990913 F_measure: 0.35367552231106525
+nikond70_kodakdcs330_sub_14 :iou: 0.3166627082414413 F_measure: 0.4810080915322372
+canong3_nikond70_sub_13 :iou: 0.37306431043905997 F_measure: 0.543403987129731
+nikond70_kodakdcs330_sub_07 :iou: 0.5863133328314387 F_measure: 0.7392150348820654
+canong3_kodakdcs330_sub_21 :iou: 0.517697767574785 F_measure: 0.6822145734615443
+canong3_kodakdcs330_sub_20 :iou: 0.3761343292795852 F_measure: 0.5466535079849273
+nikond70_kodakdcs330_sub_19 :iou: 0.2580478211365283 F_measure: 0.4102353134770446
+Result IoU: 5.4639805177037175 / 14 = 0.3902843226931227
+Result F_measure: 7.425713063935178 / 14 = 0.5304080759953699
+36
+canong3_kodakdcs330_sub_24 :iou: 0.0009338270809853486 F_measure: 0.0018659117230729637
+canong3_nikond70_sub_13 :iou: 0 F_measure: 0
+canong3_kodakdcs330_sub_21 :iou: 0.0007455056658430604 F_measure: 0.0014899006023455293
+canong3_kodakdcs330_sub_20 :iou: 0.14853552844538034 F_measure: 0.25865203951754656
+nikond70_kodakdcs330_sub_19 :iou: 0.10408369087707903 F_measure: 0.18854311812974142
+canong3_nikond70_sub_19 :iou: 0.14046125236795912 F_measure: 0.2463235854375886
+canong3_canonxt_sub_04 :iou: 0.17887476850373588 F_measure: 0.30346695557963166
+nikond70_kodakdcs330_sub_07 :iou: 6.339345145646455e-05 F_measure: 0.00012677886596304395
+canong3_canonxt_sub_22 :iou: 0.23133530605605218 F_measure: 0.3757470526805823
+canonxt_kodakdcs330_sub_20 :iou: 0.013089373680506685 F_measure: 0.025840511253125868
+canong3_canonxt_sub_30 :iou: 0.24055515110209266 F_measure: 0.3878185518610546
+nikond70_kodakdcs330_sub_14 :iou: 0.045316192456753945 F_measure: 0.08670332055270202
+canonxt_kodakdcs330_sub_26 :iou: 0.00015844721727074668 F_measure: 0.0003168442314547111
+canonxt_kodakdcs330_sub_29 :iou: 0.004101558955372861 F_measure: 0.008169609774612759
+Result IoU: 1.1082539958604882 / 14 = 0.07916099970432058
+Result F_measure: 1.8850641802094223 / 14 = 0.13464744144353016
