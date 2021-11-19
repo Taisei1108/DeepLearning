@@ -9,7 +9,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '4,5'
 #pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 if __name__ == '__main__':
 
-    print("確認の実験")#実験メモを書く
+    print("self-Attentionを入れて効果を実感したので、CRFに閾値処理入れる前のCAMを渡してみる")#実験メモを書く
 
     parser = argparse.ArgumentParser()
 

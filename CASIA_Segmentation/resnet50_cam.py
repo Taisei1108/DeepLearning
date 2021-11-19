@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision.models import resnet50
+from torchvision.models import resnet50,vgg16
 import torch
 import torch.nn as nn
 
@@ -9,13 +9,14 @@ import torch.nn as nn
 
 torch.manual_seed(0)
 
-
+"""
 def Net():
     return resnet50(pretrained=True)
-
+    #return vgg16(pretrained=True)
+"""
 
 CLASS_NUM = 2
-"""
+
 class Net(nn.Module):
 
     def __init__(self):
@@ -28,7 +29,7 @@ class Net(nn.Module):
         self.layer2 = nn.Sequential(self.resnet50.layer2)
         self.layer3 = nn.Sequential(self.resnet50.layer3)
         self.layer4 = nn.Sequential(self.resnet50.layer4)
-        self.Self_Attn1 = Self_Attn(1024)
+        self.Self_Attn1 = Self_Attn(2048)
         self.avgpool = self.resnet50.avgpool
         self.fc = self.resnet50.fc
 
@@ -45,6 +46,7 @@ class Net(nn.Module):
         x = self.layer3(x)
         #x = self.Self_Attn1(x)
         x = self.layer4(x)
+        x = self.Self_Attn1(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
         x = self.fc(x)
@@ -66,7 +68,19 @@ class Net(nn.Module):
         return (list(self.backbone.parameters()), list(self.newly_added.parameters()))
 
 
-"""
+class out_selfA(Net):
+    def __init__(self):
+        super(out_selfA, self).__init__()
+    
+    def forward(self, x):
+
+        x = self.layer1(x)
+        x = self.layer2(x).detach()
+
+        x = self.layer3(x)
+        x = self.Self_Attn1(x)
+       
+        return x
 
 class Self_Attn(nn.Module):
     """ Self attention Layer"""

@@ -89,7 +89,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         d = dcrf.DenseCRF(img.shape[1] * img.shape[0], n_labels)
 
                  # Get a dollar potential (negative log probability)
-        U = unary_from_labels(labels, n_labels, gt_prob=0.9, zero_unsure=None)  
+        U = unary_from_labels(labels, n_labels, gt_prob=0.95, zero_unsure=None)  
                  #U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=HAS_UNK)## If there is an indeterminate area, replace the previous line with this line of code
         d.setUnaryEnergy(U)
 
@@ -130,6 +130,13 @@ def run(args):
     model.fc = nn.Linear(2048,args.cam_output_class)
     model.load_state_dict(torch.load(args.cam_weights_name),strict=True)
     model = torch.nn.DataParallel(model).cuda()
+
+    model_s = getattr(importlib.import_module(args.cam_network), 'out_selfA')()
+    model_s.fc = nn.Linear(2048,args.cam_output_class)
+    model_s.load_state_dict(torch.load(args.cam_weights_name),strict=True)
+    model_s = torch.nn.DataParallel(model_s).cuda()
+
+    #model = model.cuda()
     #データの読み込み
  
     images_path = args.dataset_root + "images/"
@@ -142,10 +149,26 @@ def run(args):
     test_loader = DataLoader(test_data, batch_size=args.cam_batch_size)
     
     # Grad-CAMを使えるようにする
+    """
+    VGGの場合こうする
+    configs = [
+    dict(model_type='vgg', arch=model, layer_name='features_29')
+    ]
+
+    for config in configs:
+        config['arch'].cuda().eval()
+
+    cams = [
+        [cls.from_config(**config) for cls in (GradCAM, GradCAMpp)]
+        for config in configs
+    ]
+    gradcam,gradcam_pp = cams[0]
+    """
     target_layer = model.module.layer4
+    
     gradcam = GradCAM(model, target_layer)
     gradcam_pp = GradCAMpp(model, target_layer)
-
+    
     #モデルの設定
     model.eval()  # inference
     criterion = nn.CrossEntropyLoss()
