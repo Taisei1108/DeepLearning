@@ -14,7 +14,7 @@ import glob
 import os
 import random
 
-random.seed(0)
+random.seed(3)
 
 if __name__ == '__main__':
 
@@ -59,14 +59,14 @@ if __name__ == '__main__':
     random.shuffle(dataset["val"])
     random.shuffle(dataset["test"])
 
-    with open('train.txt', 'w') as f:
+    with open('train_2.txt', 'w') as f:
         for d in dataset["train"]:
             f.write("%s\n" % d.split('/')[-1].split('.')[0]) 
 
-    with open('val.txt', 'w') as f:
+    with open('val_2.txt', 'w') as f:
         for d in dataset["val"]:
             f.write("%s\n" % d.split('/')[-1].split('.')[0])
 
-    with open('test.txt', 'w') as f:
+    with open('test_2.txt', 'w') as f:
         for d in dataset["test"]:
             f.write("%s\n" % d.split('/')[-1].split('.')[0])

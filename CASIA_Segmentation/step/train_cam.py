@@ -26,6 +26,7 @@ import utils
 torch.manual_seed(0)
 random.seed(0)
 
+
 def run(args):
     #モデルの読み込みと最終層の変更
     model = getattr(importlib.import_module(args.cam_network), 'Net')()
@@ -62,6 +63,8 @@ def run(args):
     val_acc = []
     max_val = 0.
       
+    print(model) #確認用
+    
     for epoch in range(args.cam_num_epochs):
         print('Epoch {}/{}'.format(epoch + 1, args.cam_num_epochs))
         print('-------------')

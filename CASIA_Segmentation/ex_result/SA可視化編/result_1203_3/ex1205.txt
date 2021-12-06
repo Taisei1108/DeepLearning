@@ -1,0 +1,2191 @@
+SAの可視化編、SAの特徴マップが見たいSA(2048)layer3のあとにも入れてみた(精度がどうなるか)(SAの可視化はCAMのようにやって正規化を頑張った。)
+２つ入れてみたけど、あんまり変わらんかったから意味無し
+{'dataset_root': '../../datasets/Columbia/', 'train_list': 'data_manage/train_2.txt', 'val_list': 'data_manage/val_2.txt', 'test_list': 'data_manage/test_2.txt', 'cam_batch_size': 16, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 150, 'cam_affine_degree': 5, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'train_cam_pass': True, 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/Columbia/
+train_list data_manage/train_2.txt
+val_list data_manage/val_2.txt
+test_list data_manage/test_2.txt
+cam_batch_size 16
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 150
+cam_affine_degree 5
+cam_scale (1.0, 1.5)
+cam_weights_name sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+train_cam_pass True
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage/train_2.txt
+290
+290
+data_manage/val_2.txt
+37
+37
+DataParallel(
+  (module): Net(
+    (resnet50): ResNet(
+      (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+      (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+      (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+      (layer1): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer2): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer3): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (4): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (5): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (layer4): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+      (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+      (fc): Linear(in_features=2048, out_features=1000, bias=True)
+    )
+    (layer1): Sequential(
+      (0): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+      (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU(inplace=True)
+      (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
+      (4): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(64, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(64, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+    )
+    (layer2): Sequential(
+      (0): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(512, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(128, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+    )
+    (layer3): Sequential(
+      (0): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(512, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(512, 1024, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (3): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (4): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (5): Bottleneck(
+          (conv1): Conv2d(1024, 256, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(256, 1024, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+    )
+    (layer4): Sequential(
+      (0): Sequential(
+        (0): Bottleneck(
+          (conv1): Conv2d(1024, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+          (downsample): Sequential(
+            (0): Conv2d(1024, 2048, kernel_size=(1, 1), stride=(2, 2), bias=False)
+            (1): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          )
+        )
+        (1): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+        (2): Bottleneck(
+          (conv1): Conv2d(2048, 512, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (conv3): Conv2d(512, 2048, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn3): BatchNorm2d(2048, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (relu): ReLU(inplace=True)
+        )
+      )
+    )
+    (Self_Attn1): Self_Attn(
+      (query_conv): Conv2d(1024, 128, kernel_size=(1, 1), stride=(1, 1))
+      (key_conv): Conv2d(1024, 128, kernel_size=(1, 1), stride=(1, 1))
+      (value_conv): Conv2d(1024, 1024, kernel_size=(1, 1), stride=(1, 1))
+      (softmax): Softmax(dim=-1)
+    )
+    (Self_Attn2): Self_Attn(
+      (query_conv): Conv2d(2048, 256, kernel_size=(1, 1), stride=(1, 1))
+      (key_conv): Conv2d(2048, 256, kernel_size=(1, 1), stride=(1, 1))
+      (value_conv): Conv2d(2048, 2048, kernel_size=(1, 1), stride=(1, 1))
+      (softmax): Softmax(dim=-1)
+    )
+    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
+    (fc): Linear(in_features=2048, out_features=2, bias=True)
+  )
+)
+Epoch 1/150
+-------------
+val Loss: 0.7334 Acc: 0.4865
+Epoch 2/150
+-------------
+train Loss: 0.6927 Acc: 0.5103
+val Loss: 0.7184 Acc: 0.4865
+Epoch 3/150
+-------------
+train Loss: 0.6814 Acc: 0.5690
+val Loss: 0.6991 Acc: 0.5405
+Epoch 4/150
+-------------
+train Loss: 0.6668 Acc: 0.6138
+val Loss: 0.6896 Acc: 0.5946
+Epoch 5/150
+-------------
+train Loss: 0.6476 Acc: 0.6448
+val Loss: 0.6793 Acc: 0.5946
+Epoch 6/150
+-------------
+train Loss: 0.6269 Acc: 0.7276
+val Loss: 0.6683 Acc: 0.6216
+Epoch 7/150
+-------------
+train Loss: 0.5910 Acc: 0.7552
+val Loss: 0.6577 Acc: 0.6486
+Epoch 8/150
+-------------
+train Loss: 0.5808 Acc: 0.8000
+val Loss: 0.6492 Acc: 0.6757
+Epoch 9/150
+-------------
+train Loss: 0.5767 Acc: 0.7414
+val Loss: 0.6452 Acc: 0.7027
+Epoch 10/150
+-------------
+train Loss: 0.5522 Acc: 0.7655
+val Loss: 0.6295 Acc: 0.7297
+Epoch 11/150
+-------------
+train Loss: 0.5216 Acc: 0.8103
+val Loss: 0.6139 Acc: 0.7027
+Epoch 12/150
+-------------
+train Loss: 0.5060 Acc: 0.8241
+val Loss: 0.6038 Acc: 0.6757
+Epoch 13/150
+-------------
+train Loss: 0.5083 Acc: 0.8103
+val Loss: 0.5946 Acc: 0.7027
+Epoch 14/150
+-------------
+train Loss: 0.4935 Acc: 0.8138
+val Loss: 0.5861 Acc: 0.7297
+Epoch 15/150
+-------------
+train Loss: 0.4839 Acc: 0.8034
+val Loss: 0.5782 Acc: 0.7027
+Epoch 16/150
+-------------
+train Loss: 0.4470 Acc: 0.8448
+val Loss: 0.5705 Acc: 0.7297
+Epoch 17/150
+-------------
+train Loss: 0.4458 Acc: 0.8276
+val Loss: 0.5631 Acc: 0.7027
+Epoch 18/150
+-------------
+train Loss: 0.4290 Acc: 0.8310
+val Loss: 0.5560 Acc: 0.7297
+Epoch 19/150
+-------------
+train Loss: 0.4235 Acc: 0.8379
+val Loss: 0.5495 Acc: 0.7297
+Epoch 20/150
+-------------
+train Loss: 0.4191 Acc: 0.8172
+val Loss: 0.5442 Acc: 0.6757
+Epoch 21/150
+-------------
+train Loss: 0.4121 Acc: 0.8379
+val Loss: 0.5425 Acc: 0.6757
+Epoch 22/150
+-------------
+train Loss: 0.4132 Acc: 0.8345
+val Loss: 0.5369 Acc: 0.6757
+Epoch 23/150
+-------------
+train Loss: 0.3895 Acc: 0.8517
+val Loss: 0.5260 Acc: 0.7027
+Epoch 24/150
+-------------
+train Loss: 0.3649 Acc: 0.8552
+val Loss: 0.5185 Acc: 0.7027
+Epoch 25/150
+-------------
+train Loss: 0.3776 Acc: 0.8345
+val Loss: 0.5121 Acc: 0.7297
+Epoch 26/150
+-------------
+train Loss: 0.3831 Acc: 0.8586
+val Loss: 0.5066 Acc: 0.7297
+Epoch 27/150
+-------------
+train Loss: 0.3539 Acc: 0.8793
+val Loss: 0.5014 Acc: 0.7297
+Epoch 28/150
+-------------
+train Loss: 0.3646 Acc: 0.8448
+val Loss: 0.4962 Acc: 0.7027
+Epoch 29/150
+-------------
+train Loss: 0.3408 Acc: 0.8621
+val Loss: 0.4932 Acc: 0.7027
+Epoch 30/150
+-------------
+train Loss: 0.3662 Acc: 0.8552
+val Loss: 0.4872 Acc: 0.7027
+Epoch 31/150
+-------------
+train Loss: 0.3222 Acc: 0.8724
+val Loss: 0.4832 Acc: 0.7027
+Epoch 32/150
+-------------
+train Loss: 0.3249 Acc: 0.8655
+val Loss: 0.4781 Acc: 0.7027
+Epoch 33/150
+-------------
+train Loss: 0.3510 Acc: 0.8483
+val Loss: 0.4727 Acc: 0.7027
+Epoch 34/150
+-------------
+train Loss: 0.3379 Acc: 0.8931
+val Loss: 0.4690 Acc: 0.7027
+Epoch 35/150
+-------------
+train Loss: 0.3135 Acc: 0.9172
+val Loss: 0.4649 Acc: 0.7027
+Epoch 36/150
+-------------
+train Loss: 0.3008 Acc: 0.8966
+val Loss: 0.4612 Acc: 0.7027
+Epoch 37/150
+-------------
+train Loss: 0.3261 Acc: 0.8345
+val Loss: 0.4575 Acc: 0.7027
+Epoch 38/150
+-------------
+train Loss: 0.3261 Acc: 0.8690
+val Loss: 0.4539 Acc: 0.7297
+Epoch 39/150
+-------------
+train Loss: 0.3185 Acc: 0.8552
+val Loss: 0.4503 Acc: 0.7297
+Epoch 40/150
+-------------
+train Loss: 0.2997 Acc: 0.8828
+val Loss: 0.4471 Acc: 0.7297
+Epoch 41/150
+-------------
+train Loss: 0.3180 Acc: 0.8621
+val Loss: 0.4442 Acc: 0.7297
+Epoch 42/150
+-------------
+train Loss: 0.2507 Acc: 0.9172
+val Loss: 0.4416 Acc: 0.7297
+Epoch 43/150
+-------------
+train Loss: 0.3157 Acc: 0.8655
+val Loss: 0.4399 Acc: 0.7027
+Epoch 44/150
+-------------
+train Loss: 0.3208 Acc: 0.8552
+val Loss: 0.4402 Acc: 0.7027
+Epoch 45/150
+-------------
+train Loss: 0.3206 Acc: 0.8655
+val Loss: 0.4393 Acc: 0.7568
+Epoch 46/150
+-------------
+train Loss: 0.2877 Acc: 0.8897
+val Loss: 0.4362 Acc: 0.7838
+Epoch 47/150
+-------------
+train Loss: 0.2927 Acc: 0.8862
+val Loss: 0.4322 Acc: 0.7027
+Epoch 48/150
+-------------
+train Loss: 0.2648 Acc: 0.9172
+val Loss: 0.4292 Acc: 0.7297
+Epoch 49/150
+-------------
+train Loss: 0.2725 Acc: 0.9138
+val Loss: 0.4272 Acc: 0.7568
+Epoch 50/150
+-------------
+train Loss: 0.3049 Acc: 0.8483
+val Loss: 0.4260 Acc: 0.7568
+Epoch 51/150
+-------------
+train Loss: 0.3059 Acc: 0.8655
+val Loss: 0.4240 Acc: 0.7838
+Epoch 52/150
+-------------
+train Loss: 0.2535 Acc: 0.8931
+val Loss: 0.4208 Acc: 0.7297
+Epoch 53/150
+-------------
+train Loss: 0.2755 Acc: 0.8931
+val Loss: 0.4189 Acc: 0.7027
+Epoch 54/150
+-------------
+train Loss: 0.2587 Acc: 0.8966
+val Loss: 0.4198 Acc: 0.7568
+Epoch 55/150
+-------------
+train Loss: 0.2948 Acc: 0.8724
+val Loss: 0.4218 Acc: 0.7568
+Epoch 56/150
+-------------
+train Loss: 0.2864 Acc: 0.9069
+val Loss: 0.4205 Acc: 0.7568
+Epoch 57/150
+-------------
+train Loss: 0.2373 Acc: 0.9172
+val Loss: 0.4195 Acc: 0.7568
+Epoch 58/150
+-------------
+train Loss: 0.2877 Acc: 0.8793
+val Loss: 0.4188 Acc: 0.7568
+Epoch 59/150
+-------------
+train Loss: 0.2289 Acc: 0.9172
+val Loss: 0.4149 Acc: 0.7568
+Epoch 60/150
+-------------
+train Loss: 0.2596 Acc: 0.9034
+val Loss: 0.4093 Acc: 0.7568
+Epoch 61/150
+-------------
+train Loss: 0.2806 Acc: 0.8862
+val Loss: 0.4060 Acc: 0.7568
+Epoch 62/150
+-------------
+train Loss: 0.2714 Acc: 0.8759
+val Loss: 0.4041 Acc: 0.7838
+Epoch 63/150
+-------------
+train Loss: 0.2166 Acc: 0.9276
+val Loss: 0.4024 Acc: 0.7838
+Epoch 64/150
+-------------
+train Loss: 0.2560 Acc: 0.8828
+val Loss: 0.4007 Acc: 0.7838
+Epoch 65/150
+-------------
+train Loss: 0.1976 Acc: 0.9552
+val Loss: 0.3994 Acc: 0.7838
+Epoch 66/150
+-------------
+train Loss: 0.2422 Acc: 0.9103
+val Loss: 0.3981 Acc: 0.7838
+Epoch 67/150
+-------------
+train Loss: 0.2585 Acc: 0.9034
+val Loss: 0.3966 Acc: 0.7838
+Epoch 68/150
+-------------
+train Loss: 0.2454 Acc: 0.8931
+val Loss: 0.3958 Acc: 0.8108
+Epoch 69/150
+-------------
+train Loss: 0.2515 Acc: 0.9138
+val Loss: 0.3948 Acc: 0.7838
+Epoch 70/150
+-------------
+train Loss: 0.2026 Acc: 0.9345
+val Loss: 0.3931 Acc: 0.7838
+Epoch 71/150
+-------------
+train Loss: 0.2144 Acc: 0.9103
+val Loss: 0.3920 Acc: 0.7838
+Epoch 72/150
+-------------
+train Loss: 0.2515 Acc: 0.9069
+val Loss: 0.3905 Acc: 0.7838
+Epoch 73/150
+-------------
+train Loss: 0.2578 Acc: 0.8897
+val Loss: 0.3900 Acc: 0.8108
+Epoch 74/150
+-------------
+train Loss: 0.2442 Acc: 0.9034
+val Loss: 0.3890 Acc: 0.8108
+Epoch 75/150
+-------------
+train Loss: 0.2198 Acc: 0.9103
+val Loss: 0.3873 Acc: 0.8108
+Epoch 76/150
+-------------
+train Loss: 0.2531 Acc: 0.8931
+val Loss: 0.3847 Acc: 0.7838
+Epoch 77/150
+-------------
+train Loss: 0.2231 Acc: 0.9172
+val Loss: 0.3829 Acc: 0.7838
+Epoch 78/150
+-------------
+train Loss: 0.2514 Acc: 0.9000
+val Loss: 0.3820 Acc: 0.7838
+Epoch 79/150
+-------------
+train Loss: 0.2350 Acc: 0.9172
+val Loss: 0.3803 Acc: 0.7838
+Epoch 80/150
+-------------
+train Loss: 0.2166 Acc: 0.9103
+val Loss: 0.3791 Acc: 0.7838
+Epoch 81/150
+-------------
+train Loss: 0.1986 Acc: 0.9345
+val Loss: 0.3784 Acc: 0.7568
+Epoch 82/150
+-------------
+train Loss: 0.2213 Acc: 0.9069
+val Loss: 0.3779 Acc: 0.7838
+Epoch 83/150
+-------------
+train Loss: 0.2148 Acc: 0.9172
+val Loss: 0.3778 Acc: 0.7838
+Epoch 84/150
+-------------
+train Loss: 0.2359 Acc: 0.9103
+val Loss: 0.3769 Acc: 0.7838
+Epoch 85/150
+-------------
+train Loss: 0.1947 Acc: 0.9207
+val Loss: 0.3764 Acc: 0.7838
+Epoch 86/150
+-------------
+train Loss: 0.2293 Acc: 0.9000
+val Loss: 0.3758 Acc: 0.7838
+Epoch 87/150
+-------------
+train Loss: 0.1773 Acc: 0.9448
+val Loss: 0.3752 Acc: 0.7838
+Epoch 88/150
+-------------
+train Loss: 0.1998 Acc: 0.9241
+val Loss: 0.3737 Acc: 0.7838
+Epoch 89/150
+-------------
+train Loss: 0.1839 Acc: 0.9414
+val Loss: 0.3725 Acc: 0.7838
+Epoch 90/150
+-------------
+train Loss: 0.2118 Acc: 0.9241
+val Loss: 0.3713 Acc: 0.7838
+Epoch 91/150
+-------------
+train Loss: 0.2022 Acc: 0.9172
+val Loss: 0.3708 Acc: 0.7838
+Epoch 92/150
+-------------
+train Loss: 0.2368 Acc: 0.8966
+val Loss: 0.3703 Acc: 0.7838
+Epoch 93/150
+-------------
+train Loss: 0.1992 Acc: 0.9310
+val Loss: 0.3698 Acc: 0.7838
+Epoch 94/150
+-------------
+train Loss: 0.2117 Acc: 0.9241
+val Loss: 0.3696 Acc: 0.8108
+Epoch 95/150
+-------------
+train Loss: 0.2024 Acc: 0.9276
+val Loss: 0.3685 Acc: 0.8108
+Epoch 96/150
+-------------
+train Loss: 0.1750 Acc: 0.9345
+val Loss: 0.3663 Acc: 0.7838
+Epoch 97/150
+-------------
+train Loss: 0.1904 Acc: 0.9276
+val Loss: 0.3643 Acc: 0.7838
+Epoch 98/150
+-------------
+train Loss: 0.2208 Acc: 0.9241
+val Loss: 0.3632 Acc: 0.7838
+Epoch 99/150
+-------------
+train Loss: 0.1899 Acc: 0.9241
+val Loss: 0.3617 Acc: 0.7838
+Epoch 100/150
+-------------
+train Loss: 0.1903 Acc: 0.9241
+val Loss: 0.3604 Acc: 0.7838
+Epoch 101/150
+-------------
+train Loss: 0.2297 Acc: 0.9069
+val Loss: 0.3596 Acc: 0.7838
+Epoch 102/150
+-------------
+train Loss: 0.2215 Acc: 0.9172
+val Loss: 0.3586 Acc: 0.8378
+Epoch 103/150
+-------------
+train Loss: 0.1977 Acc: 0.9276
+val Loss: 0.3576 Acc: 0.8378
+Epoch 104/150
+-------------
+train Loss: 0.2055 Acc: 0.9310
+val Loss: 0.3567 Acc: 0.8378
+Epoch 105/150
+-------------
+train Loss: 0.1954 Acc: 0.9138
+val Loss: 0.3561 Acc: 0.8378
+Epoch 106/150
+-------------
+train Loss: 0.1795 Acc: 0.9483
+val Loss: 0.3558 Acc: 0.8108
+Epoch 107/150
+-------------
+train Loss: 0.2183 Acc: 0.9241
+val Loss: 0.3553 Acc: 0.7838
+Epoch 108/150
+-------------
+train Loss: 0.1608 Acc: 0.9414
+val Loss: 0.3544 Acc: 0.8108
+Epoch 109/150
+-------------
+train Loss: 0.1671 Acc: 0.9414
+val Loss: 0.3535 Acc: 0.8108
+Epoch 110/150
+-------------
+train Loss: 0.2070 Acc: 0.9207
+val Loss: 0.3526 Acc: 0.8108
+Epoch 111/150
+-------------
+train Loss: 0.1712 Acc: 0.9276
+val Loss: 0.3520 Acc: 0.7838
+Epoch 112/150
+-------------
+train Loss: 0.1990 Acc: 0.9138
+val Loss: 0.3516 Acc: 0.7838
+Epoch 113/150
+-------------
+train Loss: 0.1739 Acc: 0.9310
+val Loss: 0.3516 Acc: 0.7838
+Epoch 114/150
+-------------
+train Loss: 0.1704 Acc: 0.9310
+val Loss: 0.3507 Acc: 0.7838
+Epoch 115/150
+-------------
+train Loss: 0.1895 Acc: 0.9345
+val Loss: 0.3491 Acc: 0.7838
+Epoch 116/150
+-------------
+train Loss: 0.1988 Acc: 0.9207
+val Loss: 0.3477 Acc: 0.8108
+Epoch 117/150
+-------------
+train Loss: 0.1635 Acc: 0.9517
+val Loss: 0.3467 Acc: 0.8108
+Epoch 118/150
+-------------
+train Loss: 0.2173 Acc: 0.9172
+val Loss: 0.3458 Acc: 0.8108
+Epoch 119/150
+-------------
+train Loss: 0.2055 Acc: 0.9414
+val Loss: 0.3449 Acc: 0.8108
+Epoch 120/150
+-------------
+train Loss: 0.1794 Acc: 0.9241
+val Loss: 0.3441 Acc: 0.7838
+Epoch 121/150
+-------------
+train Loss: 0.1936 Acc: 0.9241
+val Loss: 0.3433 Acc: 0.7838
+Epoch 122/150
+-------------
+train Loss: 0.2004 Acc: 0.9207
+val Loss: 0.3424 Acc: 0.7838
+Epoch 123/150
+-------------
+train Loss: 0.1942 Acc: 0.9276
+val Loss: 0.3416 Acc: 0.8108
+Epoch 124/150
+-------------
+train Loss: 0.1544 Acc: 0.9414
+val Loss: 0.3409 Acc: 0.8108
+Epoch 125/150
+-------------
+train Loss: 0.1561 Acc: 0.9552
+val Loss: 0.3402 Acc: 0.8108
+Epoch 126/150
+-------------
+train Loss: 0.2112 Acc: 0.9207
+val Loss: 0.3394 Acc: 0.8108
+Epoch 127/150
+-------------
+train Loss: 0.1496 Acc: 0.9448
+val Loss: 0.3387 Acc: 0.8108
+Epoch 128/150
+-------------
+train Loss: 0.1946 Acc: 0.9241
+val Loss: 0.3381 Acc: 0.8108
+Epoch 129/150
+-------------
+train Loss: 0.2010 Acc: 0.9276
+val Loss: 0.3374 Acc: 0.8108
+Epoch 130/150
+-------------
+train Loss: 0.1643 Acc: 0.9345
+val Loss: 0.3367 Acc: 0.8108
+Epoch 131/150
+-------------
+train Loss: 0.1607 Acc: 0.9379
+val Loss: 0.3361 Acc: 0.8108
+Epoch 132/150
+-------------
+train Loss: 0.1868 Acc: 0.9345
+val Loss: 0.3357 Acc: 0.8108
+Epoch 133/150
+-------------
+train Loss: 0.1579 Acc: 0.9276
+val Loss: 0.3354 Acc: 0.8108
+Epoch 134/150
+-------------
+train Loss: 0.1764 Acc: 0.9207
+val Loss: 0.3351 Acc: 0.8108
+Epoch 135/150
+-------------
+train Loss: 0.2162 Acc: 0.9241
+val Loss: 0.3349 Acc: 0.7838
+Epoch 136/150
+-------------
+train Loss: 0.1744 Acc: 0.9379
+val Loss: 0.3347 Acc: 0.7838
+Epoch 137/150
+-------------
+train Loss: 0.1424 Acc: 0.9483
+val Loss: 0.3351 Acc: 0.7838
+Epoch 138/150
+-------------
+train Loss: 0.1863 Acc: 0.9310
+val Loss: 0.3353 Acc: 0.8108
+Epoch 139/150
+-------------
+train Loss: 0.2000 Acc: 0.9207
+val Loss: 0.3349 Acc: 0.8108
+Epoch 140/150
+-------------
+train Loss: 0.2046 Acc: 0.9138
+val Loss: 0.3344 Acc: 0.7838
+Epoch 141/150
+-------------
+train Loss: 0.1545 Acc: 0.9345
+val Loss: 0.3338 Acc: 0.7838
+Epoch 142/150
+-------------
+train Loss: 0.1189 Acc: 0.9517
+val Loss: 0.3337 Acc: 0.7838
+Epoch 143/150
+-------------
+train Loss: 0.1905 Acc: 0.9345
+val Loss: 0.3333 Acc: 0.7838
+Epoch 144/150
+-------------
+train Loss: 0.2450 Acc: 0.8897
+val Loss: 0.3329 Acc: 0.7838
+Epoch 145/150
+-------------
+train Loss: 0.1568 Acc: 0.9517
+val Loss: 0.3321 Acc: 0.7838
+Epoch 146/150
+-------------
+train Loss: 0.1928 Acc: 0.9276
+val Loss: 0.3316 Acc: 0.7838
+Epoch 147/150
+-------------
+train Loss: 0.1849 Acc: 0.9241
+val Loss: 0.3311 Acc: 0.7838
+Epoch 148/150
+-------------
+train Loss: 0.1390 Acc: 0.9483
+val Loss: 0.3307 Acc: 0.8108
+Epoch 149/150
+-------------
+train Loss: 0.1494 Acc: 0.9448
+val Loss: 0.3301 Acc: 0.8108
+Epoch 150/150
+-------------
+train Loss: 0.1969 Acc: 0.9345
+val Loss: 0.3298 Acc: 0.8108
+max_val= 0.8378378378378379
+data_manage/test_2.txt
+36
+36
+test Loss: 0.4275 Acc: 0.7778
+data_manage/test_2.txt
+36
+36
+debug: [[2.7852476e-04 2.7808174e-04 7.0334628e-04 6.6678645e-04 7.1644312e-04
+  5.7296909e-04 4.5400520e-04 4.3596266e-04]
+ [5.6758610e-04 6.8866031e-04 8.6909806e-04 6.3338591e-04 4.1702570e-04
+  4.8805334e-04 5.5563624e-04 4.7009962e-04]
+ [6.3367235e-04 6.3416956e-04 5.1095849e-04 2.0106864e-04 1.2869286e-04
+  2.7793171e-04 5.5178575e-04 3.5861824e-04]
+ [5.7139865e-04 6.8751583e-04 3.9971145e-04 1.4467322e-04 1.6104268e-04
+  3.2029772e-04 3.3323164e-04 1.7482381e-04]
+ [4.5374339e-04 5.2684592e-04 2.2337592e-04 1.0076481e-04 1.3150599e-04
+  1.6784677e-04 3.3369265e-04 8.0224592e-05]
+ [3.4633541e-04 3.0585652e-04 1.9457510e-04 4.6851848e-05 1.6522522e-04
+  1.7593798e-04 4.6893029e-04 2.7253636e-04]
+ [1.5343356e-04 8.2318686e-05 2.2181513e-04 2.1322348e-05 3.9577866e-05
+  1.2329732e-04 3.3746453e-04 2.3941399e-04]
+ [1.6937903e-04 1.6728653e-05 4.0487637e-04 2.4928080e-04 2.6747526e-04
+  3.1844727e-04 3.9443243e-04 1.8033053e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 24.67060171579942
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_05_sub_09 : TN ( 0 , 0 )
+[[[ 78.32052   78.32052   78.32052  ... 125.42059  125.42059  125.42059 ]
+  [ 78.32052   78.32052   78.32052  ... 125.42059  125.42059  125.42059 ]
+  [ 78.32052   78.32052   78.32052  ... 125.42059  125.42059  125.42059 ]
+  ...
+  [ 45.667812  45.667812  45.667812 ...  48.944134  48.944134  48.944134]
+  [ 45.667812  45.667812  45.667812 ...  48.944134  48.944134  48.944134]
+  [ 45.667812  45.667812  45.667812 ...  48.944134  48.944134  48.944134]]]
+debug: [[-3.5117427e-04 -2.5292399e-04 -2.9486194e-04  3.0110587e-04
+   5.6080095e-04  8.0928340e-04  4.2554224e-04  5.1967532e-04]
+ [-3.9651274e-04 -3.7278069e-04 -1.7660430e-04  7.1741012e-04
+   8.3000149e-04  7.7012513e-04  5.0982024e-04  6.3818065e-04]
+ [-2.6750268e-04 -3.6374127e-04 -1.8657515e-04  5.0936511e-04
+   6.0581462e-04  6.4367801e-04  6.0858129e-04  7.7179255e-04]
+ [-2.7400520e-04 -3.7273625e-04 -2.3262890e-04  2.7097855e-04
+   4.6335201e-04  5.3518178e-04  7.5766194e-04  8.3351933e-04]
+ [-2.8180648e-04 -3.2922681e-04 -2.8764218e-04 -8.8736087e-05
+   1.5243050e-04  4.0623971e-04  4.3272687e-04  5.2910240e-04]
+ [-2.9541642e-04 -3.3694622e-04 -3.5564884e-04 -2.9014348e-04
+  -3.6571588e-04  5.5830387e-05  3.2370302e-04  4.4483159e-04]
+ [-2.8621298e-04 -3.0593094e-04 -2.7020468e-04 -2.5206106e-04
+  -3.8200314e-04  2.4308305e-04  3.4789098e-04  6.3397258e-04]
+ [-3.8655684e-04 -3.8946871e-04 -3.1862792e-04 -2.9875454e-04
+  -4.1107356e-04  1.8728350e-04  6.9924264e-04  7.2192389e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 27.39418995846063
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_05_sub_03 : FP ( 1 , 0 )
+[[[ 12.272543   12.272543   12.272543  ... 190.69766   190.69766
+   190.69766  ]
+  [ 12.272543   12.272543   12.272543  ... 190.69766   190.69766
+   190.69766  ]
+  [ 12.272543   12.272543   12.272543  ... 190.69766   190.69766
+   190.69766  ]
+  ...
+  [  5.0231385   5.0231385   5.0231385 ... 232.1356    232.1356
+   232.1356   ]
+  [  5.0231385   5.0231385   5.0231385 ... 232.1356    232.1356
+   232.1356   ]
+  [  5.0231385   5.0231385   5.0231385 ... 232.1356    232.1356
+   232.1356   ]]]
+debug: [[ 3.0194264e-04  1.5046865e-04  2.1187784e-04  2.6621905e-04
+   2.9633063e-04  2.6063970e-04  2.7513815e-04  2.4082841e-04]
+ [ 3.2616677e-04  2.6469192e-04  2.2389082e-04  2.7218627e-04
+   2.6924172e-04  3.1730445e-04  1.7815352e-04  2.2216211e-04]
+ [ 1.3687453e-04  3.2057727e-04  3.1759584e-04  3.4505880e-04
+   4.1466669e-04  3.0133949e-04  4.9177543e-05  1.8635226e-04]
+ [ 1.3205691e-05  1.1797766e-04  9.4117742e-05  9.0725480e-05
+   1.0799411e-04  1.7345483e-04  7.4855656e-05  1.1576826e-04]
+ [ 5.1441213e-05  1.4721103e-05  6.8281202e-05  9.2202099e-05
+   1.7218533e-04  2.7211261e-04  1.3932730e-04  7.4024290e-05]
+ [ 9.6229996e-05 -3.5979094e-05 -5.7525041e-05  2.5591507e-04
+   3.2840366e-04  3.3928477e-04  2.2447128e-04  1.5756744e-04]
+ [ 7.5130854e-05 -3.6210007e-05 -3.0571140e-05  2.6234786e-04
+   4.6963478e-04  6.2560773e-04  3.3440450e-04  2.7642061e-04]
+ [ 2.6604408e-04  1.1025231e-05 -2.5171092e-05  1.0448915e-04
+   2.2701579e-04  4.6121160e-04  3.5567133e-04  4.7292857e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 24.389445522800088
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_11_sub_02 : TN ( 0 , 0 )
+[[[134.18219 134.18219 134.18219 ... 111.36945 111.36945 111.36945]
+  [134.18219 134.18219 134.18219 ... 111.36945 111.36945 111.36945]
+  [134.18219 134.18219 134.18219 ... 111.36945 111.36945 111.36945]
+  ...
+  [120.78197 120.78197 120.78197 ... 198.00787 198.00787 198.00787]
+  [120.78197 120.78197 120.78197 ... 198.00787 198.00787 198.00787]
+  [120.78197 120.78197 120.78197 ... 198.00787 198.00787 198.00787]]]
+debug: [[ 4.9117242e-04  3.1059774e-04  4.0445212e-04  2.7909293e-04
+   2.0006078e-04  9.3771327e-05  4.1478877e-05 -7.9324986e-05]
+ [ 4.9701502e-04  4.6046160e-04  3.7249681e-04  2.1558849e-04
+   1.1664669e-04 -8.9490808e-05 -4.0930152e-04 -4.8582448e-04]
+ [ 4.1806031e-04  4.2031458e-04  2.1613383e-04  3.0638257e-05
+  -6.9108341e-05 -4.2306239e-04 -7.2274572e-04 -1.0012755e-03]
+ [ 2.5578760e-04  2.1383577e-04  2.0524705e-04  2.9570932e-04
+   8.3341991e-05 -3.3191062e-04 -6.2257895e-04 -7.3793798e-04]
+ [ 3.9722607e-04  3.7042040e-04  3.1924603e-04  3.1068004e-04
+   6.6925502e-05 -3.1170386e-04 -8.0872636e-04 -6.1202829e-04]
+ [ 3.2639669e-04  4.3472237e-04  3.8875666e-04  3.0848623e-04
+  -5.1042198e-06 -1.7683138e-04 -4.0856696e-04 -3.2444511e-04]
+ [ 2.1573393e-04  3.4830591e-04  3.7618057e-04  2.6445312e-04
+   2.7757400e-04  3.5365773e-04  2.4829351e-04  1.7134749e-04]
+ [ 3.6736700e-04  2.1333454e-04  3.9819334e-04  3.4137326e-04
+   3.3797111e-04  4.2443539e-04  3.9710873e-04  3.2367493e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 46.7635812163353
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_canonxt_sub_12 : FN ( 0 , 1 )
+[[[254.00562 254.00562 254.00562 ... 156.9104  156.9104  156.9104 ]
+  [254.00562 254.00562 254.00562 ... 156.9104  156.9104  156.9104 ]
+  [254.00562 254.00562 254.00562 ... 156.9104  156.9104  156.9104 ]
+  ...
+  [232.9347  232.9347  232.9347  ... 225.49857 225.49857 225.49857]
+  [232.9347  232.9347  232.9347  ... 225.49857 225.49857 225.49857]
+  [232.9347  232.9347  232.9347  ... 225.49857 225.49857 225.49857]]]
+debug: [[ 4.4894277e-04  2.5407414e-04  3.4399133e-04  2.2692583e-04
+   2.3133623e-04  9.5322030e-05  1.7702284e-07 -2.0582891e-04]
+ [ 4.6182019e-04  3.8193777e-04  3.0057406e-04  1.4555040e-04
+   1.3732410e-04 -7.4735210e-05 -3.9663419e-04 -5.6655461e-04]
+ [ 4.2970388e-04  3.7488397e-04  2.0257324e-04  7.2632406e-06
+  -7.9448451e-05 -3.0053008e-04 -5.1795685e-04 -6.4097170e-04]
+ [ 2.9377660e-04  2.3195971e-04  1.9688960e-04  2.9271891e-04
+   1.0525506e-05 -1.0353087e-04 -2.9226667e-05 -2.7027676e-05]
+ [ 4.3266284e-04  4.0465803e-04  3.1529786e-04  3.0854344e-04
+   1.2760190e-04  1.6216307e-04  2.0253631e-04  2.9790823e-04]
+ [ 3.4365812e-04  4.4855959e-04  3.7089331e-04  2.7754274e-04
+   2.1723959e-04  3.2920009e-04  3.5560608e-04  3.3360731e-04]
+ [ 2.1227218e-04  3.4545604e-04  3.5695924e-04  2.5774090e-04
+   3.1631868e-04  3.3294145e-04  3.3954089e-04  4.8291296e-04]
+ [ 3.2812366e-04  1.6733588e-04  4.3769766e-04  3.8422260e-04
+   2.9204792e-04  2.7209258e-04  3.5312172e-04  4.3256537e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 47.50224160403013
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_05_sub_05 : TN ( 0 , 0 )
+[[[247.29245 247.29245 247.29245 ...  98.73024  98.73024  98.73024]
+  [247.29245 247.29245 247.29245 ...  98.73024  98.73024  98.73024]
+  [247.29245 247.29245 247.29245 ...  98.73024  98.73024  98.73024]
+  ...
+  [219.87961 219.87961 219.87961 ... 243.57654 243.57654 243.57654]
+  [219.87961 219.87961 219.87961 ... 243.57654 243.57654 243.57654]
+  [219.87961 219.87961 219.87961 ... 243.57654 243.57654 243.57654]]]
+debug: [[ 2.61437817e-04  3.02076602e-04  2.75983446e-04  3.20244231e-04
+   3.27144138e-04  1.04595914e-04 -1.54636276e-04 -1.83219177e-04]
+ [ 4.04733670e-04  4.63635166e-04  4.52593347e-04  3.00412561e-04
+   1.17404736e-04  4.98579575e-05 -1.25231600e-04 -1.26504441e-04]
+ [ 1.28666405e-04  2.21492824e-04  2.78647727e-04  6.15663885e-05
+   1.20201712e-05  1.07555636e-04 -4.73340806e-05 -2.00342620e-05]
+ [-3.69183224e-04 -5.81129221e-04  1.56335096e-04 -8.61039589e-05
+   1.50864525e-05  1.37501978e-04  5.23397739e-06  2.47068558e-04]
+ [-4.23634541e-04 -4.76781192e-04  1.95985675e-04  3.27561545e-04
+   2.80730776e-04  1.15139774e-04  6.65306943e-05  2.44381052e-04]
+ [-3.72817231e-05  4.68323087e-05  4.27558174e-04  4.23623162e-04
+   2.46242882e-04  1.17765798e-04  1.51486471e-04  1.38229690e-04]
+ [ 1.09979177e-04  1.11746980e-04  2.73504178e-04  3.74975614e-04
+   3.34371492e-04  7.68800019e-05 -8.64393151e-05 -1.14619485e-04]
+ [-4.22538797e-05  7.65947188e-05  9.60620164e-05  9.63836210e-05
+   2.71915458e-04  1.40870790e-04  1.40700367e-05 -4.18271593e-05]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 41.9106667637825
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_05_sub_05 : TN ( 0 , 0 )
+[[[205.64885 205.64885 205.64885 ...  97.11956  97.11956  97.11956]
+  [205.64885 205.64885 205.64885 ...  97.11956  97.11956  97.11956]
+  [205.64885 205.64885 205.64885 ...  97.11956  97.11956  97.11956]
+  ...
+  [131.52554 131.52554 131.52554 ... 131.6297  131.6297  131.6297 ]
+  [131.52554 131.52554 131.52554 ... 131.6297  131.6297  131.6297 ]
+  [131.52554 131.52554 131.52554 ... 131.6297  131.6297  131.6297 ]]]
+debug: [[-6.84543920e-05  1.04445244e-04  3.14215693e-04  4.22952959e-04
+  -1.07216983e-05 -3.05236463e-04 -5.54577273e-04 -6.29225804e-04]
+ [ 1.14028528e-03  1.52827566e-03  1.34453946e-03  8.13284132e-04
+   2.89749034e-04 -2.42803013e-04 -5.79785032e-04 -6.45002001e-04]
+ [ 1.43017049e-03  1.88363669e-03  1.61015859e-03  7.41402910e-04
+   3.15728161e-04 -3.99757810e-05 -4.84353164e-04 -5.34295279e-04]
+ [ 1.31796731e-03  1.77231804e-03  1.58651895e-03  6.24064996e-04
+   4.07621497e-04  1.71061529e-05 -2.37811124e-04 -3.10694799e-04]
+ [ 3.44006665e-04  6.33418036e-04  7.95918400e-04  6.44798391e-04
+   5.04674506e-04  3.43968102e-04  7.40578471e-05 -9.43004416e-05]
+ [-2.78845800e-05 -1.04553052e-04 -1.18130947e-05  3.76002426e-04
+   4.44903329e-04  6.21055719e-04  1.27878331e-04  9.94949733e-06]
+ [-2.86778290e-04 -1.93056927e-04 -6.55934564e-05  6.10748975e-05
+   2.03449978e-04  3.94460309e-04  3.29973613e-04  1.38298739e-04]
+ [-4.34696820e-04 -4.00902354e-04 -2.87928473e-04 -1.98322115e-04
+  -2.28261910e-04 -4.36982227e-05  8.16174215e-05 -8.19543566e-05]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 22.92593173123896
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_nikond70_sub_19 : TP ( 1 , 1 )
+[[[58.14181  58.14181  58.14181  ...  1.590947  1.590947  1.590947]
+  [58.14181  58.14181  58.14181  ...  1.590947  1.590947  1.590947]
+  [58.14181  58.14181  58.14181  ...  1.590947  1.590947  1.590947]
+  ...
+  [21.20818  21.20818  21.20818  ... 56.78042  56.78042  56.78042 ]
+  [21.20818  21.20818  21.20818  ... 56.78042  56.78042  56.78042 ]
+  [21.20818  21.20818  21.20818  ... 56.78042  56.78042  56.78042 ]]]
+../../datasets/Columbia/mask_binary/canong3_nikond70_sub_19_edgemask_3.jpg
+debug: [[-4.7040553e-04 -4.1722559e-04 -3.2651515e-04 -1.7138875e-04
+   9.8310411e-05  1.2323821e-04 -2.0123922e-04 -3.7710709e-04]
+ [-4.6294346e-04 -3.2385046e-04 -2.7514025e-04 -1.6156495e-04
+   1.0856494e-04  2.2801963e-04 -1.8801203e-04 -4.1270786e-04]
+ [-3.7065588e-04 -2.5520028e-04 -2.3349631e-04 -2.4801909e-04
+  -4.6455549e-05  2.7356709e-05 -2.2188792e-04 -3.8626191e-04]
+ [-3.3615282e-04 -2.2762733e-04 -2.2769981e-04 -2.1879282e-04
+  -2.5629648e-04 -3.2069394e-04 -3.6304715e-04 -4.4388577e-04]
+ [-5.3655257e-04 -4.3694401e-04 -1.8361339e-04  1.7703898e-04
+   4.7728012e-04  3.8897243e-04  7.6465876e-05 -1.5817460e-04]
+ [ 1.1403454e-04  4.5645511e-04  8.4071571e-04  1.3357196e-03
+   1.3541868e-03  1.2878473e-03  8.6616277e-04  3.5938871e-04]
+ [ 1.1470749e-03  1.3993556e-03  1.2988736e-03  1.3628996e-03
+   1.4562877e-03  1.5662435e-03  1.3552840e-03  9.2892506e-04]
+ [ 1.4141330e-03  1.5742405e-03  1.1707160e-03  1.0728459e-03
+   1.1767915e-03  1.1790637e-03  9.6353830e-04  6.0040411e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 25.14042868465185
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_kodakdcs330_sub_28 : TP ( 1 , 1 )
+[[[  7.99107    7.99107    7.99107  ...  19.262238  19.262238  19.262238]
+  [  7.99107    7.99107    7.99107  ...  19.262238  19.262238  19.262238]
+  [  7.99107    7.99107    7.99107  ...  19.262238  19.262238  19.262238]
+  ...
+  [235.65779  235.65779  235.65779  ... 137.3531   137.3531   137.3531  ]
+  [235.65779  235.65779  235.65779  ... 137.3531   137.3531   137.3531  ]
+  [235.65779  235.65779  235.65779  ... 137.3531   137.3531   137.3531  ]]]
+../../datasets/Columbia/mask_binary/canonxt_kodakdcs330_sub_28_edgemask_3.jpg
+debug: [[ 2.6807116e-04  4.2736265e-04  3.9745722e-04  4.4945269e-04
+   4.4327544e-04  4.7865472e-04  3.4647921e-04  3.0141277e-04]
+ [ 3.6938043e-04  5.2924798e-04  4.5413227e-04  4.2811426e-04
+   5.2596431e-04  5.0437968e-04  3.9794165e-04  4.2296181e-04]
+ [ 3.1497554e-04  2.7732135e-04  3.1881063e-04  2.8039038e-04
+   5.8225117e-04  3.0025779e-04  7.3007686e-05  1.2888666e-04]
+ [ 5.5937923e-04  5.0890155e-04  4.5923106e-04  4.1376986e-04
+   5.8676524e-04  1.1668422e-04  1.9838021e-06 -2.3827328e-05]
+ [ 6.4330053e-04  6.4996956e-04  4.2819869e-04  2.9017212e-04
+   3.2001967e-04  1.4067352e-04 -6.0445200e-05  5.2468076e-05]
+ [ 8.9579343e-04  8.1277511e-04  5.3805701e-04  3.0413273e-04
+   2.1400458e-04  7.4739095e-05 -6.1066443e-05 -4.8452744e-06]
+ [ 8.9246000e-04  7.0172711e-04  6.5694418e-04  4.5794930e-04
+   3.0715769e-04  2.0802861e-04  1.2734024e-05  2.1454309e-05]
+ [ 6.6837203e-04  4.6616708e-04  6.7427673e-04  4.4967342e-04
+   2.5209787e-04  3.2421981e-04  3.9272705e-05  6.4953798e-05]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.20346555567812
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_35_sub_02 : TN ( 0 , 0 )
+[[[ 87.71408   87.71408   87.71408  ...  96.59951   96.59951   96.59951 ]
+  [ 87.71408   87.71408   87.71408  ...  96.59951   96.59951   96.59951 ]
+  [ 87.71408   87.71408   87.71408  ...  96.59951   96.59951   96.59951 ]
+  ...
+  [194.39294  194.39294  194.39294  ...  33.583977  33.583977  33.583977]
+  [194.39294  194.39294  194.39294  ...  33.583977  33.583977  33.583977]
+  [194.39294  194.39294  194.39294  ...  33.583977  33.583977  33.583977]]]
+debug: [[ 2.9846543e-04  9.9246460e-04  7.3054672e-04  3.7723518e-04
+   3.2223077e-04  3.8236234e-04  1.9739137e-04 -1.6425096e-04]
+ [ 8.2023744e-04  1.1438607e-03  1.0235357e-03  2.5226755e-04
+   2.9941229e-04  4.0508003e-04  2.3697082e-04 -1.5296588e-04]
+ [ 6.6853914e-04  6.3691265e-04  2.1590588e-04 -1.9083799e-04
+  -1.3896769e-04 -1.3898606e-04 -1.9030384e-04 -1.8361193e-04]
+ [ 7.1868277e-04  7.4031187e-04  3.4589187e-04 -9.9488272e-05
+  -1.9905144e-04 -2.8471739e-04 -1.2364339e-04 -6.8115318e-05]
+ [ 1.8117413e-05  1.3569265e-04 -1.9760904e-05 -2.0549199e-04
+  -3.0174566e-04 -2.4448862e-04 -1.6228933e-04 -1.2104213e-04]
+ [-3.9733874e-04 -3.0458820e-04 -3.4654865e-04 -2.1468700e-04
+  -1.7410875e-04 -1.5019131e-04  7.8399926e-06 -8.8877605e-06]
+ [-4.3981167e-04 -4.1762480e-04 -4.4007169e-04 -3.0996377e-04
+  -1.6170078e-04 -5.0660932e-05  1.2681913e-04  1.1740545e-04]
+ [-3.4222528e-04 -2.8203570e-04 -3.0385566e-04 -2.5365435e-04
+  -1.4376207e-04 -5.1263254e-05  4.0976374e-05 -7.3781477e-05]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 19.927127541275695
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_kodakdcs330_sub_14 : TP ( 1 , 1 )
+[[[118.89835  118.89835  118.89835  ...  44.40485   44.40485   44.40485 ]
+  [118.89835  118.89835  118.89835  ...  44.40485   44.40485   44.40485 ]
+  [118.89835  118.89835  118.89835  ...  44.40485   44.40485   44.40485 ]
+  ...
+  [ 15.752461  15.752461  15.752461 ...  58.96969   58.96969   58.96969 ]
+  [ 15.752461  15.752461  15.752461 ...  58.96969   58.96969   58.96969 ]
+  [ 15.752461  15.752461  15.752461 ...  58.96969   58.96969   58.96969 ]]]
+../../datasets/Columbia/mask_binary/canong3_kodakdcs330_sub_14_edgemask_3.jpg
+debug: [[-5.22277551e-04 -4.83843003e-04 -2.67786381e-04 -9.03247637e-05
+  -6.92611356e-05 -6.10861898e-05 -3.17157188e-04 -6.08150614e-04]
+ [-2.87133735e-04 -1.84120945e-04 -1.24806893e-05 -3.20536674e-05
+   5.54703729e-05 -3.45414956e-05 -1.10193228e-04 -3.35716875e-04]
+ [ 3.61719693e-04  5.38107241e-04  6.34464726e-04  5.75611542e-04
+   2.32421866e-04 -1.07682768e-04 -8.19774286e-05 -1.77011680e-04]
+ [ 7.71676772e-04  1.08767126e-03  9.91685549e-04  8.21908994e-04
+   2.09409016e-04 -1.19665216e-04 -1.49788684e-04 -2.35211672e-04]
+ [ 8.50810145e-04  1.13525405e-03  1.03688310e-03  8.16555170e-04
+   3.80651734e-04 -7.03573896e-05 -3.40751490e-06 -5.36369698e-05]
+ [ 5.03777293e-04  7.28955201e-04  8.53595557e-04  1.03569473e-03
+   1.02744426e-03  9.22401028e-04  5.33649640e-04  3.18925566e-04]
+ [ 3.10269184e-04  4.52141336e-04  4.15006711e-04  5.83709101e-04
+   7.05412705e-04  7.66917423e-04  5.13443199e-04  2.99910462e-04]
+ [ 1.66663973e-04  2.90051335e-04  3.02348126e-05 -2.49384921e-05
+   1.28635817e-04  2.46393203e-04  2.08472644e-04  1.03904080e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 32.19432960823178
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_kodakdcs330_sub_17 : TP ( 1 , 1 )
+[[[ 12.560268  12.560268  12.560268 ...   0.         0.         0.      ]
+  [ 12.560268  12.560268  12.560268 ...   0.         0.         0.      ]
+  [ 12.560268  12.560268  12.560268 ...   0.         0.         0.      ]
+  ...
+  [113.32866  113.32866  113.32866  ... 104.149055 104.149055 104.149055]
+  [113.32866  113.32866  113.32866  ... 104.149055 104.149055 104.149055]
+  [113.32866  113.32866  113.32866  ... 104.149055 104.149055 104.149055]]]
+../../datasets/Columbia/mask_binary/canong3_kodakdcs330_sub_17_edgemask_3.jpg
+debug: [[0.00023807 0.00029331 0.00030621 0.00025124 0.00028612 0.00027209
+  0.00031631 0.00053102]
+ [0.00048462 0.00041831 0.0004166  0.00032238 0.00037399 0.0004588
+  0.00057479 0.00066618]
+ [0.0006311  0.00072611 0.00070315 0.00040425 0.00044445 0.00059341
+  0.00041189 0.00037096]
+ [0.00058562 0.00055941 0.00037689 0.00019649 0.00022106 0.00042234
+  0.00035768 0.00020441]
+ [0.0006053  0.00057779 0.00036041 0.00021769 0.00029085 0.00037494
+  0.00039117 0.00025842]
+ [0.00051145 0.00045737 0.00027902 0.00018584 0.00019004 0.00026568
+  0.00027783 0.00039957]
+ [0.00042961 0.00034547 0.00023225 0.00017993 0.00021928 0.00031891
+  0.00035525 0.00041303]
+ [0.00077729 0.00043086 0.00026214 0.00029135 0.00036153 0.00036437
+  0.00030447 0.00043308]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 22.20772176515311
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_32_sub_07 : TN ( 0 , 0 )
+[[[ 24.82083  24.82083  24.82083 ... 149.87445 149.87445 149.87445]
+  [ 24.82083  24.82083  24.82083 ... 149.87445 149.87445 149.87445]
+  [ 24.82083  24.82083  24.82083 ... 149.87445 149.87445 149.87445]
+  ...
+  [255.      255.      255.      ... 108.06541 108.06541 108.06541]
+  [255.      255.      255.      ... 108.06541 108.06541 108.06541]
+  [255.      255.      255.      ... 108.06541 108.06541 108.06541]]]
+debug: [[-3.38101789e-04 -1.15086565e-04 -3.53475771e-05 -1.61541699e-04
+  -2.38707857e-04 -2.53527833e-04 -2.55785184e-04 -3.75566480e-04]
+ [-2.19094509e-04  5.94149933e-05  1.53798741e-04  9.49374589e-06
+  -7.25314094e-05 -1.94599139e-04 -2.30649006e-04 -3.58793623e-04]
+ [ 3.61951461e-05  3.25527973e-04  2.19810812e-04  1.05234300e-04
+   2.91493525e-05 -5.19226051e-05 -7.41930344e-05 -1.24104161e-04]
+ [-1.17233340e-05  1.86820238e-04  1.90811435e-04  3.06359580e-04
+   3.24795197e-04  4.82094154e-04  3.70914233e-04  2.64244620e-04]
+ [-3.15035984e-04 -9.00968807e-05  2.38560257e-04  7.36113638e-04
+   7.72147265e-04  8.75646947e-04  8.94240628e-04  8.35877727e-04]
+ [-2.54678132e-04 -1.95033092e-04  2.67702417e-04  5.33244165e-04
+   3.57421173e-04  5.70756965e-04  7.71228923e-04  8.89534422e-04]
+ [-1.26241808e-04 -3.00198426e-05  3.56596312e-04  4.51923319e-04
+   2.14669693e-04  3.82677681e-04  5.47548290e-04  3.38791782e-04]
+ [-2.75641651e-04 -4.73846485e-05  1.87110345e-04  1.80446761e-04
+  -6.23308006e-05  7.15419883e-05  2.43844872e-04  6.63767642e-05]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 26.285238933749497
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_canonxt_sub_02 : TP ( 1 , 1 )
+[[[ 7.5235806  7.5235806  7.5235806 ...  0.         0.         0.       ]
+  [ 7.5235806  7.5235806  7.5235806 ...  0.         0.         0.       ]
+  [ 7.5235806  7.5235806  7.5235806 ...  0.         0.         0.       ]
+  ...
+  [20.066694  20.066694  20.066694  ... 88.750114  88.750114  88.750114 ]
+  [20.066694  20.066694  20.066694  ... 88.750114  88.750114  88.750114 ]
+  [20.066694  20.066694  20.066694  ... 88.750114  88.750114  88.750114 ]]]
+../../datasets/Columbia/mask_binary/canong3_canonxt_sub_02_edgemask_3.jpg
+debug: [[-2.48112221e-04 -2.56451836e-04 -3.54489195e-04 -3.94911214e-04
+  -3.47967929e-04 -2.33371684e-04 -2.87079834e-04 -4.88291960e-04]
+ [-1.34939546e-04 -1.62017532e-04 -2.79739819e-04 -3.22208682e-04
+  -2.39333152e-04 -3.44886466e-05 -1.24403712e-04 -3.53957352e-04]
+ [-4.67988466e-05  5.96492318e-05  4.45748701e-05  1.38090676e-04
+   1.52972498e-04  3.47438792e-04  8.68777715e-05 -1.25649618e-04]
+ [-2.98315317e-05  5.44714239e-05  1.88934609e-05  3.37534613e-04
+   5.87091141e-04  7.29835650e-04  3.11365788e-04 -1.19559154e-05]
+ [-8.88520080e-05 -1.06259977e-05 -3.36431845e-06  4.68718004e-04
+   7.92460109e-04  1.05232222e-03  2.99510575e-04 -2.64613278e-04]
+ [-6.92345639e-05  9.69072207e-05  6.15395256e-05  4.47167055e-04
+   8.18343600e-04  8.59023479e-04 -2.02012288e-05 -6.18722872e-04]
+ [ 9.08346148e-04  9.62611870e-04  5.10043232e-04  6.40292827e-04
+   8.56437080e-04  5.11527527e-04 -4.20729601e-04 -7.23394507e-04]
+ [ 1.28965615e-03  1.19034061e-03  3.90881323e-04  4.20422817e-04
+   5.82591689e-04  1.19621334e-04 -5.97843260e-04 -8.05404969e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.445228073745966
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_nikond70_sub_23 : TP ( 1 , 1 )
+[[[ 67.83078   67.83078   67.83078  ...  38.597355  38.597355  38.597355]
+  [ 67.83078   67.83078   67.83078  ...  38.597355  38.597355  38.597355]
+  [ 67.83078   67.83078   67.83078  ...  38.597355  38.597355  38.597355]
+  ...
+  [255.       255.       255.       ...   0.         0.         0.      ]
+  [255.       255.       255.       ...   0.         0.         0.      ]
+  [255.       255.       255.       ...   0.         0.         0.      ]]]
+../../datasets/Columbia/mask_binary/canong3_nikond70_sub_23_edgemask_3.jpg
+debug: [[-3.73511633e-04 -3.79711419e-04 -1.96569366e-04  2.04715252e-04
+   4.71158302e-04  5.88282768e-04  2.75010476e-04  2.37364642e-04]
+ [-4.19397955e-04 -2.87805509e-04  7.10758395e-05  3.07152310e-04
+   4.63380653e-04  6.03835913e-04  6.95125025e-04  5.32694336e-04]
+ [-3.84235638e-04 -8.55042963e-05  5.30535937e-04  5.68323303e-04
+   7.20747747e-04  8.03999486e-04  8.06592114e-04  5.50796627e-04]
+ [-2.03812397e-05  1.53918023e-04  1.12123240e-03  1.20104395e-03
+   1.37142616e-03  9.40200407e-04  7.51703046e-04  3.31801974e-04]
+ [ 3.47095811e-05 -2.40752161e-05  4.47724015e-04  5.88532654e-04
+   1.06479099e-03  4.63105040e-04  4.81339193e-05 -1.97325237e-04]
+ [-5.80087217e-05  1.78328028e-05  9.41126200e-05  8.68122006e-05
+   5.03495045e-04 -7.10711683e-05 -2.97242281e-04 -5.60160959e-04]
+ [-1.50859807e-04 -1.27465464e-04 -1.14232549e-04 -1.91444866e-04
+  -4.75910783e-05 -1.11409427e-04 -3.75415781e-04 -3.96373332e-04]
+ [-2.24960444e-04 -1.21933524e-04 -4.50303050e-05 -6.97932046e-05
+  -5.34365608e-05 -1.26145998e-04 -2.07909688e-04 -1.89714556e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 24.63929758220911
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_kodakdcs330_sub_19 : TP ( 1 , 1 )
+[[[ 24.640657  24.640657  24.640657 ... 105.28597  105.28597  105.28597 ]
+  [ 24.640657  24.640657  24.640657 ... 105.28597  105.28597  105.28597 ]
+  [ 24.640657  24.640657  24.640657 ... 105.28597  105.28597  105.28597 ]
+  ...
+  [ 44.25176   44.25176   44.25176  ...  48.904778  48.904778  48.904778]
+  [ 44.25176   44.25176   44.25176  ...  48.904778  48.904778  48.904778]
+  [ 44.25176   44.25176   44.25176  ...  48.904778  48.904778  48.904778]]]
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_19_edgemask_3.jpg
+debug: [[-3.5135722e-04 -2.7772866e-04 -2.0892026e-04 -2.8957386e-04
+  -4.2768026e-04 -5.1342830e-04 -6.3676952e-04 -7.4682699e-04]
+ [-3.5342097e-04 -1.9845009e-04 -2.1514713e-04 -2.5967459e-04
+  -3.9773263e-04 -4.7339121e-04 -4.0882165e-04 -4.5498455e-04]
+ [-3.7919186e-04 -2.5658327e-04 -2.5823241e-04 -2.3791422e-04
+  -3.1101203e-04 -1.8797348e-04 -2.0423267e-04 -3.8437618e-04]
+ [-4.1567435e-04 -3.5162020e-04 -2.3618950e-04 -1.5895194e-04
+   3.6729415e-04  1.1103082e-03  8.2629721e-04  3.7443481e-04]
+ [-4.4947257e-04 -3.8083640e-04 -3.1354581e-04  8.3933701e-05
+   7.9192570e-04  1.4649327e-03  1.3851561e-03  9.8030304e-04]
+ [-3.9469413e-04 -3.5677760e-04 -3.7444703e-04  2.8008435e-04
+   7.2890468e-04  1.1090972e-03  1.2131631e-03  1.0074225e-03]
+ [-4.0807703e-04 -3.7903691e-04 -3.8467866e-04  7.0391943e-05
+   5.0119421e-04  7.5221132e-04  8.6516363e-04  7.4380246e-04]
+ [-3.8008505e-04 -4.1296499e-04 -3.3559056e-04 -3.6679089e-04
+  -4.9348546e-05  2.3396692e-04  2.3228071e-04  1.1263317e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 21.905463356524706
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_kodakdcs330_sub_05 : TP ( 1 , 1 )
+[[[45.594822 45.594822 45.594822 ...  0.        0.        0.      ]
+  [45.594822 45.594822 45.594822 ...  0.        0.        0.      ]
+  [45.594822 45.594822 45.594822 ...  0.        0.        0.      ]
+  ...
+  [42.28271  42.28271  42.28271  ... 99.08958  99.08958  99.08958 ]
+  [42.28271  42.28271  42.28271  ... 99.08958  99.08958  99.08958 ]
+  [42.28271  42.28271  42.28271  ... 99.08958  99.08958  99.08958 ]]]
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_05_edgemask_3.jpg
+debug: [[-1.02865866e-04 -1.52781548e-04  1.21385827e-04  2.81872984e-04
+   2.24047486e-04  9.82650527e-05  1.45469749e-04  1.90273859e-04]
+ [-2.60917324e-04 -2.37202839e-04  1.26699495e-04  1.96523368e-04
+   1.80521994e-04  3.05732246e-05  5.34745450e-05  1.31667286e-04]
+ [-1.33603680e-04 -9.75227813e-05  1.59310643e-04  3.69799585e-04
+   3.30839015e-04  8.17183536e-05  1.18307216e-05  9.53942872e-05]
+ [ 1.82960401e-04  5.67656534e-05  2.82049179e-04  3.70868715e-04
+   2.96034501e-04  1.12284586e-04  3.24641333e-05  2.77315616e-04]
+ [ 1.82728254e-04  1.04095787e-04  1.83232405e-04  1.94352906e-04
+   2.41184549e-04  9.77615200e-05  1.45362661e-04  4.41560464e-04]
+ [ 2.03410484e-04  1.81512441e-04  1.22440266e-04  3.36316123e-04
+   2.37649088e-04  3.36956989e-04  3.51494527e-04  6.19683880e-04]
+ [ 3.92249378e-04  3.91754002e-04  3.89110937e-04  3.71028262e-04
+   4.41361248e-04  4.48940729e-04  4.59947973e-04  5.76309278e-04]
+ [ 6.18664024e-04  5.22039481e-04  4.62215306e-04  4.47056198e-04
+   3.58763617e-04  3.66767141e-04  3.23975197e-04  5.01942006e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 35.43725670315325
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_14_sub_07 : TN ( 0 , 0 )
+[[[ 45.767735  45.767735  45.767735 ... 130.65364  130.65364  130.65364 ]
+  [ 45.767735  45.767735  45.767735 ... 130.65364  130.65364  130.65364 ]
+  [ 45.767735  45.767735  45.767735 ... 130.65364  130.65364  130.65364 ]
+  ...
+  [254.70467  254.70467  254.70467  ... 220.90492  220.90492  220.90492 ]
+  [254.70467  254.70467  254.70467  ... 220.90492  220.90492  220.90492 ]
+  [254.70467  254.70467  254.70467  ... 220.90492  220.90492  220.90492 ]]]
+debug: [[ 2.5865130e-04  2.8567889e-04  3.9628861e-04  5.0303928e-04
+   8.8696775e-04  9.9061558e-04  8.1607560e-04  5.0165155e-04]
+ [ 8.3368453e-05  1.9127967e-04  3.0191345e-04  2.1835176e-04
+   3.7881971e-04  6.0952950e-04  5.2752177e-04  3.2118385e-04]
+ [ 2.6919635e-04  2.7785773e-04  2.6657447e-04  1.8790794e-04
+   2.0704731e-04  3.4848371e-04  2.3308046e-04  8.7357155e-05]
+ [ 2.2208660e-04  2.4128432e-04  2.6571771e-04  3.6596728e-04
+   3.4805964e-04  3.0700062e-04  2.2897065e-04  8.3060906e-05]
+ [ 1.4455424e-04  3.5732344e-05  1.9422987e-04  4.2965106e-04
+   4.0084915e-04  3.6478529e-04  2.0499938e-04  1.4667829e-04]
+ [-1.2019498e-05 -1.1874662e-04 -8.9500878e-07  2.5698115e-04
+   3.5848917e-04  2.5857161e-04  1.8988627e-04  1.8036395e-04]
+ [-9.8988879e-05 -2.9093024e-04 -2.4612428e-04  3.6578844e-05
+   1.3166532e-04  2.0515769e-04  1.3790908e-04  9.9275705e-05]
+ [-1.1568993e-04 -5.0359941e-04 -5.2826793e-04 -2.2460108e-04
+   8.9258509e-05  3.0901007e-04  1.6873363e-04  1.7857765e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 31.20832678489387
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_08_sub_01 : TN ( 0 , 0 )
+[[[132.1131   132.1131   132.1131   ... 172.90956  172.90956  172.90956 ]
+  [132.1131   132.1131   132.1131   ... 172.90956  172.90956  172.90956 ]
+  [132.1131   132.1131   132.1131   ... 172.90956  172.90956  172.90956 ]
+  ...
+  [ 69.266266  69.266266  69.266266 ... 118.66982  118.66982  118.66982 ]
+  [ 69.266266  69.266266  69.266266 ... 118.66982  118.66982  118.66982 ]
+  [ 69.266266  69.266266  69.266266 ... 118.66982  118.66982  118.66982 ]]]
+debug: [[-3.4740273e-04 -3.0285207e-04 -5.2579638e-04 -4.2443626e-04
+  -3.3614965e-04 -3.9282264e-04 -5.4928573e-04 -6.0051878e-04]
+ [-3.6001959e-04 -3.4260430e-04 -4.8200242e-04 -3.7622874e-04
+  -3.4991812e-04 -3.1768650e-04 -2.3038397e-04 -1.5911493e-04]
+ [-4.8900238e-04 -4.8445718e-04 -3.7289699e-04 -2.5675641e-04
+  -1.9066122e-04 -1.4137253e-04  4.8076809e-06 -7.1579707e-05]
+ [-3.8625655e-04 -2.9246428e-04 -1.9281857e-04 -2.2886563e-04
+  -2.0957507e-04 -1.7064676e-04 -2.3857270e-05 -1.3215904e-04]
+ [-4.2543787e-04 -3.4711341e-04 -1.7024850e-04 -1.5756962e-04
+   2.3441919e-06  1.9929559e-05  3.9133945e-04  3.3573905e-04]
+ [-4.3123853e-04 -4.2489570e-04 -2.9246786e-04  1.6546056e-04
+   7.6201296e-04  1.4618199e-03  1.8700812e-03  1.6991850e-03]
+ [-3.3661444e-04 -3.7612717e-04 -4.6493780e-05  1.0163772e-03
+   1.4544625e-03  1.5846045e-03  1.6819667e-03  1.5835608e-03]
+ [-3.4182999e-04 -1.8777762e-04  1.1699096e-04  1.1306405e-03
+   1.5830209e-03  1.5213961e-03  1.4607066e-03  1.0393978e-03]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 18.63540813140571
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_kodakdcs330_sub_21 : TP ( 1 , 1 )
+[[[ 26.125067  26.125067  26.125067 ...   0.         0.         0.      ]
+  [ 26.125067  26.125067  26.125067 ...   0.         0.         0.      ]
+  [ 26.125067  26.125067  26.125067 ...   0.         0.         0.      ]
+  ...
+  [ 26.70025   26.70025   26.70025  ... 169.26201  169.26201  169.26201 ]
+  [ 26.70025   26.70025   26.70025  ... 169.26201  169.26201  169.26201 ]
+  [ 26.70025   26.70025   26.70025  ... 169.26201  169.26201  169.26201 ]]]
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_21_edgemask_3.jpg
+debug: [[-2.17488414e-04  7.50681738e-06  2.18620509e-04  4.53057379e-04
+   4.92049556e-04  4.71519626e-04  1.22297788e-04 -2.60279572e-04]
+ [-7.28290979e-05  6.67039276e-05  3.79669451e-04  9.89404391e-04
+   1.14028773e-03  1.19434309e-03  4.31783614e-04 -1.13713628e-04]
+ [-1.41172291e-04 -1.30632077e-04  3.10240692e-04  1.15369400e-03
+   1.56689517e-03  1.47475919e-03  4.88173711e-04 -1.74375105e-04]
+ [-4.33907670e-04 -3.20877531e-04  2.35766802e-05  1.11056911e-03
+   1.38382067e-03  1.32413441e-03  2.44540628e-04 -3.11138312e-04]
+ [-4.38463467e-04 -3.09816911e-04 -1.10482004e-04  5.32717560e-04
+   7.06123596e-04  7.38751201e-04  1.75766021e-04 -3.84041661e-04]
+ [-3.97453638e-04 -3.24938592e-04 -1.12434522e-04  6.04400993e-04
+   9.73335409e-04  6.25795044e-04  8.85927657e-05 -2.29723577e-04]
+ [-3.10176518e-04 -2.17284745e-04 -1.71880791e-04  4.01561992e-04
+   8.79713101e-04  4.04597318e-04  3.05380636e-05 -2.58389860e-04]
+ [-4.17656469e-04 -2.99405627e-04 -2.41664835e-04  8.13589068e-05
+   6.24202890e-04  4.23164776e-04 -1.03563852e-05 -3.33646429e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 21.76952199381776
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_kodakdcs330_sub_04 : TP ( 1 , 1 )
+[[[28.099033  28.099033  28.099033  ... 22.657738  22.657738  22.657738 ]
+  [28.099033  28.099033  28.099033  ... 22.657738  22.657738  22.657738 ]
+  [28.099033  28.099033  28.099033  ... 22.657738  22.657738  22.657738 ]
+  ...
+  [ 2.6458032  2.6458032  2.6458032 ... 13.328462  13.328462  13.328462 ]
+  [ 2.6458032  2.6458032  2.6458032 ... 13.328462  13.328462  13.328462 ]
+  [ 2.6458032  2.6458032  2.6458032 ... 13.328462  13.328462  13.328462 ]]]
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_04_edgemask_3.jpg
+debug: [[-6.0946733e-04 -2.9094817e-04  2.5255082e-04  5.3752621e-04
+   4.0575222e-04  4.4596201e-04  3.4554498e-04  1.9742078e-04]
+ [-3.1470472e-04 -2.3877268e-05  4.8588435e-04  5.7602848e-04
+   3.6725478e-04  4.1354503e-04  3.6320329e-04  3.0229497e-04]
+ [ 2.8173375e-04  3.5645178e-04  4.4507254e-04  3.2647752e-04
+   2.9486275e-04  4.1170514e-04  3.4281507e-04  2.7311652e-04]
+ [ 5.4769748e-04  4.1261644e-04  3.6565954e-04  2.3840966e-04
+   3.5638467e-04  4.8290615e-04  3.6922077e-04  2.3000858e-04]
+ [ 4.6419306e-04  4.0967803e-04  3.3399268e-04  2.4005739e-04
+   3.4094523e-04  3.7647036e-04  3.2948985e-04  2.8626292e-04]
+ [ 4.7530592e-04  4.2106581e-04  2.9497064e-04  2.7805666e-04
+   3.1603628e-04  4.3130553e-04  4.6206237e-04  4.0379679e-04]
+ [ 3.2538417e-04  3.2002068e-04  4.1776130e-04  3.7912102e-04
+   4.4499579e-04  5.8639713e-04  6.0543319e-04  5.9318537e-04]
+ [ 1.7893684e-04  1.8472949e-04  5.0210085e-04  4.5888202e-04
+   5.1859632e-04  5.9393648e-04  7.0669840e-04  6.3040474e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 46.730656549334526
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_05_sub_06 : TN ( 0 , 0 )
+[[[  0.        0.        0.      ... 156.33022 156.33022 156.33022]
+  [  0.        0.        0.      ... 156.33022 156.33022 156.33022]
+  [  0.        0.        0.      ... 156.33022 156.33022 156.33022]
+  ...
+  [152.74904 152.74904 152.74904 ... 240.2185  240.2185  240.2185 ]
+  [152.74904 152.74904 152.74904 ... 240.2185  240.2185  240.2185 ]
+  [152.74904 152.74904 152.74904 ... 240.2185  240.2185  240.2185 ]]]
+debug: [[ 6.46529195e-04  6.94969145e-04  2.07097852e-04 -1.62275508e-04
+  -1.53733563e-04  5.89720847e-04  5.76885650e-04  4.51080909e-04]
+ [ 7.63148244e-04  9.69039684e-04  6.55760581e-04  2.23850016e-04
+   2.72609061e-04  6.34093594e-04  7.03839178e-04  7.69688457e-04]
+ [ 3.34911776e-04  7.80160830e-04  4.99417714e-04  2.93715508e-04
+   2.71147757e-04  5.18793298e-04  8.01855582e-04  9.53569717e-04]
+ [ 1.67813123e-04  4.73688327e-04  7.78074784e-04  4.15910967e-04
+   4.02750215e-04  4.59428498e-04  5.66297909e-04  5.29555255e-04]
+ [-1.47659639e-05 -1.21197845e-05  1.65099103e-04  3.18692728e-05
+  -6.83732869e-05 -2.35590007e-04 -2.25316180e-04 -2.88962437e-05]
+ [-2.19911424e-04 -2.10973158e-04 -2.78917782e-04 -2.11429549e-04
+  -1.08861794e-04 -1.21181285e-04 -9.88171814e-05 -1.03391663e-04]
+ [-2.93663878e-04 -3.63615836e-04 -4.42616147e-04 -3.10202246e-04
+  -1.34285496e-04  3.09699826e-05  9.46500659e-05  8.29428391e-05]
+ [-2.45451374e-04 -1.86552221e-04 -2.05778357e-04 -1.16436298e-04
+   2.80930493e-07  6.63733881e-05  2.58640866e-05 -1.11959685e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.73630426451564
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_canonxt_sub_30 : TP ( 1 , 1 )
+[[[196.74205  196.74205  196.74205  ... 161.43648  161.43648  161.43648 ]
+  [196.74205  196.74205  196.74205  ... 161.43648  161.43648  161.43648 ]
+  [196.74205  196.74205  196.74205  ... 161.43648  161.43648  161.43648 ]
+  ...
+  [ 35.615635  35.615635  35.615635 ...  59.72943   59.72943   59.72943 ]
+  [ 35.615635  35.615635  35.615635 ...  59.72943   59.72943   59.72943 ]
+  [ 35.615635  35.615635  35.615635 ...  59.72943   59.72943   59.72943 ]]]
+../../datasets/Columbia/mask_binary/canong3_canonxt_sub_30_edgemask_3.jpg
+debug: [[-4.12004534e-04 -3.89792054e-04 -2.43437738e-04 -2.37633692e-04
+  -2.00531576e-04 -8.22877046e-05  8.56172410e-04  8.63635098e-04]
+ [-4.08171705e-04 -3.69520043e-04 -1.28900239e-04 -1.60868673e-04
+  -1.65423888e-04  3.64879321e-04  9.86760599e-04  9.38314421e-04]
+ [-2.65119103e-04 -1.30562432e-04 -7.14936978e-05 -1.11221765e-04
+  -1.24434946e-05  7.25800288e-04  8.99485196e-04  6.72348891e-04]
+ [ 4.12247755e-04  3.56524513e-04  4.26484621e-04  5.95341044e-05
+   3.21401312e-04  9.06143337e-04  7.27653736e-04  5.20184927e-04]
+ [ 5.01338276e-04  3.63544677e-04  2.34750303e-04  2.58404965e-04
+   4.85738681e-04  8.66871211e-04  9.22322681e-04  6.89022359e-04]
+ [ 3.47976980e-04  1.41205339e-04 -5.15028878e-05  9.25170170e-05
+   5.50523226e-04  8.23074894e-04  7.15754752e-04  2.94380618e-04]
+ [ 3.47003515e-05 -3.86683641e-05 -7.83699215e-05  1.10498855e-04
+   1.83894823e-04  2.52571277e-04  1.66678146e-04 -7.22395998e-05]
+ [-1.11939735e-04 -1.70654283e-04 -2.06312616e-04 -1.90424122e-04
+  -1.03542525e-05 -4.11992223e-05 -4.38032876e-05 -2.56409869e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.43961332528852
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_canonxt_sub_29 : TP ( 1 , 1 )
+[[[  0.         0.         0.       ... 232.55377  232.55377  232.55377 ]
+  [  0.         0.         0.       ... 232.55377  232.55377  232.55377 ]
+  [  0.         0.         0.       ... 232.55377  232.55377  232.55377 ]
+  ...
+  [ 54.70291   54.70291   54.70291  ...  28.365477  28.365477  28.365477]
+  [ 54.70291   54.70291   54.70291  ...  28.365477  28.365477  28.365477]
+  [ 54.70291   54.70291   54.70291  ...  28.365477  28.365477  28.365477]]]
+../../datasets/Columbia/mask_binary/nikond70_canonxt_sub_29_edgemask_3.jpg
+debug: [[ 3.5932264e-04  4.8948912e-04  5.5652921e-04  4.9319363e-04
+   3.5393526e-04  2.9263081e-04  1.5968269e-04  2.3182364e-04]
+ [ 3.3003700e-04  5.5953336e-04  3.8249418e-04  3.7986907e-04
+   2.1757785e-04  1.0863639e-04  1.5333762e-04  2.0033642e-04]
+ [ 4.2424293e-04  4.6858125e-04  4.6742917e-04  3.5690077e-04
+   1.2224354e-04  7.8936500e-05  3.2104406e-05  6.4082902e-05]
+ [ 2.2944290e-04  2.4844459e-04  2.3739702e-04  2.0760648e-04
+   7.1312912e-05 -4.7153819e-05 -1.9615200e-05 -3.3927416e-05]
+ [ 1.5180511e-04  2.4603176e-04  2.9989655e-04  2.2210265e-04
+   1.7855813e-04 -4.0497900e-05  3.8584363e-05 -8.2782339e-05]
+ [ 2.4764534e-04  2.9468539e-04  3.5252544e-04  2.5404408e-04
+   2.1598507e-04  3.6369206e-04  2.6473659e-04  2.5603364e-04]
+ [ 2.9932137e-04  4.6366738e-04  4.8606523e-04  3.9349386e-04
+   3.4833915e-04  4.1210730e-04  3.6571611e-04  4.0777292e-04]
+ [ 3.7843076e-04  4.8051259e-04  5.6566601e-04  6.1395194e-04
+   4.8269730e-04  5.2001461e-04  4.3428681e-04  6.2624086e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 33.871751479804516
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_26_sub_04 : TN ( 0 , 0 )
+[[[159.00294 159.00294 159.00294 ... 113.14795 113.14795 113.14795]
+  [159.00294 159.00294 159.00294 ... 113.14795 113.14795 113.14795]
+  [159.00294 159.00294 159.00294 ... 113.14795 113.14795 113.14795]
+  ...
+  [165.87517 165.87517 165.87517 ... 255.      255.      255.     ]
+  [165.87517 165.87517 165.87517 ... 255.      255.      255.     ]
+  [165.87517 165.87517 165.87517 ... 255.      255.      255.     ]]]
+debug: [[ 9.8513410e-05  3.3680574e-04  3.6265285e-04  2.0144344e-04
+   1.0270162e-04  1.0399467e-04  6.3473848e-04  4.2983895e-04]
+ [ 3.0383954e-04  3.9731411e-04  1.4188104e-04  1.1369203e-04
+   6.7262648e-05  1.7811936e-04  5.7210139e-04  6.0219126e-04]
+ [ 8.6641601e-05  1.6217044e-04  1.2695120e-04 -3.7104757e-05
+   1.3907553e-05  2.0383835e-04  5.1484385e-04  6.2547356e-04]
+ [-4.4688775e-05 -1.1031546e-04 -6.1102961e-05 -6.1959465e-05
+  -7.3008814e-05  2.2578130e-04  5.2306213e-04  7.4504776e-04]
+ [-2.4900830e-04 -3.5295574e-04 -2.4811563e-04 -1.2969850e-04
+  -1.9325507e-04  7.8396239e-05  4.0528332e-04  6.3181366e-04]
+ [-4.2173540e-04 -3.9810903e-04 -3.3908652e-04 -6.1831757e-05
+  -1.0069101e-04 -1.3522572e-04  4.6646458e-04  7.7918312e-04]
+ [-3.1135452e-04 -3.1443630e-04 -1.2192676e-04  2.4846432e-04
+   3.5024469e-04  1.8093488e-04  4.6053252e-04  7.7580963e-04]
+ [-4.6032699e-04 -3.7044147e-04 -8.9054505e-05  4.1873485e-04
+   4.6722253e-04  9.2693779e-05  3.2020223e-04  5.1907526e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 31.339282171800733
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_05_sub_01 : FP ( 1 , 0 )
+[[[114.96824 114.96824 114.96824 ... 183.13066 183.13066 183.13066]
+  [114.96824 114.96824 114.96824 ... 183.13066 183.13066 183.13066]
+  [114.96824 114.96824 114.96824 ... 183.13066 183.13066 183.13066]
+  ...
+  [  0.        0.        0.      ... 201.48894 201.48894 201.48894]
+  [  0.        0.        0.      ... 201.48894 201.48894 201.48894]
+  [  0.        0.        0.      ... 201.48894 201.48894 201.48894]]]
+debug: [[-7.12442707e-05 -4.40380216e-04 -3.15541285e-04 -1.05825413e-04
+   2.63712136e-04  2.84999463e-04 -3.54802833e-05 -1.32800284e-04]
+ [-1.78538576e-05 -4.26282379e-04 -7.26156402e-04 -3.81076126e-04
+   7.47040685e-05  1.43427766e-04 -1.98719954e-05 -8.38937995e-05]
+ [-9.50328977e-05 -2.25483920e-04 -1.03826300e-04  7.36639267e-05
+   2.24362899e-04  6.30903887e-05 -2.15470121e-04 -1.93774351e-04]
+ [ 2.26872493e-04  3.50553484e-04  4.17979725e-04  4.68263839e-04
+   2.00359515e-04  7.47882677e-06 -4.09008717e-05 -6.99359225e-05]
+ [ 3.18723498e-04  4.43759141e-04  6.76027033e-04  6.35613163e-04
+   3.36706755e-04  2.81398941e-04  2.12316532e-04  9.16706922e-05]
+ [ 3.00674234e-04  4.94864187e-04  6.08406379e-04  4.05649451e-04
+   2.06014927e-04  1.41130789e-04  7.98889669e-05  8.02814247e-05]
+ [ 3.05612513e-04  5.00453054e-04  5.09513775e-04  3.12404183e-04
+   1.70935862e-04  1.06205436e-04  1.32382047e-04  1.40299337e-04]
+ [ 3.11935379e-04  4.94967157e-04  5.23145660e-04  5.07134537e-04
+   3.57341021e-04  3.09330149e-04  6.05788991e-05  1.63934455e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 39.78933548927307
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_23_sub_01 : TN ( 0 , 0 )
+[[[119.10182 119.10182 119.10182 ... 107.90728 107.90728 107.90728]
+  [119.10182 119.10182 119.10182 ... 107.90728 107.90728 107.90728]
+  [119.10182 119.10182 119.10182 ... 107.90728 107.90728 107.90728]
+  ...
+  [188.78656 188.78656 188.78656 ... 161.87123 161.87123 161.87123]
+  [188.78656 188.78656 188.78656 ... 161.87123 161.87123 161.87123]
+  [188.78656 188.78656 188.78656 ... 161.87123 161.87123 161.87123]]]
+debug: [[-3.04509391e-04 -1.30320870e-04  2.57461012e-04  3.48518428e-04
+   3.96341522e-04  4.21024073e-04  2.45390314e-04  1.89585553e-04]
+ [-4.87649930e-04 -2.55658466e-04  4.58011491e-05  2.85289483e-04
+   4.05199040e-04  4.36381932e-04  1.50686930e-04  5.71109522e-05]
+ [-6.61697821e-04 -7.96510780e-04  3.84205086e-05  2.28528050e-04
+   2.37371467e-04  2.84312497e-04  6.69871297e-05 -1.65695848e-04]
+ [-3.35853401e-04 -5.42866881e-04  3.48726724e-04  4.06029547e-04
+   4.09331114e-04  4.50821361e-04  4.66710699e-05 -2.45699979e-04]
+ [ 1.10114794e-04 -1.25897903e-04  6.56612217e-04  3.23619286e-04
+   3.52416944e-04  3.49325244e-04  2.73236510e-04  6.90360757e-05]
+ [ 2.64188566e-04  1.81723924e-04  6.23099098e-04  3.20690277e-04
+   3.16951104e-04  3.08048155e-04  2.43209070e-04  1.05389197e-04]
+ [ 2.98082770e-04  4.17952397e-04  5.22811082e-04  2.84428766e-04
+   2.49693694e-04  3.10739939e-04  1.49306885e-04  1.78921749e-04]
+ [ 3.41172650e-04  3.41173291e-04  5.60591521e-04  3.54035583e-04
+   3.83579609e-04  4.61451855e-04  3.09303548e-04  2.99037958e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 43.10733502358198
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_08_sub_01 : TN ( 0 , 0 )
+[[[ 86.338425  86.338425  86.338425 ... 173.04424  173.04424  173.04424 ]
+  [ 86.338425  86.338425  86.338425 ... 173.04424  173.04424  173.04424 ]
+  [ 86.338425  86.338425  86.338425 ... 173.04424  173.04424  173.04424 ]
+  ...
+  [199.64536  199.64536  199.64536  ... 192.25139  192.25139  192.25139 ]
+  [199.64536  199.64536  199.64536  ... 192.25139  192.25139  192.25139 ]
+  [199.64536  199.64536  199.64536  ... 192.25139  192.25139  192.25139 ]]]
+debug: [[-4.5572710e-04 -4.3861446e-04 -4.5882407e-04 -4.2530583e-04
+  -2.3561921e-04 -1.8307391e-04 -2.1577370e-04 -2.4875914e-04]
+ [-3.2778599e-04 -3.2925059e-04 -4.0388282e-04 -3.6763193e-04
+  -2.2918431e-04 -3.0818315e-05  2.5734201e-04  4.0965856e-04]
+ [-2.7179485e-04 -1.9598383e-04 -2.9161503e-04 -2.8335233e-04
+  -8.5495391e-05  4.3638458e-04  1.4578342e-03  1.6817102e-03]
+ [-3.4857276e-04 -3.0489019e-04 -3.0243822e-04 -2.6661836e-04
+  -4.2020682e-05  5.9400086e-04  1.5049810e-03  1.8665064e-03]
+ [-3.8298746e-04 -3.5809795e-04 -2.3345387e-04 -1.1797506e-04
+   2.4506485e-04  6.7428412e-04  1.2231462e-03  1.3590633e-03]
+ [-3.7537937e-04 -3.6629205e-04 -2.3676424e-04 -1.6926501e-04
+   1.9024723e-04  7.3618355e-04  1.2707355e-03  1.1156379e-03]
+ [-2.2746511e-04 -1.0329007e-04 -5.5466662e-05 -2.6952601e-05
+  -1.3822398e-06  6.9392365e-05  6.8484223e-04  7.0742721e-04]
+ [-1.6949771e-04  6.2776213e-05  2.2036901e-04 -1.1307705e-04
+  -9.6689531e-05 -1.9731701e-04  8.8168694e-05  1.4605952e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 15.650322399218567
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_kodakdcs330_sub_01 : TP ( 1 , 1 )
+[[[ 0.33961916  0.33961916  0.33961916 ... 23.036106   23.036106
+   23.036106  ]
+  [ 0.33961916  0.33961916  0.33961916 ... 23.036106   23.036106
+   23.036106  ]
+  [ 0.33961916  0.33961916  0.33961916 ... 23.036106   23.036106
+   23.036106  ]
+  ...
+  [31.72806    31.72806    31.72806    ... 66.33264    66.33264
+   66.33264   ]
+  [31.72806    31.72806    31.72806    ... 66.33264    66.33264
+   66.33264   ]
+  [31.72806    31.72806    31.72806    ... 66.33264    66.33264
+   66.33264   ]]]
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_01_edgemask_3.jpg
+debug: [[-4.87629877e-04 -4.81936499e-04 -2.30898222e-04  7.16976501e-05
+  -1.44768192e-05 -1.50403039e-05 -4.75222769e-05 -1.99734801e-04]
+ [-1.74317291e-04 -2.07044723e-04 -2.12841158e-04 -1.24944883e-04
+  -1.45983038e-04 -1.50517604e-04 -2.83770205e-04 -1.97378205e-04]
+ [-9.93524850e-07 -9.66321240e-05 -1.78815942e-04 -4.63369361e-05
+  -4.83626536e-05 -7.58957103e-05 -1.10914239e-04  6.63947358e-05]
+ [ 2.02292737e-04  1.02098726e-04  2.32062303e-04 -3.07725495e-05
+   4.16657622e-06 -1.49119369e-04 -5.52109195e-05  1.50639462e-04]
+ [ 2.02873882e-04  2.20262111e-04  3.62542458e-04  2.93495104e-04
+   1.94811699e-04 -5.13121704e-05 -1.56795682e-06  7.42489792e-05]
+ [ 1.36494593e-04  1.24533748e-04  2.73200101e-04  3.69563757e-04
+   2.75827304e-04  1.55539572e-04 -6.92174654e-05 -1.77800641e-04]
+ [ 1.83538396e-05  5.74876708e-07  2.69832875e-04  7.31370412e-04
+   6.78205921e-04  4.11740650e-04 -1.53019777e-04 -1.90147111e-04]
+ [ 8.14081650e-05  5.99070045e-05  3.29249306e-04  5.94791491e-04
+   5.94486133e-04  4.08120337e-04 -9.53191411e-05 -2.19581387e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.034482673276216
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canong3_canonxt_sub_19 : FN ( 0 , 1 )
+[[[  0.         0.         0.       ...  60.224144  60.224144  60.224144]
+  [  0.         0.         0.       ...  60.224144  60.224144  60.224144]
+  [  0.         0.         0.       ...  60.224144  60.224144  60.224144]
+  ...
+  [119.03582  119.03582  119.03582  ...  56.072475  56.072475  56.072475]
+  [119.03582  119.03582  119.03582  ...  56.072475  56.072475  56.072475]
+  [119.03582  119.03582  119.03582  ...  56.072475  56.072475  56.072475]]]
+debug: [[-1.53903136e-04 -1.04004219e-04 -3.76568241e-05 -9.86706800e-05
+  -1.60108917e-04 -4.00360441e-04 -6.63698738e-05 -8.12505459e-05]
+ [ 8.12647954e-07  1.27882831e-05 -2.78215502e-05 -4.96673965e-06
+   2.37339234e-04  1.49236614e-04  4.24937985e-04  4.08758235e-04]
+ [-1.05070458e-05  1.12185844e-04  2.65334616e-04  2.48988305e-04
+   3.32340016e-04  4.53435874e-04  3.96881456e-04  3.30043607e-04]
+ [ 4.27267689e-04  7.24295794e-04  6.82951300e-04  3.41987965e-04
+   4.29658772e-04  8.32247606e-04  7.73532956e-04  5.72828692e-04]
+ [ 4.32090310e-04  7.87260709e-04  7.16588052e-04  2.72218371e-04
+   2.26983058e-04  6.96139876e-04  7.50930223e-04  6.07384602e-04]
+ [ 2.74074380e-04  7.02649180e-04  4.56329784e-04  7.60362018e-05
+  -1.01450692e-04  1.75297188e-04  3.46526125e-04  4.77239344e-04]
+ [ 8.07095130e-05  4.23799996e-04 -1.88437261e-05 -1.17552030e-04
+  -1.65702178e-04  9.69839457e-05  2.88930663e-04  3.99190612e-04]
+ [-1.19525912e-05  7.07464496e-05 -1.13866859e-04 -2.37376211e-04
+  -1.74314642e-04 -1.25605693e-05  1.08802909e-04  2.77333864e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 32.79706758260727
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_08_sub_04 : FP ( 1 , 0 )
+[[[ 50.9867   50.9867   50.9867  ...  66.01695  66.01695  66.01695]
+  [ 50.9867   50.9867   50.9867  ...  66.01695  66.01695  66.01695]
+  [ 50.9867   50.9867   50.9867  ...  66.01695  66.01695  66.01695]
+  ...
+  [ 80.3532   80.3532   80.3532  ... 140.20033 140.20033 140.20033]
+  [ 80.3532   80.3532   80.3532  ... 140.20033 140.20033 140.20033]
+  [ 80.3532   80.3532   80.3532  ... 140.20033 140.20033 140.20033]]]
+debug: [[ 7.13834248e-04  4.99974878e-04  2.67852622e-04 -1.84180790e-05
+  -4.22361654e-06 -6.71895323e-05 -5.03016163e-05  6.95488925e-05]
+ [ 1.04624615e-03  9.05624591e-04  6.94349757e-04  1.11204121e-04
+   3.58918041e-05 -4.47936545e-05  8.19719426e-05  3.21447878e-04]
+ [ 9.60110396e-04  8.53938109e-04  6.00145315e-04  8.05791860e-05
+  -8.30412173e-05 -1.53121509e-04 -1.13943635e-04  3.65580963e-05]
+ [ 5.53435122e-04  6.18480961e-04  6.25441375e-04  2.97093677e-04
+  -1.07586762e-04 -1.14800256e-04 -1.06575737e-06  1.71097461e-04]
+ [ 4.63255739e-04  6.09728100e-04  6.96960778e-04  4.55324160e-04
+  -1.66903716e-04 -2.77398503e-04  9.38263693e-05  2.73220328e-04]
+ [ 5.00084599e-04  7.88059260e-04  6.80547906e-04  3.41812702e-04
+  -3.19436222e-04 -4.12164227e-04 -7.34768910e-05  7.62110358e-05]
+ [ 3.25045665e-04  6.48010988e-04  5.54624188e-04  1.08585053e-04
+  -3.02200177e-04 -3.77755612e-04 -2.57982494e-04 -2.39540735e-04]
+ [-2.11903069e-04 -6.22461375e-05 -7.67565361e-05 -1.91013896e-04
+  -3.93202674e-04 -4.19870776e-04 -4.40208358e-04 -4.51731845e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 26.46145947650075
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_kodakdcs330_sub_22 : TP ( 1 , 1 )
+[[[198.4137   198.4137   198.4137   ...  88.73734   88.73734   88.73734 ]
+  [198.4137   198.4137   198.4137   ...  88.73734   88.73734   88.73734 ]
+  [198.4137   198.4137   198.4137   ...  88.73734   88.73734   88.73734 ]
+  ...
+  [ 40.825924  40.825924  40.825924 ...   0.         0.         0.      ]
+  [ 40.825924  40.825924  40.825924 ...   0.         0.         0.      ]
+  [ 40.825924  40.825924  40.825924 ...   0.         0.         0.      ]]]
+../../datasets/Columbia/mask_binary/canonxt_kodakdcs330_sub_22_edgemask_3.jpg
+debug: [[-1.23503982e-04  1.01875514e-04  3.91026260e-04  4.56973939e-04
+   4.68205370e-04  4.31351567e-04  3.08607589e-04  1.81100666e-04]
+ [-1.27300242e-04  1.65317470e-05  5.02398238e-04  4.76517976e-04
+   4.80849412e-04  5.50331722e-04  4.79564071e-04  3.20838182e-04]
+ [-2.16548244e-04 -2.42737733e-04  4.27835534e-04  4.24596277e-04
+   4.65893274e-04  4.60218464e-04  4.78872447e-04  4.43535071e-04]
+ [-8.44159076e-05 -1.59478368e-04  5.97754493e-04  5.21493668e-04
+   5.57176769e-04  4.94884676e-04  4.09629836e-04  3.60153266e-04]
+ [ 2.70910969e-04  1.92948704e-04  6.41089107e-04  5.53862483e-04
+   5.42446156e-04  4.69345541e-04  5.12886967e-04  5.08927333e-04]
+ [ 4.42256714e-04  4.25999402e-04  5.60487038e-04  4.89074446e-04
+   5.75960206e-04  5.36723936e-04  6.75185409e-04  6.77287695e-04]
+ [ 4.02228441e-04  3.75193253e-04  5.90073643e-04  4.78785747e-04
+   5.11692837e-04  4.81836352e-04  6.40429265e-04  5.30803052e-04]
+ [ 4.55308968e-04  4.51394997e-04  5.95231366e-04  5.54699101e-04
+   6.04411587e-04  5.66153263e-04  6.00175757e-04  4.43499419e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 45.37565541639924
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_02_sub_02 : TN ( 0 , 0 )
+[[[ 33.047573  33.047573  33.047573 ... 117.4737   117.4737   117.4737  ]
+  [ 33.047573  33.047573  33.047573 ... 117.4737   117.4737   117.4737  ]
+  [ 33.047573  33.047573  33.047573 ... 117.4737   117.4737   117.4737  ]
+  ...
+  [193.47499  193.47499  193.47499  ... 190.20177  190.20177  190.20177 ]
+  [193.47499  193.47499  193.47499  ... 190.20177  190.20177  190.20177 ]
+  [193.47499  193.47499  193.47499  ... 190.20177  190.20177  190.20177 ]]]
+debug: [[ 3.75165226e-04  3.89321416e-04  3.55926080e-04  4.29847307e-04
+   4.80286508e-05 -7.61662013e-05 -2.49491859e-04 -4.77859081e-04]
+ [ 3.18644772e-04  3.84092593e-04  6.32631185e-04  6.45332329e-04
+   1.90182749e-04 -3.72359733e-04 -8.57215549e-04 -1.24005834e-03]
+ [ 2.17218767e-04  2.67728377e-04  5.64010988e-04  5.00806433e-04
+   4.01235011e-04 -5.65903611e-04 -1.09888311e-03 -1.28294376e-03]
+ [ 3.92867514e-04  4.79736744e-04  6.85625884e-04  5.65343013e-04
+   3.01276741e-04 -5.42956172e-04 -1.18336151e-03 -1.09161611e-03]
+ [ 4.08132590e-04  4.47697763e-04  5.86778391e-04  2.46605981e-04
+   3.02182831e-04  1.11657944e-04 -3.52815725e-04 -4.09678352e-04]
+ [ 4.68898914e-04  4.57598595e-04  4.51527914e-04  1.65127785e-04
+   2.15181499e-04  2.52187398e-04  1.31676119e-04 -8.93170545e-06]
+ [ 4.22814890e-04  4.43221041e-04  3.86721658e-04  1.47158207e-04
+   3.02502071e-04  3.75395059e-04  4.74268163e-04  2.94182770e-04]
+ [ 5.99305204e-04  5.78381412e-04  4.65046265e-04  2.82652938e-04
+   4.07776999e-04  4.38457209e-04  6.13994664e-04  5.73264377e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 46.47718757018447
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_26_sub_05 : TN ( 0 , 0 )
+[[[214.78429 214.78429 214.78429 ... 104.2872  104.2872  104.2872 ]
+  [214.78429 214.78429 214.78429 ... 104.2872  104.2872  104.2872 ]
+  [214.78429 214.78429 214.78429 ... 104.2872  104.2872  104.2872 ]
+  ...
+  [243.8184  243.8184  243.8184  ... 240.44518 240.44518 240.44518]
+  [243.8184  243.8184  243.8184  ... 240.44518 240.44518 240.44518]
+  [243.8184  243.8184  243.8184  ... 240.44518 240.44518 240.44518]]]
+debug: [[-3.57135752e-04 -3.78348836e-04 -1.37823095e-04 -2.93524117e-05
+  -2.32867224e-05 -1.26014857e-04 -3.80681187e-04 -4.60483629e-04]
+ [-4.46692575e-04 -3.65840038e-04 -5.95021193e-05 -3.90087698e-05
+   7.20059979e-05 -2.53317558e-05 -3.31717514e-04 -3.16985796e-04]
+ [ 1.17985415e-04  2.92516430e-04  4.00016113e-04  1.25816005e-04
+   4.75950830e-04  3.14699835e-04 -2.12554340e-04 -2.46787677e-04]
+ [ 6.83314109e-04  9.30050621e-04  1.13074353e-03  3.60867183e-04
+   2.95120291e-04  3.67124245e-04 -1.12457339e-04 -3.87642685e-05]
+ [ 8.96037614e-04  9.88488900e-04  9.42260202e-04  6.03724970e-04
+   7.69991311e-04  4.74456057e-04  1.16714829e-04  9.72069829e-05]
+ [ 4.09372704e-04  6.45953522e-04  5.08064462e-04  5.96615311e-04
+   8.17911990e-04  8.63524736e-04  4.96210181e-04  2.06888391e-04]
+ [-1.73583045e-04 -1.66573809e-04  1.13740767e-04  2.18196903e-04
+   3.91766458e-04  1.48237334e-04  1.35952214e-04 -4.78041002e-05]
+ [-2.54973711e-04 -2.04128810e-04 -1.67625651e-04 -3.77610268e-05
+   1.29436216e-04  1.05451596e-04  8.29114870e-05 -5.55508122e-05]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 25.514590212143958
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+canonxt_17_sub_06 : FP ( 1 , 0 )
+[[[16.561876 16.561876 16.561876 ...  0.        0.        0.      ]
+  [16.561876 16.561876 16.561876 ...  0.        0.        0.      ]
+  [16.561876 16.561876 16.561876 ...  0.        0.        0.      ]
+  ...
+  [32.93372  32.93372  32.93372  ... 64.891975 64.891975 64.891975]
+  [32.93372  32.93372  32.93372  ... 64.891975 64.891975 64.891975]
+  [32.93372  32.93372  32.93372  ... 64.891975 64.891975 64.891975]]]
+debug: [[-3.9435268e-04 -1.8288819e-04 -2.3841931e-04 -3.0578923e-04
+  -5.2968902e-04 -4.2375753e-04 -4.4576568e-04 -7.2519184e-04]
+ [-3.9558692e-04 -2.0363725e-04 -2.0422241e-04 -1.9727476e-04
+  -3.3730533e-04 -4.2317680e-04 -2.2662907e-04 -3.2855349e-04]
+ [-3.5176912e-04 -1.3927685e-04  5.0759601e-05  2.6760885e-04
+   2.8668789e-04 -6.4946988e-05 -3.0069446e-04 -4.3453922e-04]
+ [ 2.4970112e-05  3.5365054e-04  7.7658723e-04  1.3436665e-03
+   1.0126628e-03  3.3219813e-04 -2.3852388e-04 -3.5103204e-04]
+ [ 9.1023961e-05  8.1946055e-04  1.3024691e-03  1.9502919e-03
+   1.6466914e-03  6.6663540e-04 -2.2087498e-04 -3.3201920e-04]
+ [-1.3618130e-04  5.0825602e-04  9.1995182e-04  1.2898651e-03
+   9.9667138e-04  3.1315890e-04 -2.0322652e-04 -3.2934378e-04]
+ [-4.3994334e-04 -2.0384959e-04  7.0316455e-05  1.7890944e-04
+   7.3884781e-05 -1.7239706e-04 -4.0476013e-04 -4.7876668e-04]
+ [-6.0379988e-04 -6.4530852e-04 -6.4880191e-04 -5.4402277e-04
+  -5.9793866e-04 -4.9706968e-04 -5.9677585e-04 -6.8773545e-04]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 17.381088466383517
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_canonxt_sub_17 : TP ( 1 , 1 )
+[[[31.532238  31.532238  31.532238  ...  0.         0.         0.       ]
+  [31.532238  31.532238  31.532238  ...  0.         0.         0.       ]
+  [31.532238  31.532238  31.532238  ...  0.         0.         0.       ]
+  ...
+  [11.569852  11.569852  11.569852  ...  3.5699642  3.5699642  3.5699642]
+  [11.569852  11.569852  11.569852  ...  3.5699642  3.5699642  3.5699642]
+  [11.569852  11.569852  11.569852  ...  3.5699642  3.5699642  3.5699642]]]
+../../datasets/Columbia/mask_binary/nikond70_canonxt_sub_17_edgemask_3.jpg
+debug: [[ 5.2427937e-04  2.6979431e-04  1.9912736e-04  2.9102745e-04
+   7.8741449e-04  5.7881960e-04  4.7152574e-04  6.1214529e-04]
+ [ 4.5452404e-04  3.0943740e-04  1.1982092e-04  2.0201434e-04
+   3.9533948e-04  4.3166763e-04  3.2984043e-04  3.7474962e-04]
+ [ 3.5248708e-04  1.9705233e-04  5.0652259e-05  6.4952546e-06
+   1.2233241e-05  1.7122444e-04  3.4719761e-04  4.1355565e-04]
+ [ 2.2378402e-04 -1.7555817e-06  4.4324152e-06 -2.2141298e-06
+   1.5280670e-05 -3.5118795e-04  1.6086757e-05  2.1892163e-04]
+ [ 3.8818872e-04  4.3248932e-05 -4.6929843e-05 -4.2816257e-04
+  -4.3640341e-04 -9.6624420e-04 -5.6923082e-04 -1.6909785e-04]
+ [ 4.4058345e-04  3.1504506e-04 -6.7649795e-05 -5.1711267e-04
+  -3.3962488e-04 -6.3339621e-04 -4.5115274e-04 -8.4154410e-05]
+ [ 7.8414811e-04  8.4564264e-04 -9.5268460e-06 -2.7185809e-04
+  -1.8778018e-04 -1.7319758e-04 -2.2572713e-04 -1.8233123e-04]
+ [ 7.8477286e-04  9.0370723e-04  2.2292866e-04 -3.9761824e-05
+   1.0049712e-04  1.3920655e-04 -4.4383225e-05  9.3814342e-06]]
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 36.89883516728878
+-MAX: 1.0
+-MIN: 0.0
+CRF Done!
+nikond70_kodakdcs330_sub_24 : FN ( 0 , 1 )
+[[[203.2585  203.2585  203.2585  ... 215.24051 215.24051 215.24051]
+  [203.2585  203.2585  203.2585  ... 215.24051 215.24051 215.24051]
+  [203.2585  203.2585  203.2585  ... 215.24051 215.24051 215.24051]
+  ...
+  [238.78127 238.78127 238.78127 ... 133.04332 133.04332 133.04332]
+  [238.78127 238.78127 238.78127 ... 133.04332 133.04332 133.04332]
+  [238.78127 238.78127 238.78127 ... 133.04332 133.04332 133.04332]]]
+test_acc= tensor(0.8056, device='cuda:0', dtype=torch.float64)
+36
+canonxt_kodakdcs330_sub_28 :iou: 0.5552551903114187 F_measure: 0.7140374052701107
+nikond70_canonxt_sub_17 :iou: 0.3133099774986471 F_measure: 0.4771302782537032
+canong3_canonxt_sub_02 :iou: 0.4756407572449681 F_measure: 0.6446565736405829
+canong3_kodakdcs330_sub_14 :iou: 0.361424812790933 F_measure: 0.5309508235713861
+canong3_canonxt_sub_30 :iou: 0.36880995153035284 F_measure: 0.5388767828843106
+nikond70_kodakdcs330_sub_04 :iou: 0.32753256853976276 F_measure: 0.49344562431343825
+canonxt_kodakdcs330_sub_22 :iou: 0.43078891545169873 F_measure: 0.6021697691384463
+canong3_nikond70_sub_19 :iou: 0.19530909407969307 F_measure: 0.32679261798818293
+nikond70_kodakdcs330_sub_21 :iou: 0.560937902602422 F_measure: 0.7187190491911523
+nikond70_kodakdcs330_sub_01 :iou: 0.2544189129474149 F_measure: 0.4056362835755174
+canong3_kodakdcs330_sub_17 :iou: 0.40798599420914416 F_measure: 0.579531324725012
+nikond70_kodakdcs330_sub_05 :iou: 0.441006946154983 F_measure: 0.6120816382345903
+nikond70_kodakdcs330_sub_19 :iou: 0.24249642686993805 F_measure: 0.39033742331288346
+nikond70_canonxt_sub_29 :iou: 0.25306006262453745 F_measure: 0.40390731485688325
+canong3_nikond70_sub_23 :iou: 0.43505302111515376 F_measure: 0.6063232712852407
+Result IoU: 5.6230305339710664 / 15 = 0.3748687022647378
+Result F_measure: 8.04459618024144 / 15 = 0.536306412016096
+51
+canong3_canonxt_sub_02 :iou: 0.49569676432662607 F_measure: 0.6628305631854361
+canong3_kodakdcs330_sub_17 :iou: 0.6939392485244014 F_measure: 0.8193201133144477
+nikond70_kodakdcs330_sub_04 :iou: 0.48606811145510836 F_measure: 0.6541666666666667
+canonxt_kodakdcs330_sub_28 :iou: 0.7467156105100463 F_measure: 0.8549939166021457
+canong3_kodakdcs330_sub_14 :iou: 0.0018765868197372778 F_measure: 0.00374614367562803
+nikond70_canonxt_sub_29 :iou: 0.26022422232749093 F_measure: 0.41298082946999126
+nikond70_kodakdcs330_sub_21 :iou: 0.7997097242380261 F_measure: 0.8887096774193548
+nikond70_kodakdcs330_sub_19 :iou: 0.4400386847195358 F_measure: 0.6111484217595702
+nikond70_kodakdcs330_sub_01 :iou: 0.490458833619211 F_measure: 0.658131338560023
+canonxt_kodakdcs330_sub_22 :iou: 0.5232856277096639 F_measure: 0.6870485983596523
+canong3_nikond70_sub_23 :iou: 0.5444910200047711 F_measure: 0.7050750220653134
+canong3_nikond70_sub_19 :iou: 0.3012763955061467 F_measure: 0.4630475071192876
+nikond70_kodakdcs330_sub_05 :iou: 0.6065935581764259 F_measure: 0.7551300764145273
+canong3_canonxt_sub_30 :iou: 0.7170664460987042 F_measure: 0.8352227110697197
+nikond70_canonxt_sub_17 :iou: 0.5227996884514622 F_measure: 0.6866296236021668
+Result IoU: 7.630240522487357 / 15 = 0.5086827014991572
+Result F_measure: 9.69818120928393 / 15 = 0.6465454139522621

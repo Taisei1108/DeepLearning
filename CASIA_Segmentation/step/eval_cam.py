@@ -11,6 +11,8 @@ import utils
 #テストデータでどれくらい２値分類できるか、eval_camという名前ややこしいかも
 def run(args):
     #モデルの読み込み 恐らくGPU使う前提
+    torch.manual_seed(0)
+    
     model = getattr(importlib.import_module(args.cam_network), 'Net')()
     model.fc = nn.Linear(2048,args.cam_output_class)
     model.load_state_dict(torch.load(args.cam_weights_name),strict=True)
@@ -37,7 +39,6 @@ def run(args):
         outputs = model(inputs)
         loss = criterion(outputs, labels)
         _, preds = torch.max(outputs, 1)
-
         epoch_loss += loss.item() * inputs.size(0)
         epoch_corrects += torch.sum(preds == labels.data)
 

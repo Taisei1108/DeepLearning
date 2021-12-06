@@ -1,0 +1,465 @@
+とりあえずSAでパラメータ調整していい結果出たので保存
+{'dataset_root': '../../datasets/Columbia/', 'train_list': 'data_manage/train_2.txt', 'val_list': 'data_manage/val_2.txt', 'test_list': 'data_manage/test_2.txt', 'cam_batch_size': 16, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 150, 'cam_affine_degree': 5, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'segmentation_out_dir_SA': 'result/seg/SA/', 'segmentation_out_dir_SA_CRF': 'result/seg/SA_CRF/', 'train_cam_pass': 'False', 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/Columbia/
+train_list data_manage/train_2.txt
+val_list data_manage/val_2.txt
+test_list data_manage/test_2.txt
+cam_batch_size 16
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 150
+cam_affine_degree 5
+cam_scale (1.0, 1.5)
+cam_weights_name sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+segmentation_out_dir_SA result/seg/SA/
+segmentation_out_dir_SA_CRF result/seg/SA_CRF/
+train_cam_pass False
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage/test_2.txt
+36
+36
+test Loss: 0.4275 Acc: 0.7778
+data_manage/test_2.txt
+36
+36
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 24.660920838825405
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_05_sub_09 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 27.41366593632847
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_05_sub_03 : FP ( 1 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 24.387024199590087
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_11_sub_02 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 46.75560875236988
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_canonxt_sub_12 : FN ( 0 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 47.49152993410826
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_05_sub_05 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 41.8979304805398
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_05_sub_05 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 22.918228779919446
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_nikond70_sub_19 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 25.136197892948985
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_kodakdcs330_sub_28 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.20781849254854
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_35_sub_02 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 19.92093039836618
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_kodakdcs330_sub_14 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 32.17832164466381
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_kodakdcs330_sub_17 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 22.207006433978677
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_32_sub_07 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 26.2772685745731
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_canonxt_sub_02 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.453793302178383
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_nikond70_sub_23 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 24.653522193431854
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_19 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 21.899829104542732
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_05 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 35.453679885715246
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_14_sub_07 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 31.199331875890493
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_08_sub_01 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 18.639761986210942
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_21 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 21.76657981541939
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_04 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 46.714232206344604
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_05_sub_06 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.7375103905797
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_canonxt_sub_30 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.456490306882188
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_canonxt_sub_29 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 33.8899872303009
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_26_sub_04 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 31.345199147239327
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_05_sub_01 : FP ( 1 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 39.79560847580433
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_23_sub_01 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 43.105723932385445
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_08_sub_01 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 15.656329493271187
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_01 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 28.029419134836644
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canong3_canonxt_sub_19 : FN ( 0 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 32.810914397239685
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_08_sub_04 : FP ( 1 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 26.463584914803505
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_kodakdcs330_sub_22 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 45.37089531123638
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_02_sub_02 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 46.48359005711973
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_26_sub_05 : TN ( 0 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 25.49193388968706
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+canonxt_17_sub_06 : FP ( 1 , 0 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 17.381701312959194
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_canonxt_sub_17 : TP ( 1 , 1 )
+=== SA_mean ===
+-image_size (8, 8, 1)
+-image_array_size 3
+-SUM: 36.901109367609024
+-MAX: 1.0
+-MIN: 0.0
+(256, 256)
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_24 : FN ( 0 , 1 )
+test_acc= tensor(0.8056, device='cuda:0', dtype=torch.float64)
+36
+canonxt_kodakdcs330_sub_28 :iou: 0.560421385682954 F_measure: 0.718294930875576
+nikond70_canonxt_sub_17 :iou: 0.3168015906831416 F_measure: 0.48116829889123774
+canong3_canonxt_sub_02 :iou: 0.4802200759501241 F_measure: 0.6488495646728482
+canong3_kodakdcs330_sub_14 :iou: 0.3614462709531136 F_measure: 0.5309739776951673
+canong3_canonxt_sub_30 :iou: 0.3676689189189189 F_measure: 0.5376577822789813
+nikond70_kodakdcs330_sub_04 :iou: 0.32673843468140823 F_measure: 0.49254385964912273
+canonxt_kodakdcs330_sub_22 :iou: 0.43087596403192674 F_measure: 0.6022548073528373
+canong3_nikond70_sub_19 :iou: 0.1951974200296348 F_measure: 0.3266362807657247
+nikond70_kodakdcs330_sub_21 :iou: 0.56890118373649 F_measure: 0.7252224545864601
+nikond70_kodakdcs330_sub_01 :iou: 0.2531882145998241 F_measure: 0.40407053250285113
+canong3_kodakdcs330_sub_17 :iou: 0.4074260922207648 F_measure: 0.5789662341386479
+nikond70_kodakdcs330_sub_05 :iou: 0.43925417075564277 F_measure: 0.6103913814264285
+nikond70_kodakdcs330_sub_19 :iou: 0.24265523265046848 F_measure: 0.3905431309904153
+nikond70_canonxt_sub_29 :iou: 0.25331749883822996 F_measure: 0.40423515840645985
+canong3_nikond70_sub_23 :iou: 0.4324040304135501 F_measure: 0.6037459002244087
+Result IoU: 5.636516484146192 / 15 = 0.3757677656097461
+Result F_measure: 8.055554294457167 / 15 = 0.5370369529638112
+51
+canong3_canonxt_sub_02 :iou: 0.49519187561786643 F_measure: 0.6623790346817335
+canong3_kodakdcs330_sub_17 :iou: 0.6907275593560407 F_measure: 0.8170773056057867
+nikond70_kodakdcs330_sub_04 :iou: 0.4833247819394561 F_measure: 0.6516776202006226
+canonxt_kodakdcs330_sub_28 :iou: 0.7427189116689021 F_measure: 0.8523679942827299
+canong3_kodakdcs330_sub_14 :iou: 0.001821393089745005 F_measure: 0.003636163296788056
+nikond70_canonxt_sub_29 :iou: 0.2565773379295007 F_measure: 0.4083749247814237
+nikond70_kodakdcs330_sub_21 :iou: 0.8016249153689912 F_measure: 0.88989101841413
+nikond70_kodakdcs330_sub_19 :iou: 0.44027589763424224 F_measure: 0.6113771651076401
+nikond70_kodakdcs330_sub_01 :iou: 0.4903536977491961 F_measure: 0.6580366774541532
+canonxt_kodakdcs330_sub_22 :iou: 0.5233566433566433 F_measure: 0.6871098053617334
+canong3_nikond70_sub_23 :iou: 0.5437682935130352 F_measure: 0.7044687934037345
+canong3_nikond70_sub_19 :iou: 0.30158170165226084 F_measure: 0.46340802312974344
+nikond70_kodakdcs330_sub_05 :iou: 0.6034305317324186 F_measure: 0.7526743688489517
+canong3_canonxt_sub_30 :iou: 0.7173026025584472 F_measure: 0.8353828864986355
+nikond70_canonxt_sub_17 :iou: 0.5218528071229198 F_measure: 0.6858124579202749
+Result IoU: 7.613908950289665 / 15 = 0.507593930019311
+Result F_measure: 9.68367423898808 / 15 = 0.6455782825992054
+36
+nikond70_kodakdcs330_sub_01 :iou: 0.3799703019303745 F_measure: 0.5506934481109517
+nikond70_kodakdcs330_sub_21 :iou: 0.5818528753783393 F_measure: 0.7356599143130487
+canong3_canonxt_sub_30 :iou: 0.3886056239123134 F_measure: 0.5597062509619402
+nikond70_canonxt_sub_17 :iou: 0.2269512048914998 F_measure: 0.36994332616767645
+nikond70_canonxt_sub_29 :iou: 0.3069831971635579 F_measure: 0.4697584449896207
+nikond70_kodakdcs330_sub_05 :iou: 0.503062658050014 F_measure: 0.6693834822596927
+canonxt_kodakdcs330_sub_22 :iou: 0.601413633548293 F_measure: 0.7511034263093234
+canong3_kodakdcs330_sub_17 :iou: 0.4111623001776199 F_measure: 0.5827285778905343
+nikond70_kodakdcs330_sub_19 :iou: 0.3845358775591334 F_measure: 0.5554726082462386
+nikond70_kodakdcs330_sub_04 :iou: 0.32320710223331944 F_measure: 0.4885208093091519
+canong3_canonxt_sub_02 :iou: 0.41306803082646826 F_measure: 0.5846399774324736
+canong3_kodakdcs330_sub_14 :iou: 0.44484778483623466 F_measure: 0.6157711414377891
+canonxt_kodakdcs330_sub_28 :iou: 0.6466293300145198 F_measure: 0.7853975612214048
+canong3_nikond70_sub_23 :iou: 0.2941852030947776 F_measure: 0.4546261267572743
+canong3_nikond70_sub_19 :iou: 0.33994103893463457 F_measure: 0.5073970108489493
+Result IoU: 6.2464161625511 / 15 = 0.41642774417007333
+Result F_measure: 8.680802106256069 / 15 = 0.5787201404170712
+36
+canong3_canonxt_sub_30 :iou: 0.6195549727492521 F_measure: 0.7650928596730935
+nikond70_kodakdcs330_sub_04 :iou: 0.4239367853012977 F_measure: 0.5954432664110084
+nikond70_kodakdcs330_sub_05 :iou: 0.6926005234356412 F_measure: 0.818386280573517
+canong3_nikond70_sub_23 :iou: 0.38782521561750705 F_measure: 0.558896338318721
+canong3_kodakdcs330_sub_17 :iou: 0.43281227173119063 F_measure: 0.6041437252742771
+canong3_canonxt_sub_02 :iou: 0.7186337835192798 F_measure: 0.8362849496042366
+canonxt_kodakdcs330_sub_22 :iou: 0.6339381743746314 F_measure: 0.7759634780762289
+nikond70_kodakdcs330_sub_19 :iou: 0.46616405579883524 F_measure: 0.6358961726760476
+nikond70_canonxt_sub_29 :iou: 0.3289743339514004 F_measure: 0.4950800411220444
+canong3_nikond70_sub_19 :iou: 0.45784501006763384 F_measure: 0.6281120515635513
+canonxt_kodakdcs330_sub_28 :iou: 0.721813611395587 F_measure: 0.8384340867308316
+nikond70_kodakdcs330_sub_01 :iou: 0.6565495207667732 F_measure: 0.7926711668273867
+nikond70_canonxt_sub_17 :iou: 0.12849872773536897 F_measure: 0.22773393461104846
+canong3_kodakdcs330_sub_14 :iou: 0.3743131868131868 F_measure: 0.544727636181909
+nikond70_kodakdcs330_sub_21 :iou: 0.803510813694113 F_measure: 0.891051839105184
+Result IoU: 7.846970986951698 / 15 = 0.5231313991301132
+Result F_measure: 10.007917826749086 / 15 = 0.6671945217832724
