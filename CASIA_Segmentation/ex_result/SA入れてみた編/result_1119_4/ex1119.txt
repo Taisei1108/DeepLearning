@@ -1,0 +1,569 @@
+self-Attentionを入れて効果を実感したので、CRFに閾値処理入れる前のCAMを渡してみると見せかけて、うまくいかなかったので原因を探すとそもそもCRFに渡す原画像が正規化されてたので正規化抜きでやった結果
+{'dataset_root': '../../datasets/Columbia/', 'train_list': 'data_manage/train.txt', 'val_list': 'data_manage/val.txt', 'test_list': 'data_manage/test.txt', 'cam_batch_size': 16, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 150, 'cam_affine_degree': 10, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'ex_result/result_1119_3/sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'train_cam_pass': 'False', 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/Columbia/
+train_list data_manage/train.txt
+val_list data_manage/val.txt
+test_list data_manage/test.txt
+cam_batch_size 16
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 150
+cam_affine_degree 10
+cam_scale (1.0, 1.5)
+cam_weights_name ex_result/result_1119_3/sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+train_cam_pass False
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage/test.txt
+36
+36
+test Loss: 0.3446 Acc: 0.7778
+data_manage/test.txt
+36
+36
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2428620
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8889603.0
+-MAX: 215.0
+-MIN: 11.0
+CRF Done!
+canong3_05_sub_04 : FP ( 1 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7697430
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7128543.0
+-MAX: 252.0
+-MIN: 3.0
+CRF Done!
+nikond70_02_sub_04 : FP ( 1 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5978475
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 9047810.0
+-MAX: 202.0
+-MIN: 16.0
+CRF Done!
+canong3_02_sub_04 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6440025
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7582177.0
+-MAX: 240.0
+-MIN: 2.0
+CRF Done!
+canonxt_kodakdcs330_sub_29 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4575975
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8362154.0
+-MAX: 252.0
+-MIN: 2.0
+CRF Done!
+canong3_nikond70_sub_19 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 3799245
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 3624537.0
+-MAX: 134.0
+-MIN: 2.0
+CRF Done!
+nikond70_08_sub_09 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4737645
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2209262.0
+-MAX: 248.0
+-MIN: 0.0
+CRF Done!
+canong3_canonxt_sub_30 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4760595
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8580390.0
+-MAX: 193.0
+-MIN: 0.0
+CRF Done!
+canong3_08_sub_02 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 3149760
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6401965.0
+-MAX: 250.0
+-MIN: 6.0
+CRF Done!
+nikond70_kodakdcs330_sub_19 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5117085
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4869398.0
+-MAX: 228.0
+-MIN: 0.0
+CRF Done!
+canonxt_20_sub_08 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 3387675
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5606351.0
+-MAX: 183.0
+-MIN: 0.0
+CRF Done!
+nikond70_canonxt_sub_18 : FN ( 0 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6330630
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6200904.0
+-MAX: 177.0
+-MIN: 0.0
+CRF Done!
+nikond70_canonxt_sub_20 : FN ( 0 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5147175
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5659159.0
+-MAX: 255.0
+-MIN: 0.0
+CRF Done!
+nikond70_canonxt_sub_15 : FN ( 0 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 3865545
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2726883.0
+-MAX: 150.0
+-MIN: 0.0
+CRF Done!
+canonxt_38_sub_01 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5520240
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6959012.0
+-MAX: 244.0
+-MIN: 5.0
+CRF Done!
+canong3_kodakdcs330_sub_20 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6924270
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5573336.0
+-MAX: 217.0
+-MIN: 0.0
+CRF Done!
+canonxt_kodakdcs330_sub_26 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4847295
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5549318.0
+-MAX: 223.0
+-MIN: 0.0
+CRF Done!
+canonxt_02_sub_07 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2685660
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7073483.0
+-MAX: 255.0
+-MIN: 0.0
+CRF Done!
+canonxt_11_sub_05 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5381265
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8098478.0
+-MAX: 215.0
+-MIN: 2.0
+CRF Done!
+canong3_canonxt_sub_04 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2786130
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 12251707.0
+-MAX: 211.0
+-MIN: 152.0
+CRF Done!
+canong3_05_sub_07 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 3640380
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7341802.0
+-MAX: 255.0
+-MIN: 5.0
+CRF Done!
+canong3_kodakdcs330_sub_21 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4161090
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5120531.0
+-MAX: 214.0
+-MIN: 1.0
+CRF Done!
+nikond70_kodakdcs330_sub_07 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 3840555
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5433592.0
+-MAX: 241.0
+-MIN: 4.0
+CRF Done!
+canonxt_kodakdcs330_sub_20 : FN ( 0 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2843760
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6910212.0
+-MAX: 182.0
+-MIN: 0.0
+CRF Done!
+canonxt_11_sub_08 : FP ( 1 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6601950
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2998389.0
+-MAX: 234.0
+-MIN: 0.0
+CRF Done!
+nikond70_kodakdcs330_sub_14 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2784090
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7337581.0
+-MAX: 255.0
+-MIN: 1.0
+CRF Done!
+canonxt_20_sub_06 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5521515
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8783233.0
+-MAX: 198.0
+-MIN: 2.0
+CRF Done!
+canong3_nikond70_sub_13 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4856220
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8455482.0
+-MAX: 244.0
+-MIN: 8.0
+CRF Done!
+canong3_kodakdcs330_sub_24 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4137630
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8548174.0
+-MAX: 180.0
+-MIN: 17.0
+CRF Done!
+canong3_05_sub_02 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4301340
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6802905.0
+-MAX: 222.0
+-MIN: 10.0
+CRF Done!
+canong3_canonxt_sub_22 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8352015
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 8554529.0
+-MAX: 241.0
+-MIN: 0.0
+CRF Done!
+canonxt_08_sub_04 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4254420
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7450567.0
+-MAX: 203.0
+-MIN: 0.0
+CRF Done!
+canonxt_02_sub_08 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 1159230
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 4158160.0
+-MAX: 226.0
+-MIN: 0.0
+CRF Done!
+nikond70_canonxt_sub_24 : TP ( 1 , 1 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 7536015
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 12019017.0
+-MAX: 255.0
+-MIN: 3.0
+CRF Done!
+canonxt_26_sub_03 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 1719720
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 5165924.0
+-MAX: 166.0
+-MIN: 0.0
+CRF Done!
+canonxt_23_sub_05 : TN ( 0 , 0 )
+=== CAMbinary ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 2699685
+-MAX: 255
+-MIN: 0
+=== img ===
+-image_size (256, 256, 3)
+-image_array_size 3
+-SUM: 6994513.0
+-MAX: 203.0
+-MIN: 0.0
+CRF Done!
+canonxt_02_sub_05 : FP ( 1 , 0 )
+test_acc= tensor(0.7778, device='cuda:0', dtype=torch.float64)
+38
+canonxt_kodakdcs330_sub_29 :iou: 0.5522972016246227 F_measure: 0.7115869319954873
+canong3_canonxt_sub_22 :iou: 0.20847859433830707 F_measure: 0.34502654050311565
+canonxt_kodakdcs330_sub_26 :iou: 0.5939958143898391 F_measure: 0.7452915610286128
+canong3_kodakdcs330_sub_24 :iou: 0.5572969329288844 F_measure: 0.7157234065577319
+nikond70_canonxt_sub_24 :iou: 0.048705862895890184 F_measure: 0.09288755716763916
+canong3_canonxt_sub_30 :iou: 0.31087624903920064 F_measure: 0.4743029698906447
+canong3_nikond70_sub_19 :iou: 0.18947136563876651 F_measure: 0.3185807933039517
+canong3_canonxt_sub_04 :iou: 0.2875635691169672 F_measure: 0.44667863554757625
+nikond70_kodakdcs330_sub_14 :iou: 0.18513831665685698 F_measure: 0.3124332646321174
+canong3_nikond70_sub_13 :iou: 0.15651858567543064 F_measure: 0.27067197641967955
+nikond70_kodakdcs330_sub_07 :iou: 0.47726437063365607 F_measure: 0.6461461876711192
+canong3_kodakdcs330_sub_21 :iou: 0.4868910891089109 F_measure: 0.6549115704240358
+canong3_kodakdcs330_sub_20 :iou: 0.4282073348338409 F_measure: 0.5996430971749056
+nikond70_kodakdcs330_sub_19 :iou: 0.10398133294443634 F_measure: 0.18837516512549538
+Result IoU: 4.586686619825611 / 14 = 0.3276204728446865
+Result F_measure: 6.522259657442113 / 14 = 0.4658756898172938
+38
+canong3_kodakdcs330_sub_24 :iou: 0.72879631872124 F_measure: 0.8431257179681153
+canong3_nikond70_sub_13 :iou: 0.18799175327134263 F_measure: 0.31648663006906325
+canong3_kodakdcs330_sub_21 :iou: 0.4983981331329352 F_measure: 0.6652412628022384
+canong3_kodakdcs330_sub_20 :iou: 0.4912753582068379 F_measure: 0.6588660578386605
+nikond70_kodakdcs330_sub_19 :iou: 0.026704953338119168 F_measure: 0.05202069640609706
+nikond70_canonxt_sub_24 :iou: 0 F_measure: 0
+canong3_nikond70_sub_19 :iou: 0.2535825912602465 F_measure: 0.40457261137507644
+canong3_canonxt_sub_04 :iou: 0.3415154749199573 F_measure: 0.5091487669053302
+nikond70_kodakdcs330_sub_07 :iou: 0.7702127659574468 F_measure: 0.8701923076923076
+canong3_canonxt_sub_22 :iou: 0.2186651484628186 F_measure: 0.35886009990297196
+canong3_canonxt_sub_30 :iou: 0.4457731731511077 F_measure: 0.6166571374118544
+nikond70_kodakdcs330_sub_14 :iou: 0.21114029402735615 F_measure: 0.34866364378854875
+canonxt_kodakdcs330_sub_26 :iou: 0.6370176095916074 F_measure: 0.7782660441270713
+canonxt_kodakdcs330_sub_29 :iou: 0.7060827692727025 F_measure: 0.8277239322611567
+Result IoU: 5.517156343313718 / 14 = 0.39408259595097983
+Result F_measure: 7.249824908548492 / 14 = 0.5178446363248923

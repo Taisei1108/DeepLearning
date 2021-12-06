@@ -2,14 +2,14 @@ import argparse
 import os
 import mlflow
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '4,5'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2,3'
 
 #../../datasets/Columbia/data/
 #python run.py --dataset_root ../../datasets/Columbia/ --cam_num_epochs 100
 #pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 if __name__ == '__main__':
 
-    print("self-Attentionを入れて効果を実感したので、CRFに閾値処理入れる前のCAMを渡してみる")#実験メモを書く
+    print("SAの可視化編、SAの特徴マップが見たいSA(2048)layer3のあとにも入れてみた(精度がどうなるか)(SAの可視化はCAMのようにやって正規化を頑張った。)")#実験メモを書く
 
     parser = argparse.ArgumentParser()
 
@@ -25,12 +25,12 @@ if __name__ == '__main__':
     #train_cam
     parser.add_argument('--cam_batch-size', type=int, default=16)
     parser.add_argument('--cam_network', type=str, default='resnet50_cam')
-    parser.add_argument('--cam_crop_size', type=int, default=256)
+    parser.add_argument('--cam_crop_size', type=int, default=256)#元々256
     parser.add_argument('--cam_output_class', type=int, default=2)
     parser.add_argument('--cam_learning_rate', type=float, default=1e-5)  
     parser.add_argument('--cam_momentum', type=int, default=0.99, metavar='M')
     parser.add_argument('--cam_num_epochs', type=int, default=150)                                                                                     
-    parser.add_argument('--cam_affine_degree', type=int, default=10)     
+    parser.add_argument('--cam_affine_degree', type=int, default=5)     
     parser.add_argument('--cam_scale', default=(1.0,1.5),
                     help='マルチスケールに対応')       
     
@@ -40,6 +40,8 @@ if __name__ == '__main__':
     parser.add_argument("--cam_out_dir", default="result/cam/", type=str)
     parser.add_argument("--segmentation_out_dir_CAM", default="result/seg/CAM/", type=str)
     parser.add_argument("--segmentation_out_dir_CRF", default="result/seg/CRF/", type=str)
+    parser.add_argument("--segmentation_out_dir_SA", default="result/seg/SA/", type=str)
+    parser.add_argument("--segmentation_out_dir_SA_CRF", default="result/seg/SA_CRF/", type=str)
     # Step
     parser.add_argument("--train_cam_pass", default=True)
     parser.add_argument("--eval_cam_pass", default=True)
@@ -51,6 +53,8 @@ if __name__ == '__main__':
     os.makedirs(args.cam_out_dir, exist_ok=True)
     os.makedirs(args.segmentation_out_dir_CAM, exist_ok=True)
     os.makedirs(args.segmentation_out_dir_CRF, exist_ok=True)
+    os.makedirs(args.segmentation_out_dir_SA, exist_ok=True)
+    os.makedirs(args.segmentation_out_dir_SA_CRF, exist_ok=True)
     print(vars(args))
     with mlflow.start_run():
         for key, value in vars(args).items():
@@ -71,3 +75,9 @@ if __name__ == '__main__':
         if args.eval_seg_pass is True:
             import step.eval_seg
             step.eval_seg.run(args,args.segmentation_out_dir_CRF)
+        if args.eval_seg_pass is True:
+            import step.eval_seg
+            step.eval_seg.run(args,args.segmentation_out_dir_SA)
+        if args.eval_seg_pass is True:
+            import step.eval_seg
+            step.eval_seg.run(args,args.segmentation_out_dir_SA_CRF)

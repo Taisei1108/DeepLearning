@@ -25,3 +25,25 @@ cams = [
 
 print(config)
 print(cams)
+
+import numpy as np
+def normalize(v, axis=None, order=2):
+    l2 = np.linalg.norm(v, ord = order, axis=axis, keepdims=True)
+    l2[l2==0] = 1
+    return v/l2
+def min_max(x, axis=None):
+    min = x.min(axis=axis, keepdims=True)
+    max = x.max(axis=axis, keepdims=True)
+    result = (x-min)/(max-min)
+    return result
+
+a = np.array([[-1,-2,-3],[1,2,3]])
+#a = np.array([1,2,3,4])
+print(a.shape)
+b = min_max(a)
+
+print(b)
+print(b.shape)
+
+from sklearn import preprocessing
+print(preprocessing.minmax_scale(a))

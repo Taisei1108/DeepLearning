@@ -1,0 +1,462 @@
+CRFに閾値前の値渡すの無理だった・・・・、データセットの分け方を変えて実験していくフェーズ、0.6を超えるまでtrainとかを変えていく
+SAのoutputしていみたら値が-0.00N　~ 2とかだった。(多分１チャネル目)　貴重だなと思ったのでメモ
+このあとSAの最後の+ inputを消して実験するため結果とパスを退避
+{'dataset_root': '../../datasets/Columbia/', 'train_list': 'data_manage/train_2.txt', 'val_list': 'data_manage/val_2.txt', 'test_list': 'data_manage/test_2.txt', 'cam_batch_size': 16, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 150, 'cam_affine_degree': 5, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'train_cam_pass': 'False', 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/Columbia/
+train_list data_manage/train_2.txt
+val_list data_manage/val_2.txt
+test_list data_manage/test_2.txt
+cam_batch_size 16
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 150
+cam_affine_degree 5
+cam_scale (1.0, 1.5)
+cam_weights_name sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+train_cam_pass False
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage/test_2.txt
+36
+36
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([2, 2048, 64])
+SA?debug: torch.Size([2, 2048, 64])
+test Loss: 0.4275 Acc: 0.7778
+data_manage/test_2.txt
+36
+36
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 9.805513743427582
+-MAX: 0.86558616
+-MIN: -0.00086878677
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 17.492950505227782
+-MAX: 1.8694776
+-MIN: -0.001521771
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 8.520343834999949
+-MAX: 0.930373
+-MIN: -0.0023880273
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 18.119991807493534
+-MAX: 2.470549
+-MIN: -0.00094596314
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 33.33883384539513
+-MAX: 3.5747068
+-MIN: -0.0016779305
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 27.007874930626713
+-MAX: 1.7188685
+-MIN: -0.0015744593
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 46.748682109086076
+-MAX: 3.8237832
+-MIN: -0.0016253188
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 29.448181083284226
+-MAX: 1.8046517
+-MIN: -0.0014255142
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 16.641226149062277
+-MAX: 1.2567207
+-MIN: -0.00075563445
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 6.916503258922603
+-MAX: 0.46023303
+-MIN: -0.0021540977
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 30.71594103903044
+-MAX: 2.9272983
+-MIN: -0.0014816853
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 6.101917462277925
+-MAX: 0.77073157
+-MIN: -0.0006758828
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 34.04424057298456
+-MAX: 2.6989064
+-MIN: -0.0010047683
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 52.86066244461108
+-MAX: 4.4771
+-MIN: -0.0017825018
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 12.660318796421052
+-MAX: 1.5947864
+-MIN: -0.0019983966
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 21.87093185061167
+-MAX: 2.2112565
+-MIN: -0.0016528226
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_05_sub_09 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_05_sub_03 : FP ( 1 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_11_sub_02 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_canonxt_sub_12 : FN ( 0 , 1 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_05_sub_05 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_05_sub_05 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_nikond70_sub_19 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canong3_nikond70_sub_19_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_kodakdcs330_sub_28 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canonxt_kodakdcs330_sub_28_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_35_sub_02 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_kodakdcs330_sub_14 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canong3_kodakdcs330_sub_14_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_kodakdcs330_sub_17 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canong3_kodakdcs330_sub_17_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_32_sub_07 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_canonxt_sub_02 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canong3_canonxt_sub_02_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_nikond70_sub_23 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canong3_nikond70_sub_23_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_kodakdcs330_sub_19 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_19_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_kodakdcs330_sub_05 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_05_edgemask_3.jpg
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+SA?debug: torch.Size([8, 2048, 64])
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 2.753897987684468
+-MAX: 0.78713274
+-MIN: -0.0012611409
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 2.100526612251997
+-MAX: 0.28847277
+-MIN: -0.0015200335
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 4.438297689630417
+-MAX: 0.7817462
+-MIN: -0.0027934825
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 70.92807166220155
+-MAX: 4.9735527
+-MIN: -0.001447919
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 29.996234697842738
+-MAX: 4.97814
+-MIN: -0.0018349309
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 6.55700032308232
+-MAX: 0.39547762
+-MIN: -0.0014285619
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 10.33221189408323
+-MAX: 1.9317559
+-MIN: -0.002278839
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 28.26507451912039
+-MAX: 2.106127
+-MIN: -0.00083052926
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 54.596575672214385
+-MAX: 3.1674984
+-MIN: -0.00138614
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 17.53455701423809
+-MAX: 1.5374802
+-MIN: -0.001436787
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 16.904039780856692
+-MAX: 1.775959
+-MIN: -0.0010078496
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 19.978138802427566
+-MAX: 1.4016564
+-MIN: -0.0013931761
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 10.607182375533739
+-MAX: 1.6522697
+-MIN: -0.0016732048
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 14.198584629048128
+-MAX: 1.3848549
+-MIN: -0.0014064633
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 35.861174149249564
+-MAX: 3.7803814
+-MIN: -0.0015137842
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 18.815855305205332
+-MAX: 2.8380072
+-MIN: -0.0015358953
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_14_sub_07 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_08_sub_01 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_kodakdcs330_sub_21 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_21_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_kodakdcs330_sub_04 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_04_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_05_sub_06 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_canonxt_sub_30 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canong3_canonxt_sub_30_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_canonxt_sub_29 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/nikond70_canonxt_sub_29_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_26_sub_04 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_05_sub_01 : FP ( 1 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_23_sub_01 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_08_sub_01 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_kodakdcs330_sub_01 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/nikond70_kodakdcs330_sub_01_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canong3_canonxt_sub_19 : FN ( 0 , 1 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_08_sub_04 : FP ( 1 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_kodakdcs330_sub_22 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/canonxt_kodakdcs330_sub_22_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_02_sub_02 : TN ( 0 , 0 )
+SA?debug: torch.Size([2, 2048, 64])
+SA?debug: torch.Size([2, 2048, 64])
+SA?debug: torch.Size([2, 2048, 64])
+SA?debug: torch.Size([2, 2048, 64])
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 16.70315078861313
+-MAX: 1.4017771
+-MIN: -0.0017624203
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 29.993568669625347
+-MAX: 2.5635982
+-MIN: -0.0014307828
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 12.979975449205085
+-MAX: 1.9593458
+-MIN: -0.0017771408
+=== SA ===
+-image_size (8, 8, 2048)
+-image_array_size 3
+-SUM: 34.307046602189075
+-MAX: 2.8273606
+-MIN: -0.0019304118
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_26_sub_05 : TN ( 0 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+canonxt_17_sub_06 : FP ( 1 , 0 )
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_canonxt_sub_17 : TP ( 1 , 1 )
+../../datasets/Columbia/mask_binary/nikond70_canonxt_sub_17_edgemask_3.jpg
+SA?debug: torch.Size([1, 2048, 64])
+SA?debug: torch.Size([1, 2048, 64])
+CRF Done!
+nikond70_kodakdcs330_sub_24 : FN ( 0 , 1 )
+test_acc= tensor(0.8056, device='cuda:0', dtype=torch.float64)
+36
+canonxt_kodakdcs330_sub_28 :iou: 0.5556557495310922 F_measure: 0.714368522339957
+nikond70_canonxt_sub_17 :iou: 0.31329591749522806 F_measure: 0.4771139745759035
+canong3_canonxt_sub_02 :iou: 0.4757859471747779 F_measure: 0.6447899142631291
+canong3_kodakdcs330_sub_14 :iou: 0.36108637577916297 F_measure: 0.5305855413804382
+canong3_canonxt_sub_30 :iou: 0.36881716784757773 F_measure: 0.5388844858331683
+nikond70_kodakdcs330_sub_04 :iou: 0.32746889580093314 F_measure: 0.49337336164604234
+canonxt_kodakdcs330_sub_22 :iou: 0.43083243534482757 F_measure: 0.6022122852435867
+canong3_nikond70_sub_19 :iou: 0.19516234473741556 F_measure: 0.32658717135251436
+nikond70_kodakdcs330_sub_21 :iou: 0.5608656447249775 F_measure: 0.7186597342576545
+nikond70_kodakdcs330_sub_01 :iou: 0.2543767603689181 F_measure: 0.4055827059393299
+canong3_kodakdcs330_sub_17 :iou: 0.4079412656181592 F_measure: 0.5794861981533751
+nikond70_kodakdcs330_sub_05 :iou: 0.44105040153717295 F_measure: 0.6121234914014154
+nikond70_kodakdcs330_sub_19 :iou: 0.24223528477242037 F_measure: 0.38999904082872394
+nikond70_canonxt_sub_29 :iou: 0.2531186914436565 F_measure: 0.4039819901689454
+canong3_nikond70_sub_23 :iou: 0.43503949250575286 F_measure: 0.6063101326167981
+Result IoU: 5.622732374682074 / 15 = 0.37484882497880495
+Result F_measure: 8.044058550000981 / 15 = 0.5362705700000654
+51
+canong3_canonxt_sub_02 :iou: 0.49624737316121287 F_measure: 0.663322632423756
+canong3_kodakdcs330_sub_17 :iou: 0.6948101874098991 F_measure: 0.8199268479401173
+nikond70_kodakdcs330_sub_04 :iou: 0.485352568820845 F_measure: 0.6535183349851338
+canonxt_kodakdcs330_sub_28 :iou: 0.7467156105100463 F_measure: 0.8549939166021457
+canong3_kodakdcs330_sub_14 :iou: 0.0018214936247723133 F_measure: 0.0036363636363636364
+nikond70_canonxt_sub_29 :iou: 0.26066714879768577 F_measure: 0.4135384174106343
+nikond70_kodakdcs330_sub_21 :iou: 0.7997097242380261 F_measure: 0.8887096774193548
+nikond70_kodakdcs330_sub_19 :iou: 0.44061995479496285 F_measure: 0.6117088040164963
+nikond70_kodakdcs330_sub_01 :iou: 0.490458833619211 F_measure: 0.658131338560023
+canonxt_kodakdcs330_sub_22 :iou: 0.5233100233100233 F_measure: 0.6870696250956388
+canong3_nikond70_sub_23 :iou: 0.5444910200047711 F_measure: 0.7050750220653134
+canong3_nikond70_sub_19 :iou: 0.30130618969169215 F_measure: 0.46308269656825074
+nikond70_kodakdcs330_sub_05 :iou: 0.6065935581764259 F_measure: 0.7551300764145273
+canong3_canonxt_sub_30 :iou: 0.716554538436087 F_measure: 0.834875353379594
+nikond70_canonxt_sub_17 :iou: 0.5228181979111347 F_measure: 0.686645587277969
+Result IoU: 7.631476422506796 / 15 = 0.5087650948337864
+Result F_measure: 9.699364693795317 / 15 = 0.6466243129196878

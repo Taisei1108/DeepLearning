@@ -29,7 +29,8 @@ class Net(nn.Module):
         self.layer2 = nn.Sequential(self.resnet50.layer2)
         self.layer3 = nn.Sequential(self.resnet50.layer3)
         self.layer4 = nn.Sequential(self.resnet50.layer4)
-        self.Self_Attn1 = Self_Attn(2048)
+        self.Self_Attn1 = Self_Attn(1024)
+        self.Self_Attn2 = Self_Attn(2048)
         self.avgpool = self.resnet50.avgpool
         self.fc = self.resnet50.fc
 
@@ -46,7 +47,7 @@ class Net(nn.Module):
         x = self.layer3(x)
         #x = self.Self_Attn1(x)
         x = self.layer4(x)
-        x = self.Self_Attn1(x)
+        x = self.Self_Attn2(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
         x = self.fc(x)
@@ -78,7 +79,9 @@ class out_selfA(Net):
         x = self.layer2(x).detach()
 
         x = self.layer3(x)
-        x = self.Self_Attn1(x)
+        #x = self.Self_Attn1(x)
+        x = self.layer4(x)
+        x = self.Self_Attn2(x)
        
         return x
 
