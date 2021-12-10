@@ -1,0 +1,4079 @@
+CASIAでやるぞ編、Columbiaとの変更箇所が多くて大変
+学習30回しかしてないけど良い成果でた。このデータセットはコピームーブなしでやった。
+plotの特徴は、SAのほうが結果は良くて、どちらも境界をみてて惜しい！ってのが多かった。nat->natはマジでムズい
+{'dataset_root': '../../datasets/CASIAv2_data/', 'train_list': 'data_manage_CASIA/train_CASIA_2.txt', 'val_list': 'data_manage_CASIA/val_CASIA_2.txt', 'test_list': 'data_manage_CASIA/test_CASIA_2.txt', 'cam_batch_size': 64, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 30, 'cam_affine_degree': 5, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'segmentation_out_dir_SA': 'result/seg/SA/', 'segmentation_out_dir_SA_CRF': 'result/seg/SA_CRF/', 'train_cam_pass': 'False', 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/CASIAv2_data/
+train_list data_manage_CASIA/train_CASIA_2.txt
+val_list data_manage_CASIA/val_CASIA_2.txt
+test_list data_manage_CASIA/test_CASIA_2.txt
+cam_batch_size 64
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 30
+cam_affine_degree 5
+cam_scale (1.0, 1.5)
+cam_weights_name sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+segmentation_out_dir_SA result/seg/SA/
+segmentation_out_dir_SA_CRF result/seg/SA_CRF/
+train_cam_pass False
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage_CASIA/test_CASIA_2.txt
+931
+931
+test Loss: 0.3596 Acc: 0.8357
+data_manage_CASIA/test_CASIA_2.txt
+931
+931
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30709 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30122 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30296 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_00033 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30021 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30478 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30532 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10160_nat00059_12067 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30047 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30695 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30137 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30338 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30576 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30541 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30826 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30320 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30425 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_B_nat00030_arc00029_20104 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30549 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_00087 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00057 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30020 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00060 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_10162 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30667 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_00013 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30667 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30298 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30144 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10132 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30474 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat10159_ani00099_12054 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_10101 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30356 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30499 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30395 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30629 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_ind20047_ind20049_01788 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30543 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30554 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30352 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat10117_nat10124_11344 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30735 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30216 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_pla00010_pla00009_10934 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30383 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00053 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30128 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30426 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30481 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30630 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30706 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20048 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30238 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30120 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_ani20005_ani20001_02048 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10158 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10214_ani10209_12380 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30114 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat00041_art00025_11430 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_arc10120_nat10132_12142 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30154 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30001 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30511 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30094 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRD_S_N_ani00075_art00012_00195 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30406 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30660 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30498 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30415 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat00072_nat00059_11107 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30598 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20003 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30480 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30602 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30034 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30087 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_O_nat10159_ani00024_12062 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30129 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30516 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30416 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30049 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00021 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30319 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30381 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_00035 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30716 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_10110 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00057 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30420 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30422 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30002 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30466 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30111 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30327 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10152_ani10175_12490 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30411 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00012 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10128_ani00024_12462 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30707 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_txt00040_txt00042_10007 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat10120_cha00063_11389 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30645 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30570 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_O_art00010_art00009_10166 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20068 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20006 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00070 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_arc00066_cha00089_00286 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat00076_nat00086_10081 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30232 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30292 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30018 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20071 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_nat00052_nat00053_11081 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_pla10120_pla00020_11603 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_sec00054_cha00062_11473 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani00017_ani00010_00137 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30689 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30601 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30304 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10113 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_cha10142_nat10123_12237 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30311 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30122 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30311 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30646 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30628 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30447 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30529 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30362 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20023 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30833 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30520 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30280 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30474 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30675 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30447 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30575 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30617 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_B_ani10114_ani00100_11637 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_arc00015_ani00013_00235 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30146 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30502 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30660 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30200 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00054 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20010 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00038 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20076 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30683 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30590 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00066 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_10103 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30039 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30662 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10137 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30457 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00007 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30016 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat00008_cha00072_11465 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30299 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_B_ani20056_ani20057_02099 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_10106 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_10103 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_B_txt00068_cha00088_10182 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30102 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30460 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30198 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30439 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani20068_ani20067_02110 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30103 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30245 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30645 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30804 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_ani00019_ani00055_11862 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00058 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30058 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30351 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30660 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat00002_cha00062_11516 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_art00060_cha00051_01400 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30074 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_ind10102_cha10110_11548 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NND_S_N_txt00061_txt00083_10825 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20045 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_sec00051_sec00055_11240 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30118 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_20068 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_cha10166_nat10123_12273 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30654 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30007 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30158 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10206 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30403 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30684 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30481 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_txt10111_txt10104_10810 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30466 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30466 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30734 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat10162_art00021_12086 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20053 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_10108 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30116 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30764 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20039 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_nat10108_sec00097_11696 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30198 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10125 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30085 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30051 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30661 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30118 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30522 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30044 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_10003 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30244 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30160 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10116_cha00070_11372 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_cha10207_cha10208_12339 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_00058 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30759 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30546 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30463 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_nat00019_nat00028_11048 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30463 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30268 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_20064 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_00058 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30551 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30379 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_30023 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani00052_ani00019_11858 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha00035_cha00040_00355 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30389 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30069 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_L_O_sec00043_cha00097_00064 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30539 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10151 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30158 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_20046 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30555 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30727 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30007 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30531 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30563 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_20018 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30397 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00099 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30311 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30564 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10211 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30412 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30475 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20041 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10111_cha00072_11468 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30644 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20070 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30612 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00087 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30490 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30058 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_B_sec00091_cha00085_00111 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30666 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30274 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha00050_ani10123_11688 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20041 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30732 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30082 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_10102 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30659 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30658 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30366 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30366 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30639 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30119 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30299 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30670 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10205 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10110_cha00070_11373 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30381 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30482 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30036 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10193 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30286 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30544 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_O_ani10127_ani00021_12468 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30562 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10194 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30439 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30514 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30415 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_pla10122_pla00020_11604 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30225 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20039 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30584 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30494 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30167 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_B_nat10139_nat10124_11945 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30675 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20033 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10149 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30246 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20048 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30557 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30293 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20093 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30794 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30410 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30073 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30594 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_10163 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30196 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30739 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30372 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00085 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30485 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30106 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30547 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30196 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_B_nat00088_nat00099_11111 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00100 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00016 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30514 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_cha10141_cha10142_12236 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30655 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30456 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_art00021_art00092_11725 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30154 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_S_B_sec20094_arc20064_02444 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00058 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_M_O_sec20032_xxx00000_01622 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30064 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30215 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30473 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30339 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30429 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_arc00096_nat00013_11800 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30062 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30010 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30109 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00011 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30662 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30483 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30166 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_cha10112_cha00063_11653 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20047 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30519 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00001 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20044 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30064 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_art00049_nat00095_11766 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20006 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30509 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30737 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30097 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30420 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20046 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30217 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30458 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_00022 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20049 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30095 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30164 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10119_ani10118_11612 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30525 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30123 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30243 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00097 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NND_M_N_arc00049_arc00092_00269 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30043 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30182 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_nat00009_cha00062_11395 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_nat00023_cha00024_20076 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_ind00067_ind00066_00469 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30628 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00093 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00014 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00082 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30056 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30319 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30350 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00073 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30308 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30213 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30465 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ind00028_ind00020_00443 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30351 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30470 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30400 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30102 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30582 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30635 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30004 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30589 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ind00008_art00009_00426 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30546 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30347 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_arc20040_arc20041_01493 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_O_pla10121_sec00097_11693 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30476 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_art10108_cha00070_11578 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30697 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30355 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30326 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30380 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00083 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30556 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30633 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_20005 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30329 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20084 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_cha00035_cha00040_11732 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30583 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30571 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30230 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30313 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30403 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20039 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20047 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat10145_ani00031_11984 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRD_S_N_ind00029_ind00088_00444 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00054 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00028 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30024 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00083 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30216 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30145 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10166 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30411 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30128 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30020 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30116 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00059 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30368 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30419 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00096 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30387 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10215_ani00081_12382 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30730 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30793 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30566 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30248 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_art00098_art00062_10518 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_art00011_art00010_11831 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30021 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30255 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30031 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_20045 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30493 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30534 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10186_ani10200_12435 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30282 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30172 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30112 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_pla00083_cha00063_01185 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha00071_ani10123_11754 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30304 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30240 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_20009 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30053 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30066 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30114 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_art00071_art00098_10481 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30128 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_art10111_ani00100_11620 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30385 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_B_sec00004_ind00069_00024 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30151 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_O_cha00071_cha00095_10049 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00024 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha10209_pla00050_12336 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30791 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_20036 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30281 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30616 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30255 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30034 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00064 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30175 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20021 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10208 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00017 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20092 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30796 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani00033_ani00034_10236 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30006 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30049 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30647 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30665 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20074 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20016 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00080 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30774 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30091 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30554 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30030 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_O_pla00028_pla00025_10950 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30207 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30494 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30085 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30289 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30189 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30184 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20071 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30066 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_O_pla00068_pla00065_11224 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30518 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30180 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20088 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_nat00096_nat00097_11096 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10164 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30185 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30401 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRD_S_O_ani10103_ani10111_10637 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30694 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00074 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00038 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_cha00077_ani00023_00397 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30423 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00077 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_sec00071_art00064_00707 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30703 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20044 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_sec10105_sec10109_10333 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30016 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_10109 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30651 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30459 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30507 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_S_N_pla00095_cha00029_00349 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30342 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_20013 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NND_S_N_sec00071_ind00084_11275 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_arc00061_nat00099_10447 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30502 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_00100 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00045 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_sec00020_pla00021_20019 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30049 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30361 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_20025 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20013 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30054 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30484 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30254 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30117 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10139 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30688 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30342 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30037 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00065 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30618 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30150 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_cha10122_nat10124_12156 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30445 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_nat00033_cha00062_11380 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30555 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30572 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_ani10112_ani00100_11628 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30562 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30680 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30187 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20095 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_arc00047_arc00086_00267 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_10103 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30143 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_arc00023_nat00099_10061 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30292 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30005 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30070 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20084 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00043 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_00062 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_B_nat00034_cha00096_00648 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30267 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_O_arc00024_cha00014_10011 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30605 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30112 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30231 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30150 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_00044 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10136_ani10123_12479 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30078 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30595 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30074 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30797 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30302 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00075 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30642 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30623 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ind00010_art00009_00428 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30409 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00084 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_20018 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30042 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30185 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_O_arc00027_ani00030_10005 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30180 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30609 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_20069 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30129 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30618 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30337 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30394 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_S_B_arc00031_cha00027_00251 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30071 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30296 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00069 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30261 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_nat10163_sec00097_12089 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30823 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30002 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30029 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10118_nat10123_11391 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30696 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10165 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30665 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30384 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30423 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30405 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_sec00058_art00002_00079 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30302 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_00096 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30158 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20065 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00049 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_sec00010_ind00098_10855 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00023 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_art00014_art00013_10270 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30468 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30065 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30336 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30279 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30157 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30085 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30056 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30107 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30357 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat00044_ani00005_11435 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30071 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30594 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_art20067_arc20001_01873 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30160 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_sec10115_cha00070_11532 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_sec00007_sec00004_10033 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30138 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00093 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30016 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00095 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30348 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30245 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10150_nat00013_12031 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_00021 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20050 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30494 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20069 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_00012 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_20055 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30118 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30045 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_00014 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30573 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00069 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30541 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10154_nat10160_12074 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30663 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00090 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20022 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_arc00008_cha00028_11768 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30088 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat00033_cha00070_11476 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20098 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30343 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10223 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30656 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_nat00008_art00025_11425 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00096 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30343 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30444 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_ani10113_ani10114_11631 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30296 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30300 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30323 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_art00099_cha00028_11762 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_00029 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30587 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_art20026_art20025_01832 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30168 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_20017 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_00051 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30199 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30208 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30084 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_S_B_cha20044_nat20042_02432 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30294 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_ind00087_ind00084_11750 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20053 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30285 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30009 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30099 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00017 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20028 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_10116 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30277 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30686 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30246 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10131 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10193_ani10194_12443 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30125 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30019 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_sec00023_ind00043_10887 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30211 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20029 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30341 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30551 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30004 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30534 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_M_O_arc20060_arc20059_01700 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00061 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NND_M_B_sec00098_nat00033_00118 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30378 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30175 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30483 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30651 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00029 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_ind00057_ind00018_00463 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30196 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30187 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10108 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30012 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha00031_ani00100_00351 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_cha10133_cha00070_12213 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30682 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20007 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30160 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00017 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30437 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha00020_art10102_11181 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_pla00095_sec00097_11697 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_sec00026_sec00027_00047 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30729 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30160 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_sec00096_ani00070_00711 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30428 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30003 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30170 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_pla10124_nat00013_11708 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_30020 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_20009 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30273 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30374 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30473 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_B_pla00090_cha00028_00348 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30218 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_sec00016_ani00013_00702 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30490 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30491 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30446 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20079 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30511 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30303 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_arc00084_ani00058_00304 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30464 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_nat10139_nat10124_11946 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30206 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30220 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_art00058_cha00063_00525 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30777 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30316 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30408 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_nat00023_cha00030_11086 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30443 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30594 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_10001 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30260 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30249 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_00046 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30497 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20084 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30122 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30183 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30244 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30191 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30501 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20003 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30094 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat00002_nat00059_11513 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CNN_S_N_txt00054_txt00049_10371 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_10115 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha00062_art00092_11717 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30462 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30495 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_20038 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30336 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30623 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00009 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30135 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_10184 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat10114_cha00070_11481 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20016 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00077 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_pla10121_cha00050_11658 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30599 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30278 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30426 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00026 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30247 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_30021 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_sec00049_sec00051_11245 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_art00058_art00049_10529 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30219 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30053 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10213 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_N_arc00065_nat10124_11454 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_ani10144_nat10156_12472 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_sec00015_cha00086_11400 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30289 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30052 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30352 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_cha00031_pla00049_11387 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_00094 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_pla10124_nat10124_11704 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30059 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30251 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30610 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_nat00084_nat00086_10073 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00050 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30141 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30582 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30769 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_20070 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30147 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30159 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30047 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_00071 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30338 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30257 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30654 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30116 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30535 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30479 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_sec00019_pla00019_20018 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_20052 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_10132 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30636 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30059 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30658 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00089 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00077 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_S_B_art20007_arc20009_01813 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30545 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30379 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30614 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_00037 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_sec00071_ind00094_11279 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30304 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_B_nat00019_nat00007_00637 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30133 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_00009 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30331 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_10002 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30814 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30089 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30306 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30250 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRD_S_N_ind00005_ind00084_11751 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30367 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30585 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_art00054_ani00005_00523 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_B_nat00029_sec00029_20113 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_txt00047_txt00048_11320 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30283 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10162_ani10175_12496 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20011 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30128 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_S_B_ani20002_nat20042_02437 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_M_N_nat00044_art00025_11432 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30129 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30407 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30513 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_00050 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20036 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30687 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_N_ani10113_ani10112_11625 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30474 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30717 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_M_N_arc00010_nat00062_11177 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30310 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_S_B_nat00023_nat00007_00641 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NND_S_B_art00004_ani00077_01194 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_M_N_pla00010_pla00020_10001 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30798 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30480 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30778 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_30159 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_10116 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30626 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30085 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ind_00081 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30685 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30241 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_ani10168_ani10167_12448 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRD_S_N_sec00011_sec00016_00031 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_00078 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30163 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_arc_30593 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30195 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_00019 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30783 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30536 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_art_30458 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30742 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_20078 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_txt_00050 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_20095 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_10208 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_arc00002_arc00045_00018 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30563 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CNN_M_N_ani00023_ani00024_10205 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_pla_30174 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NNN_M_B_sec20045_arc20001_02127 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30078 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_nat_30105 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30530 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_ani_30253 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_CRN_S_N_arc00078_art00092_11881 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Tp_D_NRN_S_N_nat00098_cha00072_11462 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_cha_30637 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+Au_sec_30283 : TN ( 0 , 0 )
+test_acc= tensor(0.8292, device='cuda:0', dtype=torch.float64)
+931
+Tp_D_NRN_M_B_ani10114_ani00100_11637 :iou: 0.27052607130414585 F_measure: 0.4258489100132535
+Tp_D_NRN_M_N_arc00096_nat00013_11800 :iou: 0.33550642942339426 F_measure: 0.5024407551047873
+Tp_D_NRN_M_N_nat10116_cha00070_11372 :iou: 0.23865088439034232 F_measure: 0.3853400298629021
+Tp_D_NRN_S_N_nat10120_cha00063_11389 :iou: 0.007707432166732206 F_measure: 0.015296964020916256
+Tp_D_NRN_M_O_arc00024_cha00014_10011 :iou: 0.15597066965323417 F_measure: 0.26985229599298044
+Tp_D_NRN_M_N_cha10141_cha10142_12236 :iou: 0.11809623110184304 F_measure: 0.21124520021941853
+Tp_D_NRN_M_N_nat10118_nat10123_11391 :iou: 0.1813658873661177 F_measure: 0.30704439548441187
+Tp_D_NRN_S_N_nat00098_cha00072_11462 :iou: 0.016896778435239974 F_measure: 0.03323204241287903
+Tp_D_NRN_S_N_cha00031_ani00100_00351 :iou: 0.01348156903302061 F_measure: 0.02660446809286053
+Tp_D_NRN_M_N_nat10150_nat00013_12031 :iou: 0.2186199858701625 F_measure: 0.3587992785364597
+Tp_D_CRN_S_N_arc00078_art00092_11881 :iou: 0.005072422927351631 F_measure: 0.010093646610217015
+Tp_D_CRN_S_N_sec00023_ind00043_10887 :iou: 0.06861612661357326 F_measure: 0.12842053363169173
+Tp_D_NRN_S_N_ani10119_ani10118_11612 :iou: 0.0868339071979013 F_measure: 0.15979241468786773
+Tp_D_NRN_M_N_cha10112_cha00063_11653 :iou: 0.040946745562130175 F_measure: 0.07867212369258754
+Tp_D_NRD_S_B_arc00031_cha00027_00251 :iou: 0.05038625619739421 F_measure: 0.09593852908891329
+Tp_D_NRN_S_N_ani10128_ani00024_12462 :iou: 0.03344733638629645 F_measure: 0.06472963877047341
+Tp_D_NRN_S_N_arc00008_cha00028_11768 :iou: 0.038835306152272396 F_measure: 0.07476701248461404
+Tp_D_NRN_S_N_nat10145_ani00031_11984 :iou: 0.038343287274269354 F_measure: 0.07385474099788987
+Tp_D_NNN_M_N_nat00033_cha00062_11380 :iou: 0.278971278971279 F_measure: 0.43624322697170376
+Tp_D_NNN_S_B_pla00090_cha00028_00348 :iou: 0.32342220213887635 F_measure: 0.4887664746989597
+Tp_D_NRN_S_B_sec00096_ani00070_00711 :iou: 0.0916603651290915 F_measure: 0.16792835584582655
+Tp_D_NNN_S_N_ind20047_ind20049_01788 :iou: 0.02612573906994824 F_measure: 0.05092112608660977
+Tp_D_NRN_M_N_sec10115_cha00070_11532 :iou: 0.16292382210479964 F_measure: 0.2801968951154865
+Tp_D_NRN_S_N_nat00076_nat00086_10081 :iou: 0.08179815778934722 F_measure: 0.15122628412771866
+Tp_D_NRD_S_B_cha20044_nat20042_02432 :iou: 0.13406198848936057 F_measure: 0.23642797280938632
+Tp_D_NND_S_N_sec00071_ind00084_11275 :iou: 0.0214106563895516 F_measure: 0.041923698868060126
+Tp_D_NRN_M_B_nat10139_nat10124_11945 :iou: 0.28206955248104826 F_measure: 0.44002223114212496
+Tp_D_NRN_S_N_ani10186_ani10200_12435 :iou: 0.04279303062302006 F_measure: 0.08207387154755576
+Tp_D_CRN_M_N_nat00019_nat00028_11048 :iou: 0.0025459633847708632 F_measure: 0.005078995832121741
+Tp_D_NRN_S_N_pla10124_nat10124_11704 :iou: 0.03185031185031185 F_measure: 0.06173436492585429
+Tp_D_NNN_S_N_art00058_cha00063_00525 :iou: 0.1869192836750584 F_measure: 0.314965450887781
+Tp_D_NRN_M_N_nat00033_cha00070_11476 :iou: 0.2357919361497179 F_measure: 0.3816045877178331
+Tp_D_CRN_M_N_nat00008_art00025_11425 :iou: 0.14379601031095424 F_measure: 0.2514364607232047
+Tp_D_NRN_M_N_ani10144_nat10156_12472 :iou: 0.42350367597311805 F_measure: 0.5950159218009854
+Tp_D_NRD_S_N_sec00011_sec00016_00031 :iou: 0.0939277350284376 F_measure: 0.17172566709993117
+Tp_D_NNN_M_N_nat00009_cha00062_11395 :iou: 0.2630103563734524 F_measure: 0.41648170982326344
+Tp_D_NRN_M_N_nat10114_cha00070_11481 :iou: 0.2533324578107558 F_measure: 0.4042542044323361
+Tp_D_NRN_M_N_cha10133_cha00070_12213 :iou: 0.13690613945184646 F_measure: 0.24083982784692332
+Tp_D_NRN_M_N_cha10142_nat10123_12237 :iou: 0.23980238155561187 F_measure: 0.3868396852968222
+Tp_D_NRD_S_B_art20007_arc20009_01813 :iou: 0.3232798758406622 F_measure: 0.4886039329137183
+Tp_D_NRN_M_N_ind10102_cha10110_11548 :iou: 0.12749647799784536 F_measure: 0.22615853882620995
+Tp_D_NRN_M_N_nat00002_cha00062_11516 :iou: 0.060697305863708396 F_measure: 0.11444793067383834
+Tp_D_NNN_M_N_nat00096_nat00097_11096 :iou: 0.22324362636654568 F_measure: 0.3650027215423244
+Tp_D_NRN_S_B_pla00083_cha00063_01185 :iou: 0.24875525379890073 F_measure: 0.3984051367025684
+Tp_D_NRN_S_N_cha00071_ani10123_11754 :iou: 0.022079151675818972 F_measure: 0.043204387135022976
+Tp_D_NRN_M_N_nat00002_nat00059_11513 :iou: 0.3931923478023011 F_measure: 0.5644480439797771
+Tp_D_NNN_M_N_sec00054_cha00062_11473 :iou: 0.2886740714068083 F_measure: 0.44801719505642124
+Tp_D_NRN_S_N_ani10152_ani10175_12490 :iou: 0.02581482549754831 F_measure: 0.05033038099254885
+Tp_D_NRN_M_N_cha10207_cha10208_12339 :iou: 0.12654098141462763 F_measure: 0.22465402236095616
+Tp_D_NRN_S_N_sec00016_ani00013_00702 :iou: 0.054521795705920625 F_measure: 0.10340572556762093
+Tp_D_NRN_M_O_cha00071_cha00095_10049 :iou: 0.30979841540467357 F_measure: 0.4730474732006126
+Tp_D_NND_S_N_txt00061_txt00083_10825 :iou: 0.039676796912686926 F_measure: 0.07632525229091752
+Tp_D_NRN_S_N_sec00010_ind00098_10855 :iou: 0.01918244262020439 F_measure: 0.03764280430673132
+Tp_D_CRN_M_N_art00058_art00049_10529 :iou: 0.1071639524090794 F_measure: 0.1935828061885527
+Tp_D_NRN_M_N_nat00044_art00025_11432 :iou: 0.1197688007327627 F_measure: 0.2139170168956083
+Tp_D_NRN_M_N_art10108_cha00070_11578 :iou: 0.244329805212132 F_measure: 0.39270907791279486
+Tp_D_NRD_S_N_pla00095_cha00029_00349 :iou: 0.15294045250353838 F_measure: 0.26530503318092047
+Tp_D_NRN_S_N_art00060_cha00051_01400 :iou: 0.07308902942620348 F_measure: 0.13622174381054897
+Tp_D_NRN_M_N_nat10111_cha00072_11468 :iou: 0.15892857142857142 F_measure: 0.2742681047765793
+Tp_D_NRN_M_N_nat10154_nat10160_12074 :iou: 0.10199592935460573 F_measure: 0.1851112633679883
+Tp_D_NRN_M_N_cha10122_nat10124_12156 :iou: 0.039146701023265035 F_measure: 0.07534393552848048
+Tp_D_NRN_S_N_nat00041_art00025_11430 :iou: 0.026638448620919693 F_measure: 0.05189450805530036
+Tp_D_NRN_M_N_nat10160_nat00059_12067 :iou: 0.4316370324954016 F_measure: 0.6029978586723768
+Tp_D_NRN_M_N_art00099_cha00028_11762 :iou: 0.14731199033524614 F_measure: 0.25679499835472197
+Tp_D_NRN_S_N_ani10215_ani00081_12382 :iou: 0.05904398246358365 F_measure: 0.11150430660345863
+Tp_D_CNN_S_N_txt00054_txt00049_10371 :iou: 0.010302332762541055 F_measure: 0.020394554042789663
+Tp_D_NRN_M_N_nat00072_nat00059_11107 :iou: 0.4369312833385629 F_measure: 0.6081449939949776
+Tp_D_NND_M_B_sec00098_nat00033_00118 :iou: 0.027446418848685837 F_measure: 0.053426472359388175
+Tp_D_NRD_S_B_ani20002_nat20042_02437 :iou: 0.38306404966644814 F_measure: 0.5539353723478406
+Tp_D_NRN_S_N_nat10159_ani00099_12054 :iou: 0 F_measure: 0
+Tp_D_NRN_M_B_nat00088_nat00099_11111 :iou: 0.49092929939905433 F_measure: 0.6585547679516824
+Tp_D_CRN_S_O_nat10159_ani00024_12062 :iou: 0.015730400770931352 F_measure: 0.030973574796997513
+Tp_D_NRN_S_N_art00054_ani00005_00523 :iou: 0.0198877678597389 F_measure: 0.03899991447387177
+Tp_D_CRN_M_N_sec00015_cha00086_11400 :iou: 0.05421228924479973 F_measure: 0.10284890395962941
+Tp_D_NRN_M_N_ani10112_ani00100_11628 :iou: 0.1366788277078451 F_measure: 0.24048803298898955
+Tp_D_NRN_L_O_sec00043_cha00097_00064 :iou: 0.323272705078125 F_measure: 0.4885957427181108
+Tp_D_NRN_M_N_nat10110_cha00070_11373 :iou: 0.2532140001230239 F_measure: 0.40410336957322013
+Result IoU: 11.452543810919098 / 77 = 0.14873433520674154
+Result F_measure: 18.401489891409714 / 77 = 0.23898038820012615
+1008
+Tp_D_NRN_S_N_nat10145_ani00031_11984 :iou: 0.04092949564298917 F_measure: 0.07864028411973618
+Tp_D_CNN_S_N_txt00054_txt00049_10371 :iou: 0.0014799601316862485 F_measure: 0.0029555461728692925
+Tp_D_NRN_S_B_pla00083_cha00063_01185 :iou: 0.23220393675379156 F_measure: 0.37689205467972553
+Tp_D_NNN_M_N_nat00033_cha00062_11380 :iou: 0.2707094825065783 F_measure: 0.4260761192598984
+Tp_D_NRN_S_N_nat00041_art00025_11430 :iou: 0.023807663763134253 F_measure: 0.04650807882337231
+Tp_D_NRN_S_N_cha00071_ani10123_11754 :iou: 0.07846371347785108 F_measure: 0.14551015949311774
+Tp_D_NRN_M_N_ind10102_cha10110_11548 :iou: 0.14875034331227685 F_measure: 0.25897766939224404
+Tp_D_NRD_S_B_cha20044_nat20042_02432 :iou: 0.004562656951862201 F_measure: 0.009083867333286387
+Tp_D_NRN_M_N_nat00033_cha00070_11476 :iou: 0.3239987414033353 F_measure: 0.4894245459175013
+Tp_D_NRN_M_N_ani10144_nat10156_12472 :iou: 0.6131855152605159 F_measure: 0.7602169861554846
+Tp_D_NRD_S_B_art20007_arc20009_01813 :iou: 0.25439992045341553 F_measure: 0.40561214379136773
+Tp_D_NRD_S_N_pla00095_cha00029_00349 :iou: 0.12521463479064854 F_measure: 0.22256133348984622
+Tp_D_NNN_S_N_art00058_cha00063_00525 :iou: 0.20071764345915274 F_measure: 0.3343294646373387
+Tp_D_NRN_M_B_nat10139_nat10124_11945 :iou: 0.42185070914352685 F_measure: 0.5933825632054365
+Tp_D_NRN_M_N_cha10112_cha00063_11653 :iou: 0.03824577887086523 F_measure: 0.07367384418833675
+Tp_D_CRN_M_N_sec00015_cha00086_11400 :iou: 0.06109211745534716 F_measure: 0.11514950766358516
+Tp_D_NRN_S_N_sec00016_ani00013_00702 :iou: 0.09153831156170794 F_measure: 0.16772349736536574
+Tp_D_CRN_S_O_nat10159_ani00024_12062 :iou: 0.016155794253776962 F_measure: 0.03179786868339636
+Tp_D_NNN_M_N_nat00096_nat00097_11096 :iou: 0.14505279198867965 F_measure: 0.2533556408988935
+Tp_D_NRN_M_N_nat10110_cha00070_11373 :iou: 0.5292794283067558 F_measure: 0.6921945309795777
+Tp_D_NRN_M_N_cha10133_cha00070_12213 :iou: 0.10660003446493194 F_measure: 0.19266226485611063
+Tp_D_NRN_M_O_cha00071_cha00095_10049 :iou: 0.4654450261780105 F_measure: 0.6352268667381208
+Tp_D_NNN_S_B_pla00090_cha00028_00348 :iou: 0.31614918961140404 F_measure: 0.4804154302670623
+Tp_D_NRN_S_N_ani10152_ani10175_12490 :iou: 0.0205169350679122 F_measure: 0.0402089066097602
+Tp_D_NRD_S_B_arc00031_cha00027_00251 :iou: 0.022312218231833117 F_measure: 0.043650497047611925
+Tp_D_NRN_M_B_ani10114_ani00100_11637 :iou: 0.4614282516230132 F_measure: 0.631475751355657
+Tp_D_NRN_M_N_sec10115_cha00070_11532 :iou: 0.16017348020009364 F_measure: 0.27611987850725345
+Tp_D_NRN_M_N_nat00002_nat00059_11513 :iou: 0.4578319431150007 F_measure: 0.6280997549508144
+Tp_D_NRN_S_N_pla10124_nat10124_11704 :iou: 0 F_measure: 0
+Tp_D_NRN_S_B_sec00096_ani00070_00711 :iou: 0.08624011356722774 F_measure: 0.1587864644107351
+Tp_D_NRN_S_N_art00054_ani00005_00523 :iou: 0.012239703214276042 F_measure: 0.02418340868355582
+Tp_D_NRN_M_B_nat00088_nat00099_11111 :iou: 0.5866767759735473 F_measure: 0.7395038294596281
+Tp_D_NRN_S_N_art00060_cha00051_01400 :iou: 0.02360083800076959 F_measure: 0.046113362014953425
+Tp_D_NRN_M_N_art10108_cha00070_11578 :iou: 0.6204075774971297 F_measure: 0.7657426268709592
+Tp_D_NRN_S_N_ani10186_ani10200_12435 :iou: 0.03947592723376275 F_measure: 0.07595351888295379
+Tp_D_NRN_M_N_arc00096_nat00013_11800 :iou: 0.361602783203125 F_measure: 0.53114283793173
+Tp_D_NRN_M_N_nat00002_cha00062_11516 :iou: 0.12051143526021971 F_measure: 0.21510076821702934
+Tp_D_NNN_M_N_sec00054_cha00062_11473 :iou: 0.24799116997792495 F_measure: 0.3974245586726572
+Tp_D_NRD_S_B_ani20002_nat20042_02437 :iou: 0.5226289758500093 F_measure: 0.6864823724482861
+Tp_D_NRN_S_N_ani10128_ani00024_12462 :iou: 0.03714565004887586 F_measure: 0.07163053722902922
+Tp_D_NRN_S_N_nat00098_cha00072_11462 :iou: 0.014449785555971331 F_measure: 0.028487926680475555
+Tp_D_NRN_M_N_cha10142_nat10123_12237 :iou: 0.2347259521484375 F_measure: 0.38020736786168885
+Tp_D_NRN_M_N_art00099_cha00028_11762 :iou: 0.16539617545846583 F_measure: 0.2838454062943859
+Tp_D_CRN_S_N_sec00023_ind00043_10887 :iou: 0.1076673828056211 F_measure: 0.19440381558028616
+Tp_D_CRN_M_N_nat00019_nat00028_11048 :iou: 0.0019167726564319365 F_measure: 0.0038262113355980692
+Tp_D_NRN_M_N_nat10150_nat00013_12031 :iou: 0.25862501205283966 F_measure: 0.41096436122943036
+Tp_D_NRN_M_N_nat10114_cha00070_11481 :iou: 0.28337072865707874 F_measure: 0.4416038519962168
+Tp_D_NRN_S_N_nat10159_ani00099_12054 :iou: 0.0009709954269247635 F_measure: 0.0019401070188065214
+Tp_D_NRN_M_O_arc00024_cha00014_10011 :iou: 0.14882548644016533 F_measure: 0.2590915473181691
+Tp_D_NRN_M_N_nat00072_nat00059_11107 :iou: 0.7358255229678201 F_measure: 0.8478104662382722
+Tp_D_NRN_S_N_ani10119_ani10118_11612 :iou: 0.10816993464052288 F_measure: 0.1952226481863757
+Tp_D_NRN_M_N_nat10118_nat10123_11391 :iou: 0.021460040740916196 F_measure: 0.04201836564326129
+Tp_D_NRN_M_N_ani10112_ani00100_11628 :iou: 0.10734976054379732 F_measure: 0.19388591458416893
+Tp_D_NNN_S_N_ind20047_ind20049_01788 :iou: 0.020126400731296002 F_measure: 0.039458641040694624
+Tp_D_NRN_M_N_cha10207_cha10208_12339 :iou: 0.10695832290078074 F_measure: 0.19324724461260073
+Tp_D_NRN_S_N_sec00010_ind00098_10855 :iou: 0.019431068496637748 F_measure: 0.03812139750712696
+Tp_D_CRN_M_N_art00058_art00049_10529 :iou: 0.11234197557317334 F_measure: 0.2019917939629765
+Tp_D_NRN_S_N_ani10215_ani00081_12382 :iou: 0.048705190135473794 F_measure: 0.09288633372584332
+Tp_D_NRN_M_N_cha10122_nat10124_12156 :iou: 0.018484199379046426 F_measure: 0.036297469102252046
+Tp_D_NND_M_B_sec00098_nat00033_00118 :iou: 0.04021917808219178 F_measure: 0.07732827644332069
+Tp_D_NRN_M_N_nat00044_art00025_11432 :iou: 0.0870860927152318 F_measure: 0.1602193116052391
+Tp_D_NRN_S_N_arc00008_cha00028_11768 :iou: 0.03918122329782056 F_measure: 0.07540787385183835
+Tp_D_CRN_S_N_arc00078_art00092_11881 :iou: 0.005868850748604518 F_measure: 0.011669216606591811
+Tp_D_NRN_M_N_nat10154_nat10160_12074 :iou: 0.00040591005033284623 F_measure: 0.0008114907084313884
+Tp_D_NND_S_N_txt00061_txt00083_10825 :iou: 0.02910465137105296 F_measure: 0.056563054753037
+Tp_D_NRN_S_N_cha00031_ani00100_00351 :iou: 0.009298721425803952 F_measure: 0.018426103646833013
+Tp_D_NRN_M_N_nat10116_cha00070_11372 :iou: 0.2472614640779633 F_measure: 0.3964869775893398
+Tp_D_NRN_M_N_nat10111_cha00072_11468 :iou: 0.19701806133581154 F_measure: 0.3291814345991561
+Tp_D_NND_S_N_sec00071_ind00084_11275 :iou: 0.035035832101012396 F_measure: 0.06769974722496978
+Tp_D_NRD_S_N_sec00011_sec00016_00031 :iou: 0.04253233406065206 F_measure: 0.08159427323465179
+Tp_D_CRN_M_N_nat00008_art00025_11425 :iou: 0.15326870494655728 F_measure: 0.26579877575653077
+Tp_D_NNN_M_N_nat00009_cha00062_11395 :iou: 0.2493522716757657 F_measure: 0.3991704779010128
+Tp_D_NRN_M_N_nat10160_nat00059_12067 :iou: 0.44923466662597095 F_measure: 0.6199612484731056
+Tp_D_NRN_M_N_cha10141_cha10142_12236 :iou: 0.158945885472777 F_measure: 0.2742938863067573
+Tp_D_NRN_S_N_nat10120_cha00063_11389 :iou: 0.006803980560055543 F_measure: 0.01351599852887091
+Tp_D_NRN_S_N_nat00076_nat00086_10081 :iou: 0.08740772440355195 F_measure: 0.16076347894529713
+Tp_D_NRN_L_O_sec00043_cha00097_00064 :iou: 0.1621419524180134 F_measure: 0.27903984032355494
+Result IoU: 12.805584880487535 / 77 = 0.16630629714918876
+Result F_measure: 19.297231677821458 / 77 = 0.2506133984132657
+931
+Tp_D_NRN_M_N_cha10141_cha10142_12236 :iou: 0.1230941345692824 F_measure: 0.2192053734061931
+Tp_D_NNN_S_N_ind20047_ind20049_01788 :iou: 0.04109941746322938 F_measure: 0.07895387659206134
+Tp_D_NRN_M_N_nat00002_nat00059_11513 :iou: 0.25643068075847064 F_measure: 0.4081891419647137
+Tp_D_NRN_M_N_nat00033_cha00070_11476 :iou: 0.3186730334254838 F_measure: 0.48332380407852105
+Tp_D_NRN_M_N_ind10102_cha10110_11548 :iou: 0.21109416483081964 F_measure: 0.34860074626865667
+Tp_D_NNN_M_N_sec00054_cha00062_11473 :iou: 0.3736868981616574 F_measure: 0.5440641512439924
+Tp_D_NRN_M_N_arc00096_nat00013_11800 :iou: 0.13383752959938144 F_measure: 0.23607884922749067
+Tp_D_NRN_M_N_cha10112_cha00063_11653 :iou: 0.09838629416364542 F_measure: 0.17914698077794317
+Tp_D_NRN_M_N_cha10122_nat10124_12156 :iou: 0.043322818086225026 F_measure: 0.0830477726264866
+Tp_D_NRD_S_N_pla00095_cha00029_00349 :iou: 0.4263458162668227 F_measure: 0.5978154966411978
+Tp_D_NRN_S_N_ani10215_ani00081_12382 :iou: 0.16091954022988506 F_measure: 0.27722772277227725
+Tp_D_NRD_S_B_cha20044_nat20042_02432 :iou: 0.19610022014886255 F_measure: 0.32789931285934654
+Tp_D_NRN_M_N_cha10207_cha10208_12339 :iou: 0.17335885938838227 F_measure: 0.29549162730785744
+Tp_D_CRN_M_N_nat00019_nat00028_11048 :iou: 0.2693545772446215 F_measure: 0.42439611763847335
+Tp_D_NRN_M_N_nat10116_cha00070_11372 :iou: 0.2470383626556435 F_measure: 0.396200101061142
+Tp_D_NRN_M_N_nat10154_nat10160_12074 :iou: 0.14553538347536124 F_measure: 0.25409146775341224
+Tp_D_NRN_S_N_nat00041_art00025_11430 :iou: 0.06884020882383049 F_measure: 0.12881291002250636
+Tp_D_CRN_S_N_arc00078_art00092_11881 :iou: 0.02133530426213353 F_measure: 0.04177923581628715
+Tp_D_NRD_S_B_ani20002_nat20042_02437 :iou: 0.25541088397434525 F_measure: 0.4068960803745344
+Tp_D_NRN_S_N_ani10128_ani00024_12462 :iou: 0.020280057943022695 F_measure: 0.039753904401325126
+Tp_D_NRN_M_N_nat10110_cha00070_11373 :iou: 0.40995990470102855 F_measure: 0.5815199472469502
+Tp_D_NRN_M_N_ani10144_nat10156_12472 :iou: 0.2960200106251107 F_measure: 0.45681395070795405
+Tp_D_NRN_S_N_art00060_cha00051_01400 :iou: 0.20899602385685884 F_measure: 0.3457348406988694
+Tp_D_NRN_M_O_arc00024_cha00014_10011 :iou: 0.2260720411663808 F_measure: 0.36877448237269167
+Tp_D_NRN_M_N_cha10133_cha00070_12213 :iou: 0.200944032366824 F_measure: 0.33464345873104995
+Tp_D_NNN_M_N_nat00096_nat00097_11096 :iou: 0.3147515909649578 F_measure: 0.47880009140577934
+Tp_D_CRN_M_N_art00058_art00049_10529 :iou: 0.10935299229824089 F_measure: 0.19714733372953697
+Tp_D_NNN_S_B_pla00090_cha00028_00348 :iou: 0.32696980215203053 F_measure: 0.4928066963117971
+Tp_D_NRN_S_B_pla00083_cha00063_01185 :iou: 0.2591633878649824 F_measure: 0.4116437792944659
+Tp_D_NRN_S_N_pla10124_nat10124_11704 :iou: 0.027633798497163013 F_measure: 0.05378141228436699
+Tp_D_NRN_S_N_art00054_ani00005_00523 :iou: 0.11928695885270071 F_measure: 0.21314812597293736
+Tp_D_NRN_S_N_cha00071_ani10123_11754 :iou: 0.20035693039857227 F_measure: 0.3338289225889583
+Tp_D_CRN_M_N_nat00008_art00025_11425 :iou: 0.35302882686686915 F_measure: 0.5218348934728282
+Tp_D_NND_S_N_sec00071_ind00084_11275 :iou: 0.022434493033038298 F_measure: 0.04388446044398731
+Tp_D_NRN_S_N_nat00076_nat00086_10081 :iou: 0.10609538383065545 F_measure: 0.1918376758127738
+Tp_D_NRN_M_N_sec10115_cha00070_11532 :iou: 0.2562038375864629 F_measure: 0.407901695442526
+Tp_D_NRN_S_N_nat10120_cha00063_11389 :iou: 0.027709707822808672 F_measure: 0.05392516507703596
+Tp_D_NRN_S_N_nat10159_ani00099_12054 :iou: 0.006330056598153113 F_measure: 0.012580478058166209
+Tp_D_NRN_M_N_nat00044_art00025_11432 :iou: 0.26878824969400245 F_measure: 0.4236928419834073
+Tp_D_NRN_S_B_sec00096_ani00070_00711 :iou: 0.16835598128759188 F_measure: 0.28819295485962154
+Tp_D_CRN_S_N_sec00023_ind00043_10887 :iou: 0.006380806533945891 F_measure: 0.0126806999746386
+Tp_D_NRD_S_B_arc00031_cha00027_00251 :iou: 0.26189884119958223 F_measure: 0.4150869034012533
+Tp_D_NRN_M_B_nat10139_nat10124_11945 :iou: 0.19658175842235004 F_measure: 0.3285722133714223
+Tp_D_NRN_L_O_sec00043_cha00097_00064 :iou: 0.14260444225681412 F_measure: 0.24961296662762678
+Tp_D_NRN_S_N_arc00008_cha00028_11768 :iou: 0.059171839268213004 F_measure: 0.11173227435709604
+Tp_D_NRN_M_N_art00099_cha00028_11762 :iou: 0.16198554661473016 F_measure: 0.2788081953112939
+Tp_D_NRN_M_B_nat00088_nat00099_11111 :iou: 0.19611247850568125 F_measure: 0.3279164493805584
+Tp_D_CNN_S_N_txt00054_txt00049_10371 :iou: 0.06956780259392768 F_measure: 0.1300858205065842
+Tp_D_NRN_M_N_ani10112_ani00100_11628 :iou: 0.25094148985028014 F_measure: 0.4012042000146854
+Tp_D_NNN_M_N_nat00009_cha00062_11395 :iou: 0.433690190080839 F_measure: 0.6049984760743675
+Tp_D_NRN_M_N_nat00002_cha00062_11516 :iou: 0.09931591121610316 F_measure: 0.1806867529211622
+Tp_D_NRN_M_N_nat10118_nat10123_11391 :iou: 0.1492118904051624 F_measure: 0.25967689971003827
+Tp_D_NRN_S_N_sec00010_ind00098_10855 :iou: 0.05228310502283105 F_measure: 0.09937079626817098
+Tp_D_NRD_S_B_art20007_arc20009_01813 :iou: 0.4034969183612933 F_measure: 0.5749879648220555
+Tp_D_NRN_S_N_ani10152_ani10175_12490 :iou: 0.061994920341722465 F_measure: 0.11675182085009239
+Tp_D_NRN_S_N_ani10119_ani10118_11612 :iou: 0.06938294248657147 F_measure: 0.12976257564991547
+Tp_D_CRN_M_N_sec00015_cha00086_11400 :iou: 0.08602934866557968 F_measure: 0.15842914147998893
+Tp_D_NRN_S_N_sec00016_ani00013_00702 :iou: 0.1325506532853626 F_measure: 0.2340745694699883
+Tp_D_NRN_S_N_nat10145_ani00031_11984 :iou: 0.09757194244604317 F_measure: 0.17779598525194593
+Tp_D_NRN_S_N_nat00098_cha00072_11462 :iou: 0.04595029501162167 F_measure: 0.08786324786324785
+Tp_D_NRN_M_O_cha00071_cha00095_10049 :iou: 0.08430529977491304 F_measure: 0.15550103793168524
+Tp_D_NRN_M_N_nat00072_nat00059_11107 :iou: 0.21357937488963447 F_measure: 0.35198253910512917
+Tp_D_NRN_S_N_cha00031_ani00100_00351 :iou: 0.17300131061598953 F_measure: 0.29497206703910617
+Tp_D_NRN_M_N_nat10160_nat00059_12067 :iou: 0.21835200245511738 F_measure: 0.3584382871536524
+Tp_D_NRN_M_N_nat10114_cha00070_11481 :iou: 0.36904588137984723 F_measure: 0.5391285805672044
+Tp_D_NND_S_N_txt00061_txt00083_10825 :iou: 0.033036350677120456 F_measure: 0.06395970607513712
+Tp_D_NRD_S_N_sec00011_sec00016_00031 :iou: 0.28086015760651795 F_measure: 0.4385492919560366
+Tp_D_NNN_M_N_nat00033_cha00062_11380 :iou: 0.35604311008468054 F_measure: 0.5251206358217428
+Tp_D_NRN_M_N_nat10111_cha00072_11468 :iou: 0.2560625323727457 F_measure: 0.40772258669165884
+Tp_D_CRN_S_O_nat10159_ani00024_12062 :iou: 0.03973936703422598 F_measure: 0.07644101645892155
+Tp_D_NRN_S_N_ani10186_ani10200_12435 :iou: 0.07944452622797979 F_measure: 0.1471951995635967
+Tp_D_NRN_M_N_cha10142_nat10123_12237 :iou: 0.0848810098086509 F_measure: 0.15647985178323298
+Tp_D_NRN_M_B_ani10114_ani00100_11637 :iou: 0.37615315252826526 F_measure: 0.5466733870967743
+Tp_D_NRN_M_N_nat10150_nat00013_12031 :iou: 0.03210352150935941 F_measure: 0.06220988658659138
+Tp_D_NRN_M_N_art10108_cha00070_11578 :iou: 0.25862781566439347 F_measure: 0.4109679008291602
+Tp_D_NND_M_B_sec00098_nat00033_00118 :iou: 0.027714653859669675 F_measure: 0.05393453086532324
+Tp_D_NNN_S_N_art00058_cha00063_00525 :iou: 0.21419354838709678 F_measure: 0.35281615302869285
+Result IoU: 13.566464933380402 / 77 = 0.17618785627766756
+Result F_measure: 21.805658491189902 / 77 = 0.2831903700154533
+931
+Tp_D_NRN_M_N_cha10133_cha00070_12213 :iou: 0.2160812117305833 F_measure: 0.35537299589240756
+Tp_D_NNN_S_B_pla00090_cha00028_00348 :iou: 0.8100429184549356 F_measure: 0.8950538246312894
+Tp_D_NRN_S_N_ani10128_ani00024_12462 :iou: 0 F_measure: 0
+Tp_D_CRN_S_N_arc00078_art00092_11881 :iou: 0.12663755458515283 F_measure: 0.22480620155038758
+Tp_D_NRN_S_N_sec00016_ani00013_00702 :iou: 0.17869415807560138 F_measure: 0.30320699708454807
+Tp_D_NRN_M_N_ind10102_cha10110_11548 :iou: 0.45664739884393063 F_measure: 0.626984126984127
+Tp_D_NRN_M_N_sec10115_cha00070_11532 :iou: 0.25627926777352067 F_measure: 0.40799728905455773
+Tp_D_NRN_S_N_pla10124_nat10124_11704 :iou: 0.029676049408291685 F_measure: 0.057641526041797654
+Tp_D_NRN_M_N_nat00002_cha00062_11516 :iou: 0.0802004512148861 F_measure: 0.14849179358272954
+Tp_D_NRN_S_N_nat00076_nat00086_10081 :iou: 0.38179519595448796 F_measure: 0.5526075022872827
+Tp_D_CRN_M_N_sec00015_cha00086_11400 :iou: 0.08023616361551204 F_measure: 0.14855300408933625
+Tp_D_CRN_M_N_nat00008_art00025_11425 :iou: 0.4935500253936008 F_measure: 0.6609085963003264
+Tp_D_NRN_M_N_nat10150_nat00013_12031 :iou: 0.005123801345355661 F_measure: 0.010195363672609217
+Tp_D_NRN_M_O_arc00024_cha00014_10011 :iou: 0.32799840616283704 F_measure: 0.4939740961144171
+Tp_D_NRN_M_N_cha10112_cha00063_11653 :iou: 0.4292851652574942 F_measure: 0.6006991126646948
+Tp_D_NRN_M_N_art10108_cha00070_11578 :iou: 0.3001835791606001 F_measure: 0.461755684307902
+Tp_D_NRN_M_B_nat10139_nat10124_11945 :iou: 0.18185883005951464 F_measure: 0.30775051204779985
+Tp_D_NRN_S_N_art00060_cha00051_01400 :iou: 0.216793893129771 F_measure: 0.35633626097867
+Tp_D_NRN_M_N_nat00033_cha00070_11476 :iou: 0.3204827216936447 F_measure: 0.4854023705552089
+Tp_D_NRD_S_B_cha20044_nat20042_02432 :iou: 0.16483434158035698 F_measure: 0.2830176544361192
+Tp_D_NND_M_B_sec00098_nat00033_00118 :iou: 0.044039020729762686 F_measure: 0.08436278693679529
+Tp_D_NRN_S_N_nat10145_ani00031_11984 :iou: 0.27044025157232704 F_measure: 0.4257425742574258
+Tp_D_NRD_S_N_sec00011_sec00016_00031 :iou: 0.2967704792192126 F_measure: 0.45770702522145407
+Tp_D_NNN_M_N_nat00096_nat00097_11096 :iou: 0.2907127031019202 F_measure: 0.45046849295472424
+Tp_D_NRN_M_N_nat00072_nat00059_11107 :iou: 0.13592500242867783 F_measure: 0.2393203814302208
+Tp_D_NRN_M_N_cha10122_nat10124_12156 :iou: 0.043010752688172046 F_measure: 0.08247422680412371
+Tp_D_CNN_S_N_txt00054_txt00049_10371 :iou: 0.05712890625 F_measure: 0.10808314087759816
+Tp_D_NRN_M_N_art00099_cha00028_11762 :iou: 0.22163074830570081 F_measure: 0.3628440895304642
+Tp_D_NRD_S_B_art20007_arc20009_01813 :iou: 0.39447901903999016 F_measure: 0.5657726127877689
+Tp_D_NRN_M_B_nat00088_nat00099_11111 :iou: 0.08650903151117244 F_measure: 0.15924217655301262
+Tp_D_NRN_M_N_nat00044_art00025_11432 :iou: 0.18460405156537754 F_measure: 0.3116721596915615
+Tp_D_CRN_S_O_nat10159_ani00024_12062 :iou: 0.06082667919210897 F_measure: 0.11467788355102945
+Tp_D_NNN_S_N_ind20047_ind20049_01788 :iou: 0.03616846517687711 F_measure: 0.06981193964574678
+Tp_D_NRN_M_N_arc00096_nat00013_11800 :iou: 0.10581874356333677 F_measure: 0.19138533178114087
+Tp_D_NRN_S_N_nat00041_art00025_11430 :iou: 0.06462136896919506 F_measure: 0.12139784312569979
+Tp_D_NRN_S_N_sec00010_ind00098_10855 :iou: 0.06457621856566284 F_measure: 0.12131816856226306
+Tp_D_NRN_M_N_cha10207_cha10208_12339 :iou: 0.010980479148181012 F_measure: 0.02172243554580362
+Tp_D_NRN_S_N_art00054_ani00005_00523 :iou: 0.14044213263979194 F_measure: 0.24629418472063855
+Tp_D_NRN_M_N_nat10116_cha00070_11372 :iou: 0.18401650877028422 F_measure: 0.3108343632157683
+Tp_D_CRN_M_N_nat00019_nat00028_11048 :iou: 0.24762074974308565 F_measure: 0.3969487519249365
+Tp_D_NRN_M_N_nat10114_cha00070_11481 :iou: 0.503806508118305 F_measure: 0.6700416647999642
+Tp_D_NND_S_N_txt00061_txt00083_10825 :iou: 0.02933127082341742 F_measure: 0.056990925380035834
+Tp_D_NRN_S_N_nat10120_cha00063_11389 :iou: 0.028067043538629377 F_measure: 0.054601582095311595
+Tp_D_NRN_S_B_sec00096_ani00070_00711 :iou: 0.3374600083460843 F_measure: 0.5046281851274051
+Tp_D_NNN_S_N_art00058_cha00063_00525 :iou: 0.3021379853095488 F_measure: 0.4640644673885671
+Tp_D_NRN_M_N_cha10142_nat10123_12237 :iou: 0 F_measure: 0
+Tp_D_NRN_M_N_nat10118_nat10123_11391 :iou: 0.007062366931505426 F_measure: 0.014025679368844426
+Tp_D_NRN_S_N_ani10215_ani00081_12382 :iou: 0.31593576281655344 F_measure: 0.4801689744191504
+Tp_D_NRN_S_N_nat00098_cha00072_11462 :iou: 0.01996007984031936 F_measure: 0.03913894324853229
+Tp_D_NRN_S_N_cha00071_ani10123_11754 :iou: 0.34652278177458035 F_measure: 0.5146927871772039
+Tp_D_NRN_S_B_pla00083_cha00063_01185 :iou: 0.33676258635256695 F_measure: 0.5038480127895304
+Tp_D_NRN_S_N_ani10119_ani10118_11612 :iou: 0.054657667141412264 F_measure: 0.10365006360700656
+Tp_D_NRD_S_N_pla00095_cha00029_00349 :iou: 0.4055333090644339 F_measure: 0.577052577052577
+Tp_D_NRN_M_N_nat10160_nat00059_12067 :iou: 0.13854602649889367 F_measure: 0.24337360681839468
+Tp_D_NRN_S_N_ani10186_ani10200_12435 :iou: 0.2733842659508569 F_measure: 0.4293821955569969
+Tp_D_NRN_M_N_ani10144_nat10156_12472 :iou: 0.05103862172439662 F_measure: 0.09712035441791779
+Tp_D_NRN_M_N_cha10141_cha10142_12236 :iou: 0.2981993169823036 F_measure: 0.45940451990912345
+Tp_D_NRN_M_N_nat10110_cha00070_11373 :iou: 0.5438981192544489 F_measure: 0.7045777340762591
+Tp_D_NRN_S_N_nat10159_ani00099_12054 :iou: 0.005578054557958279 F_measure: 0.01109422492401216
+Tp_D_NRN_M_O_cha00071_cha00095_10049 :iou: 0.04763488789834342 F_measure: 0.09093795643614659
+Tp_D_NRD_S_B_arc00031_cha00027_00251 :iou: 0.30065239924394854 F_measure: 0.462310144384024
+Tp_D_NRN_M_N_ani10112_ani00100_11628 :iou: 0.8938662991040661 F_measure: 0.9439592430858806
+Tp_D_NNN_M_N_nat00033_cha00062_11380 :iou: 0.437866517732477 F_measure: 0.6090503010293261
+Tp_D_NRN_M_N_nat00002_nat00059_11513 :iou: 0.24000350946458732 F_measure: 0.38710133904091415
+Tp_D_NNN_M_N_sec00054_cha00062_11473 :iou: 0.33856502242152464 F_measure: 0.5058626465661642
+Tp_D_NNN_M_N_nat00009_cha00062_11395 :iou: 0.6861270194033678 F_measure: 0.8138497414579742
+Tp_D_NRD_S_B_ani20002_nat20042_02437 :iou: 0.2316102470265325 F_measure: 0.3761096460275601
+Tp_D_NND_S_N_sec00071_ind00084_11275 :iou: 0.03914002205071665 F_measure: 0.0753315649867374
+Tp_D_NRN_M_N_nat10154_nat10160_12074 :iou: 0.03666606236403191 F_measure: 0.07073842521750535
+Tp_D_NRN_S_N_arc00008_cha00028_11768 :iou: 0.054371482176360224 F_measure: 0.10313534289476495
+Tp_D_CRN_M_N_art00058_art00049_10529 :iou: 0.15679108501587682 F_measure: 0.27107934534907807
+Tp_D_NRN_S_N_ani10152_ani10175_12490 :iou: 0.2268310026072529 F_measure: 0.3697836166924266
+Tp_D_NRN_M_N_nat10111_cha00072_11468 :iou: 0.34904701397712834 F_measure: 0.5174719789017613
+Tp_D_CRN_S_N_sec00023_ind00043_10887 :iou: 0.00021615390157792347 F_measure: 0.00043221437833165246
+Tp_D_NRN_M_B_ani10114_ani00100_11637 :iou: 0.6743923120407009 F_measure: 0.8055367994598244
+Tp_D_NRN_S_N_cha00031_ani00100_00351 :iou: 0.20130389322836584 F_measure: 0.3351423305345075
+Tp_D_NRN_L_O_sec00043_cha00097_00064 :iou: 0.00047410035633994527 F_measure: 0.0009477513834112934
+Result IoU: 16.910163250660336 / 77 = 0.21961250974883553
+Result F_measure: 24.88947236737756 / 77 = 0.32323990087503324

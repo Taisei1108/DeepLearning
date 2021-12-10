@@ -10,8 +10,8 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
 
-from data_manage.data_loader import ImageDataset
-
+from data_manage_CASIA.data_loader import ImageDataset
+#from data_manage.data_loader import ImageDataset
 # Grad-CAM
 from gradcam.utils import visualize_cam
 from gradcam import GradCAM, GradCAMpp
@@ -45,7 +45,7 @@ def CAM_image2binary_save(args,heatmap,path_name,pred_mani):
     for i in range(pixelSizeTuple[0]):
         for j in range(pixelSizeTuple[1]):
             r,g,b = image0.getpixel((i,j))
-            if r > thred_r:  #R100~120くらいがよさそう、30くらいまで下げると黄色も含む、10くらいまで下げると緑とかも
+            if r > thred_r:  #R100~120くらいがよさそう、30くらいまで下げると黄色も含む、10くらいまで下げると緑とかも 前45
                 new_image0.putpixel((i,j), (255,255,255)) 
             else:
                 new_image0.putpixel((i,j), (0,0,0)) 
@@ -168,7 +168,7 @@ def save_SA(args,SA_output,path_name,model,pred):
     
     SA_mean_minmax = min_max(SA_mean)
     SA_mean_minmax_resize = cv2.resize(SA_mean_minmax,(256,256)) #ベタ打ちだから変える
-    np_img_HWC_debug(SA_mean_minmax,np_img_str="SA_mean")
+    
     
     imwrite(args.cam_out_dir+path_name+'_'+str(pred)+'_SA_out.png',SA_mean_minmax_resize*255)
     return SA_mean_minmax_resize*255
@@ -282,8 +282,10 @@ def run(args):
             print(path_name,":",pred_mani,"(",preds[i].item(),",",labels[i].item(),")")
             
             if pred_mani == "TP":
-                
-                img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg').astype(np.uint32)
+                #img_mask = imread(MASK_ROOT+path_name+'_mask.png')
+                img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg')
+                img_mask = cv2.resize(img_mask, dsize=(args.cam_crop_size, args.cam_crop_size)).astype(np.uint32)
+                #img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg').astype(np.uint32)
                 img_numpy = torch.squeeze(img).to('cpu').detach().numpy().copy()
                 img_numpy_hwc =np_img = np.transpose(img_numpy, (1, 2, 0))
                
@@ -308,6 +310,7 @@ def run(args):
                 plt.imshow(CRF_result_SA)
                 plt.axis('off')
                 plt.savefig(args.segmentation_out_dir_CRF+path_name+"_plot.png")
+                plt.close()
     #一応２値分類結果も表示        
     epoch_acc = epoch_corrects.double() / len(test_loader.dataset)
     print("test_acc=",epoch_acc)

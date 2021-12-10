@@ -2,14 +2,14 @@ import argparse
 import os
 import mlflow
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '2,3'
+os.environ['CUDA_VISIBLE_DEVICES'] = '2,3,4,5'
 
 #../../datasets/Columbia/data/
 #python run.py --dataset_root ../../datasets/Columbia/ --cam_num_epochs 100
 #pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 if __name__ == '__main__':
 
-    print("SAの可視化編、SAの特徴マップが見たいSA(2048)layer3のあとにも入れてみた(精度がどうなるか)(SAの可視化はCAMのようにやって正規化を頑張った。)")#実験メモを書く
+    print("CASIAでやるぞ編、Columbiaとの変更箇所が多くて大変")#実験メモを書く
 
     parser = argparse.ArgumentParser()
 
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     parser.add_argument("--test_list", default="data_manage/test.txt", type=str)
 
     #train_cam
-    parser.add_argument('--cam_batch-size', type=int, default=16)
+    parser.add_argument('--cam_batch-size', type=int, default=64)
     parser.add_argument('--cam_network', type=str, default='resnet50_cam')
     parser.add_argument('--cam_crop_size', type=int, default=256)#元々256
     parser.add_argument('--cam_output_class', type=int, default=2)

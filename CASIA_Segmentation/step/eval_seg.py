@@ -4,7 +4,7 @@ from PIL import Image
 import numpy as np
 from matplotlib import pylab as plt
 from torchvision import transforms
-
+from utils import np_img_HWC_debug
 """
 マスク画像を読み込んで、make_cam.pyで作成したセグメンテーション画像と比較
 iouとF値を計算して評価を行う
@@ -75,10 +75,14 @@ def run(args,seg_dir_path):
             
             # mask_path = seg_name[:-7] #_TP_segのところを削る
             mask_path = seg_name[:-3]
+        
+            #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_mask.png').convert('L')
             mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
+            #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
+            mask_image_gray = mask_image_gray.resize((args.cam_crop_size,args.cam_crop_size))
             mask_image_crop = transform(mask_image_gray)
             mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
-            
+            #np_img_HWC_debug(np.array(mask_image_binary),np_img_str="mask_image_binary")
             #Mask化したnew_imageとおそらく2値化されてるcam_imageと比較してIoU計算(convert(L)でいいのか)
             
             iou_tmp , F_measure_tmp = calc_iou_F_measure(seg_image,mask_image_binary)

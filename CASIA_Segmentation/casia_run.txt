@@ -1,0 +1,9 @@
+Columbia 
+python run.py --dataset_root ../../datasets/Columbia/  --train_list data_manage/train_2.txt --val_list data_manage/val_2.txt --test_list data_manage/test_2.txt 
+CASIA
+python run.py --dataset_root ../../datasets/CASIAv2_data/  --train_list data_manage_CASIA/train_CASIA.txt --val_list data_manage_CASIA/val_CASIA.txt --test_list data_manage_CASIA/test_CASIA.txt 
+
+・train_cam.py のdataloadをCASIAにする
+・eval_camのdataloadも変える
+・make_camのmaskの読み込みの語尾を変える
+・eval_segのmaskの読み込みの語尾を変える

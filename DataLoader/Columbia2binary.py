@@ -38,9 +38,11 @@ if __name__ == '__main__':
     for path in files:
         if path.split(".")[-2][-10:]=="edgemask_3": #想定の入力'../../datasets/Columbia/data/edgemask/canong3_nikond70_sub_11_edgemask.jpg'
             mask_image_gray = Image.open(path).convert('L')
-            mask_image_crop = transform(mask_image_gray)
-            mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
+            #mask_image_crop = transform(mask_image_gray)
+            #mask_image_binary=mask_image_crop.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
+            mask_image_binary=mask_image_gray.point(lambda x: 0 if x < 90 else 255)#マスクの閾値はこれかな ~70,130~だと漏れるので
             
             path_name = path.split('/')[-1]
 
-            mask_image_binary.save(args.Columbia_root+args.out+path_name, quality=100)
+            #mask_image_binary.save(args.Columbia_root+args.out+path_name, quality=100)
+            mask_image_binary.save("./"+args.out+path_name, quality=100)

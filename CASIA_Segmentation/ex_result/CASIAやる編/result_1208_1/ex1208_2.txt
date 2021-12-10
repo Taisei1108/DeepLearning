@@ -1,0 +1,28 @@
+CASIAでやるぞ編、Columbiaとの変更箇所が多くて大変
+{'dataset_root': '../../datasets/CASIAv2_data/', 'train_list': 'data_manage_CASIA/train_CASIA.txt', 'val_list': 'data_manage_CASIA/val_CASIA.txt', 'test_list': 'data_manage_CASIA/test_CASIA.txt', 'cam_batch_size': 16, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 150, 'cam_affine_degree': 5, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'segmentation_out_dir_SA': 'result/seg/SA/', 'segmentation_out_dir_SA_CRF': 'result/seg/SA_CRF/', 'train_cam_pass': 'False', 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/CASIAv2_data/
+train_list data_manage_CASIA/train_CASIA.txt
+val_list data_manage_CASIA/val_CASIA.txt
+test_list data_manage_CASIA/test_CASIA.txt
+cam_batch_size 16
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 150
+cam_affine_degree 5
+cam_scale (1.0, 1.5)
+cam_weights_name sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+segmentation_out_dir_SA result/seg/SA/
+segmentation_out_dir_SA_CRF result/seg/SA_CRF/
+train_cam_pass False
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage_CASIA/test_CASIA.txt
+1261
+1261

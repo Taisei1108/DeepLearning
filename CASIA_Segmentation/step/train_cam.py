@@ -17,6 +17,7 @@ import mlflow
 import importlib
 
 from data_manage.data_loader import ImageDataset
+#from data_manage_CASIA.data_loader import ImageDataset
 
 from torchvision.models import resnet50
 
@@ -36,8 +37,8 @@ def run(args):
     #9/16この辺はクラスのメソッドにしたい,scaleもマルチスケールに対応させる。transformを使うかどうかも
     train_dataset = ImageDataset(images_path,args.train_list,width=args.cam_crop_size, height=args.cam_crop_size, transform=transforms.Compose([
                     #transforms.RandomCrop(crop_size),
-                    transforms.RandomHorizontalFlip(),
-                    transforms.RandomAffine(degrees=[-1*args.cam_affine_degree, args.cam_affine_degree], scale=args.cam_scale),
+                    #transforms.RandomHorizontalFlip(),
+                    #transforms.RandomAffine(degrees=[-1*args.cam_affine_degree, args.cam_affine_degree], scale=args.cam_scale),
                     #transforms.CenterCrop(args.crop),
                     transforms.Resize((args.cam_crop_size,args.cam_crop_size)),
                     transforms.ToTensor(),
