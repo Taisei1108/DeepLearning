@@ -2,14 +2,14 @@ import argparse
 import os
 import mlflow
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '2,3,4,5'
+os.environ['CUDA_VISIBLE_DEVICES'] = '4,5'
 
 #../../datasets/Columbia/data/
 #python run.py --dataset_root ../../datasets/Columbia/ --cam_num_epochs 100
 #pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 if __name__ == '__main__':
 
-    print("CASIAでやるぞ編、Columbiaとの変更箇所が多くて大変")#実験メモを書く
+    print("CASIAでうまくやるべくパラメータ調整をするのであった・・・")#実験メモを書く
 
     parser = argparse.ArgumentParser()
 
@@ -40,6 +40,8 @@ if __name__ == '__main__':
     parser.add_argument("--cam_out_dir", default="result/cam/", type=str)
     parser.add_argument("--segmentation_out_dir_CAM", default="result/seg/CAM/", type=str)
     parser.add_argument("--segmentation_out_dir_CRF", default="result/seg/CRF/", type=str)
+    parser.add_argument("--segmentation_out_dir_SA_CAM", default="result/seg/SA_CAM/", type=str)
+    parser.add_argument("--segmentation_out_dir_SA_CAM_CRF", default="result/seg/SA_CAM_CRF/", type=str)
     parser.add_argument("--segmentation_out_dir_SA", default="result/seg/SA/", type=str)
     parser.add_argument("--segmentation_out_dir_SA_CRF", default="result/seg/SA_CRF/", type=str)
     # Step
@@ -55,6 +57,8 @@ if __name__ == '__main__':
     os.makedirs(args.segmentation_out_dir_CRF, exist_ok=True)
     os.makedirs(args.segmentation_out_dir_SA, exist_ok=True)
     os.makedirs(args.segmentation_out_dir_SA_CRF, exist_ok=True)
+    os.makedirs(args.segmentation_out_dir_SA_CAM, exist_ok=True)
+    os.makedirs(args.segmentation_out_dir_SA_CAM_CRF, exist_ok=True)
     print(vars(args))
     with mlflow.start_run():
         for key, value in vars(args).items():
@@ -75,6 +79,12 @@ if __name__ == '__main__':
         if args.eval_seg_pass is True:
             import step.eval_seg
             step.eval_seg.run(args,args.segmentation_out_dir_CRF)
+        if args.eval_seg_pass is True:
+            import step.eval_seg
+            step.eval_seg.run(args,args.segmentation_out_dir_SA_CAM)
+        if args.eval_seg_pass is True:
+            import step.eval_seg
+            step.eval_seg.run(args,args.segmentation_out_dir_SA_CAM_CRF)
         if args.eval_seg_pass is True:
             import step.eval_seg
             step.eval_seg.run(args,args.segmentation_out_dir_SA)

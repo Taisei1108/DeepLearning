@@ -64,7 +64,7 @@ def run(args,seg_dir_path):
     F_measure = 0
     for f in seg_data_files:
         #2021年9月25日現在　fは./result/seg/CAM/canong3_canonxt_sub_03_FN_binary_CAM.pngみたいな感じ
-        seg_name = f.split('/')[-1][:-15] #pathやpingを取り外す(保存の名前変わると変えなきゃいけないの変えないとだな)
+        seg_name = f.split('/')[-1].split('binary')[0][:-1] #pathやpingを取り外す(保存の名前変わると変えなきゃいけないの変えないとだな)
         seg_image = Image.open(f).convert('L') #恐らく、２値化した状態で読み込めているはず(チャンネル１)
        
         #普通にimage openしただけなのに (3,65536)になるの意味不だな
@@ -76,8 +76,8 @@ def run(args,seg_dir_path):
             # mask_path = seg_name[:-7] #_TP_segのところを削る
             mask_path = seg_name[:-3]
         
-            #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_mask.png').convert('L')
-            mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
+            mask_image_gray = Image.open(MASK_ROOT+mask_path+'_mask.png').convert('L')
+            #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
             #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
             mask_image_gray = mask_image_gray.resize((args.cam_crop_size,args.cam_crop_size))
             mask_image_crop = transform(mask_image_gray)

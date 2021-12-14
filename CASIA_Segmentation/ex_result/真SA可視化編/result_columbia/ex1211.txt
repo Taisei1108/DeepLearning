@@ -1,0 +1,329 @@
+Columbiaの戻して、SAのattentionベースの可視化をした。
+{'dataset_root': '../../datasets/Columbia/', 'train_list': 'data_manage/train_2.txt', 'val_list': 'data_manage/val_2.txt', 'test_list': 'data_manage/test_2.txt', 'cam_batch_size': 64, 'cam_network': 'resnet50_cam', 'cam_crop_size': 256, 'cam_output_class': 2, 'cam_learning_rate': 1e-05, 'cam_momentum': 0.99, 'cam_num_epochs': 150, 'cam_affine_degree': 5, 'cam_scale': (1.0, 1.5), 'cam_weights_name': 'sess/res50_cam.pth', 'cam_out_dir': 'result/cam/', 'segmentation_out_dir_CAM': 'result/seg/CAM/', 'segmentation_out_dir_CRF': 'result/seg/CRF/', 'segmentation_out_dir_SA_CAM': 'result/seg/SA_CAM/', 'segmentation_out_dir_SA_CAM_CRF': 'result/seg/SA_CAM_CRF/', 'segmentation_out_dir_SA': 'result/seg/SA/', 'segmentation_out_dir_SA_CRF': 'result/seg/SA_CRF/', 'train_cam_pass': 'False', 'eval_cam_pass': True, 'make_cam_pass': True, 'eval_seg_pass': True}
+dataset_root ../../datasets/Columbia/
+train_list data_manage/train_2.txt
+val_list data_manage/val_2.txt
+test_list data_manage/test_2.txt
+cam_batch_size 64
+cam_network resnet50_cam
+cam_crop_size 256
+cam_output_class 2
+cam_learning_rate 1e-05
+cam_momentum 0.99
+cam_num_epochs 150
+cam_affine_degree 5
+cam_scale (1.0, 1.5)
+cam_weights_name sess/res50_cam.pth
+cam_out_dir result/cam/
+segmentation_out_dir_CAM result/seg/CAM/
+segmentation_out_dir_CRF result/seg/CRF/
+segmentation_out_dir_SA_CAM result/seg/SA_CAM/
+segmentation_out_dir_SA_CAM_CRF result/seg/SA_CAM_CRF/
+segmentation_out_dir_SA result/seg/SA/
+segmentation_out_dir_SA_CRF result/seg/SA_CRF/
+train_cam_pass False
+eval_cam_pass True
+make_cam_pass True
+eval_seg_pass True
+data_manage/test_2.txt
+36
+36
+test Loss: 0.3219 Acc: 0.8611
+data_manage/test_2.txt
+36
+36
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_05_sub_09 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_05_sub_03 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_11_sub_02 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_canonxt_sub_12 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_05_sub_05 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_05_sub_05 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_nikond70_sub_19 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_kodakdcs330_sub_28 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_35_sub_02 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_kodakdcs330_sub_14 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_kodakdcs330_sub_17 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_32_sub_07 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_canonxt_sub_02 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_nikond70_sub_23 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_19 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_05 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_14_sub_07 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_08_sub_01 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_21 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_04 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_05_sub_06 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_canonxt_sub_30 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_canonxt_sub_29 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_26_sub_04 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_05_sub_01 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_23_sub_01 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_08_sub_01 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_01 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canong3_canonxt_sub_19 : FN ( 0 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_08_sub_04 : FP ( 1 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_kodakdcs330_sub_22 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_02_sub_02 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_26_sub_05 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+canonxt_17_sub_06 : TN ( 0 , 0 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_canonxt_sub_17 : TP ( 1 , 1 )
+(256, 256)
+CRF Done!
+CRF Done!
+CRF Done!
+nikond70_kodakdcs330_sub_24 : TP ( 1 , 1 )
+test_acc= tensor(0.8333, device='cuda:0', dtype=torch.float64)
+36
+canonxt_kodakdcs330_sub_28 :iou: 0.5658329400660689 F_measure: 0.7227245328511152
+nikond70_canonxt_sub_17 :iou: 0.4764222577002453 F_measure: 0.6453739845975314
+canong3_canonxt_sub_02 :iou: 0.4556288753626486 F_measure: 0.6260234089532407
+canong3_kodakdcs330_sub_14 :iou: 0.3183453237410072 F_measure: 0.48294679399727153
+canong3_canonxt_sub_30 :iou: 0.26048119220755905 F_measure: 0.4133043695025106
+nikond70_kodakdcs330_sub_04 :iou: 0.2432156777037118 F_measure: 0.3912686785818928
+canonxt_kodakdcs330_sub_22 :iou: 0.4269200024595708 F_measure: 0.5983797293803326
+canong3_nikond70_sub_19 :iou: 0.11200210332588405 F_measure: 0.20144225085707534
+nikond70_kodakdcs330_sub_21 :iou: 0.3029047064465301 F_measure: 0.46496832031968877
+nikond70_kodakdcs330_sub_01 :iou: 0.16705959159986944 F_measure: 0.2862914504148927
+nikond70_kodakdcs330_sub_24 :iou: 0.656272778812667 F_measure: 0.7924694376528117
+canong3_kodakdcs330_sub_17 :iou: 0.38728429652517743 F_measure: 0.5583344343985353
+nikond70_kodakdcs330_sub_05 :iou: 0.383202773853859 F_measure: 0.5540804010769659
+nikond70_kodakdcs330_sub_19 :iou: 0.1411941151264105 F_measure: 0.24744977783340633
+nikond70_canonxt_sub_29 :iou: 0.2278522856063468 F_measure: 0.3711395715549402
+canong3_nikond70_sub_23 :iou: 0.3659676252989932 F_measure: 0.5358364554487701
+Result IoU: 5.49058654583655 / 16 = 0.34316165911478436
+Result F_measure: 7.892033597420981 / 16 = 0.4932520998388113
+52
+canong3_canonxt_sub_02 :iou: 0.4564533053515215 F_measure: 0.6268011527377522
+canong3_kodakdcs330_sub_17 :iou: 0.43421669793621015 F_measure: 0.6055105878505437
+nikond70_kodakdcs330_sub_04 :iou: 0.24964288399368467 F_measure: 0.3995427608819902
+canonxt_kodakdcs330_sub_28 :iou: 0.7411916356344886 F_measure: 0.8513613555975981
+canong3_kodakdcs330_sub_14 :iou: 0.2898321514208459 F_measure: 0.44941064789178076
+nikond70_canonxt_sub_29 :iou: 0.2340173971792923 F_measure: 0.3792773063235697
+nikond70_kodakdcs330_sub_21 :iou: 0.46596494977559305 F_measure: 0.6357109013376098
+nikond70_kodakdcs330_sub_19 :iou: 0.15474564011894237 F_measure: 0.26801684239830187
+nikond70_kodakdcs330_sub_01 :iou: 0.24317617866004962 F_measure: 0.39121756487025944
+canonxt_kodakdcs330_sub_22 :iou: 0.47123991490386546 F_measure: 0.6406024063514584
+canong3_nikond70_sub_23 :iou: 0.4613096097744144 F_measure: 0.631364642631246
+canong3_nikond70_sub_19 :iou: 0.19038809233486104 F_measure: 0.31987566670198864
+nikond70_kodakdcs330_sub_05 :iou: 0.5239691782836303 F_measure: 0.6876375004824579
+nikond70_kodakdcs330_sub_24 :iou: 0.7849303180356323 F_measure: 0.8795080795080794
+canong3_canonxt_sub_30 :iou: 0.23289999540631173 F_measure: 0.3778084131301464
+nikond70_canonxt_sub_17 :iou: 0.8729204054906146 F_measure: 0.9321489615165484
+Result IoU: 6.806898354299959 / 16 = 0.4254311471437474
+Result F_measure: 9.07579479021133 / 16 = 0.5672371743882081
+36
+canong3_canonxt_sub_30 :iou: 0.15021650377335147 F_measure: 0.26119691950264595
+nikond70_kodakdcs330_sub_01 :iou: 0.26662807525325616 F_measure: 0.42100452447328734
+nikond70_kodakdcs330_sub_24 :iou: 0.6067560475213513 F_measure: 0.7552559686423567
+nikond70_canonxt_sub_17 :iou: 0.5039072242081636 F_measure: 0.6701307315994582
+canong3_kodakdcs330_sub_14 :iou: 0.43391834937409574 F_measure: 0.6052204430796226
+canonxt_kodakdcs330_sub_28 :iou: 0.6409918986717111 F_measure: 0.7812249398556536
+canong3_kodakdcs330_sub_17 :iou: 0.4547954517364973 F_measure: 0.6252362848586539
+nikond70_canonxt_sub_29 :iou: 0.32759707208299 F_measure: 0.49351882279913833
+nikond70_kodakdcs330_sub_04 :iou: 0.3028933492844167 F_measure: 0.4649549396361164
+nikond70_kodakdcs330_sub_19 :iou: 0.3689421573736321 F_measure: 0.5390178911305673
+canong3_nikond70_sub_23 :iou: 0.38796602850151146 F_measure: 0.5590425421584286
+canong3_canonxt_sub_02 :iou: 0.40683544998217075 F_measure: 0.578369630915011
+canong3_nikond70_sub_19 :iou: 0.1812298931331583 F_measure: 0.3068494866015527
+nikond70_kodakdcs330_sub_05 :iou: 0.45 F_measure: 0.6206896551724138
+nikond70_kodakdcs330_sub_21 :iou: 0.5737736828445367 F_measure: 0.7291692434549577
+canonxt_kodakdcs330_sub_22 :iou: 0.4637261779492576 F_measure: 0.6336242187031971
+Result IoU: 6.520177361690101 / 16 = 0.40751108510563133
+Result F_measure: 9.044506242583061 / 16 = 0.5652816401614413
+36
+nikond70_canonxt_sub_29 :iou: 0.2877003705896542 F_measure: 0.4468436558077755
+canong3_kodakdcs330_sub_17 :iou: 0.4487062958250015 F_measure: 0.6194579220344655
+canong3_canonxt_sub_30 :iou: 0.15038415790658052 F_measure: 0.26145032834986726
+nikond70_kodakdcs330_sub_05 :iou: 0.6282200553049047 F_measure: 0.7716648044692738
+nikond70_kodakdcs330_sub_21 :iou: 0.8019936126971838 F_measure: 0.8901181525241675
+nikond70_kodakdcs330_sub_24 :iou: 0.6272467752167478 F_measure: 0.7709301192293948
+nikond70_kodakdcs330_sub_19 :iou: 0.4250585961593816 F_measure: 0.5965489381348107
+canong3_nikond70_sub_23 :iou: 0.6065536205316223 F_measure: 0.7550991299386679
+canonxt_kodakdcs330_sub_28 :iou: 0.7252855270548586 F_measure: 0.8407715890284597
+canong3_canonxt_sub_02 :iou: 0.5707675839922655 F_measure: 0.7267371568002462
+canong3_nikond70_sub_19 :iou: 0.32786477752920706 F_measure: 0.49382253837514034
+nikond70_kodakdcs330_sub_01 :iou: 0.48442317916002126 F_measure: 0.6526753097915622
+nikond70_kodakdcs330_sub_04 :iou: 0.33018301830183017 F_measure: 0.49644750197361
+nikond70_canonxt_sub_17 :iou: 0.7118124787239216 F_measure: 0.8316477272727273
+canong3_kodakdcs330_sub_14 :iou: 0.4219055602123498 F_measure: 0.593436824523482
+canonxt_kodakdcs330_sub_22 :iou: 0.4448869116137262 F_measure: 0.6158086256271128
+Result IoU: 7.992992520819258 / 16 = 0.4995620325512036
+Result F_measure: 10.363460323880764 / 16 = 0.6477162702425477
+36
+nikond70_kodakdcs330_sub_19 :iou: 0.004940386008826823 F_measure: 0.009832197168327214
+canong3_canonxt_sub_30 :iou: 0 F_measure: 0
+nikond70_kodakdcs330_sub_24 :iou: 0.08808011724474842 F_measure: 0.1619000583666322
+canonxt_kodakdcs330_sub_22 :iou: 0.04280140306625153 F_measure: 0.08208927019161721
+nikond70_canonxt_sub_29 :iou: 0 F_measure: 0
+canong3_nikond70_sub_23 :iou: 0.24662273476112026 F_measure: 0.39566538918990357
+canong3_nikond70_sub_19 :iou: 0 F_measure: 0
+canong3_kodakdcs330_sub_17 :iou: 0.1780338911693506 F_measure: 0.3022559749832477
+nikond70_kodakdcs330_sub_01 :iou: 0.13298123172686976 F_measure: 0.2347456921668193
+canong3_canonxt_sub_02 :iou: 0.005741254318104413 F_measure: 0.011416960959798753
+nikond70_kodakdcs330_sub_04 :iou: 0.07904368818627833 F_measure: 0.14650692840646654
+canonxt_kodakdcs330_sub_28 :iou: 0.19611143354614044 F_measure: 0.3279149885972148
+nikond70_kodakdcs330_sub_05 :iou: 0 F_measure: 0
+nikond70_canonxt_sub_17 :iou: 0.11465132256956373 F_measure: 0.20571692734417132
+nikond70_kodakdcs330_sub_21 :iou: 0.1145074741280184 F_measure: 0.2054853408993208
+canong3_kodakdcs330_sub_14 :iou: 0.09810766121624104 F_measure: 0.17868495900953657
+Result IoU: 1.3016225979415137 / 16 = 0.0813514123713446
+Result F_measure: 2.262214687283056 / 16 = 0.141388417955191
+36
+nikond70_kodakdcs330_sub_01 :iou: 0.19217081850533807 F_measure: 0.32238805970149254
+canong3_nikond70_sub_23 :iou: 0.07699420540007397 F_measure: 0.14297979508900463
+canonxt_kodakdcs330_sub_28 :iou: 0.10439454999040491 F_measure: 0.18905299739357082
+canong3_kodakdcs330_sub_14 :iou: 0 F_measure: 0
+nikond70_kodakdcs330_sub_19 :iou: 0 F_measure: 0
+canong3_nikond70_sub_19 :iou: 0 F_measure: 0
+canong3_canonxt_sub_02 :iou: 0.0010820559062218215 F_measure: 0.0021617726535759327
+canong3_canonxt_sub_30 :iou: 0 F_measure: 0
+nikond70_canonxt_sub_17 :iou: 0 F_measure: 0
+nikond70_kodakdcs330_sub_04 :iou: 0.12748835239305378 F_measure: 0.22614575507137488
+nikond70_kodakdcs330_sub_21 :iou: 0 F_measure: 0
+nikond70_kodakdcs330_sub_05 :iou: 0 F_measure: 0
+nikond70_canonxt_sub_29 :iou: 0 F_measure: 0
+canong3_kodakdcs330_sub_17 :iou: 0.042305934582490046 F_measure: 0.08117757594738491
+nikond70_kodakdcs330_sub_24 :iou: 0 F_measure: 0
+canonxt_kodakdcs330_sub_22 :iou: 0 F_measure: 0
+Result IoU: 0.5444359167775827 / 16 = 0.03402724479859892
+Result F_measure: 0.9639059558564038 / 16 = 0.06024412224102524
