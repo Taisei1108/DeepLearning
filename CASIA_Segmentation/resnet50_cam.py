@@ -47,7 +47,7 @@ class Net(nn.Module):
         x = self.layer3(x)
         #x = self.Self_Attn1(x)
         x = self.layer4(x)
-        x = self.Self_Attn2(x)
+        x , _ = self.Self_Attn2(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
         x = self.fc(x)
@@ -72,7 +72,8 @@ class Net(nn.Module):
 class out_selfA(Net):
     def __init__(self):
         super(out_selfA, self).__init__()
-    
+        
+
     def forward(self, x):
 
         x = self.layer1(x)
@@ -81,9 +82,9 @@ class out_selfA(Net):
         x = self.layer3(x)
         #x = self.Self_Attn1(x)
         x = self.layer4(x)
-        x = self.Self_Attn2(x)
+        x,attention = self.Self_Attn2(x)
        
-        return x
+        return x,attention
 
 class Self_Attn(nn.Module):
     """ Self attention Layer"""
@@ -114,7 +115,7 @@ class Self_Attn(nn.Module):
         out = out.view(batchsize, C, width, height)
 
         out = self.gamma * out + input
-        return out
+        return out, attention
 
 def gap2d(x, keepdims=False):
     out = torch.mean(x.view(x.size(0), x.size(1), -1), -1)

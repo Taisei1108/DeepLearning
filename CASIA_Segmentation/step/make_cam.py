@@ -27,7 +27,7 @@ def normalize(v, axis=None, order=2):
     l2 = np.linalg.norm(v, ord = order, axis=axis, keepdims=True)
     l2[l2==0] = 1
     return v/l2
-def min_max(x, axis=None):
+def min_max(x, axis=None):  #確か配列を0~1にしてくれるとかだと思う　ーがあっても行けた気がする。
     min = x.min(axis=axis, keepdims=True)
     max = x.max(axis=axis, keepdims=True)
     result = (x-min)/(max-min)
@@ -68,7 +68,7 @@ def SA2binary(args,SA_output,path_name,pred_mani,thr=115):
                 new_image0.putpixel((i,j), (255,255,255)) 
             else:
                 new_image0.putpixel((i,j), (0,0,0)) 
-    new_image0.save(args.segmentation_out_dir_SA+path_name+'_'+pred_mani+'_binary_SAA.png',quality=100)
+    new_image0.save(args.segmentation_out_dir_SA_CAM+path_name+'_'+pred_mani+'_binary_SA_CAM.png',quality=100)
 def get_prediction_manipulation(pred,label): #item()して入力されることを仮定
     if pred == 1 and label == 1:
         pred_mani = "TP"
@@ -121,7 +121,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         d = dcrf.DenseCRF(img.shape[1] * img.shape[0], n_labels)
 
                  # Get a dollar potential (negative log probability)
-        U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=None)  
+        U = unary_from_labels(labels, n_labels, gt_prob=0.9, zero_unsure=None)  
                  #U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=HAS_UNK)## If there is an indeterminate area, replace the previous line with this line of code
         d.setUnaryEnergy(U)
 
@@ -141,7 +141,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         
         
         # 5 times reasoning
-        Q = d.inference(5)
+        Q = d.inference(10)
 
         # Find the most likely class for each pixel
         Q_np = np.array(Q)
@@ -153,7 +153,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
 
         return MAP
 
-def save_SA(args,SA_output,path_name,model,pred):
+def save_SA_CAM(args,SA_output,path_name,model,pred):
 
     C = SA_output.shape[0]
     width = SA_output.shape[1]
@@ -170,8 +170,31 @@ def save_SA(args,SA_output,path_name,model,pred):
     SA_mean_minmax_resize = cv2.resize(SA_mean_minmax,(256,256)) #ベタ打ちだから変える
     
     
-    imwrite(args.cam_out_dir+path_name+'_'+str(pred)+'_SA_out.png',SA_mean_minmax_resize*255)
+    imwrite(args.cam_out_dir+path_name+'_'+str(pred)+'_SA_CAM.png',SA_mean_minmax_resize*255)
     return SA_mean_minmax_resize*255
+
+def save_SA(args,attention,CAM,path_name,pred):
+    attention = attention.reshape(64,8,8).to('cpu').detach().numpy().copy() #ベタ打ち
+    SA_output =np.zeros((256,256))
+    SA_output_mm =np.zeros((256,256))
+    #この辺のプログラムは入力画像256*256、SAの出力[64*64]を想定
+    count = 0
+    for i in range(CAM.shape[0]):
+        for k in range(CAM.shape[1]):
+            if CAM[i][k][0] == 255:
+                #print((i//32*8)+k//32,":",attention[i//32*8+k//32])  #256/8=32
+                attention_resize = cv2.resize(attention[i//32*8+k//32],(256,256))
+                #print(normalize(attention_resize))
+                
+                SA_output += attention_resize
+                SA_output_mm += min_max(attention_resize) #min_maxすると0~1になる。もともと0~1だからしなくてもいい説。sumの値もそんな変わらん
+                count += 1
+    th, im_th = cv2.threshold(SA_output_mm/count*255, 10, 255, cv2.THRESH_BINARY)
+    #imwrite(args.cam_out_dir+path_name+'_'+str(pred)+'_SA_out.png',SA_output/count*255)
+    imwrite(args.segmentation_out_dir_SA+path_name+'_'+str(pred)+'_binary_SA.png',im_th) #バイナリで保存される。
+    #attention_resize = cv2.resize(attention,(64,256,256))
+    #return im_th
+
 def run(args):
     #乱数の初期設定
     torch.manual_seed(0)
@@ -237,7 +260,7 @@ def run(args):
 
         outputs = model(inputs)
         _, preds = torch.max(outputs, 1)
-        SA_output = model_s(inputs)
+        SA_output,attention = model_s(inputs)
         
         #grad-cam参考https://www.yurui-deep-learning.com/2021/02/08/grad-campytorch-google-colab/
         
@@ -258,32 +281,48 @@ def run(args):
             path_name = im_paths[i].split('/')[-1].split('.')[0]
             
             #SAの出力を保存
-            SA_kasika = save_SA(args,SA_output[i],path_name,model_s,preds[i].item())
-            SA2binary(args,SA_kasika,path_name,pred_mani)
+            SA_CAM_kasika = save_SA_CAM(args,SA_output[i],path_name,model_s,preds[i].item())
+            SA2binary(args,SA_CAM_kasika,path_name,pred_mani)
 
             CAM_image2binary_save(args,heatmap_pp,path_name,pred_mani) #評価に使います
             
-            CAM_binary = imread(args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png').astype(np.uint32)
-            SA_binary = imread(args.segmentation_out_dir_SA+path_name+'_'+pred_mani+'_binary_SAA.png').astype(np.uint32)
             
+
+            #保存したやつらを読み込んで、CRFかけたりplotしたりする。
+            CAM_binary = imread(args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png').astype(np.uint32)
+
+            #SAの可視化する(attentionベース)
+            save_SA(args,attention[i],CAM_binary,path_name,pred_mani)
+
+            #保存したやつらを読み込んで、CRFかけたりplotしたりする。
+            SA_CAM_binary = imread(args.segmentation_out_dir_SA_CAM+path_name+'_'+pred_mani+'_binary_SA_CAM.png').astype(np.uint32)
+            SA_binary = imread(args.segmentation_out_dir_SA+path_name+'_'+pred_mani+'_binary_SA.png').astype(np.uint32)
+            
+            
+
             CAMforCRF = heatmap_pp.to('cpu').detach().numpy().copy()
             CAMforCRF = np.transpose(CAMforCRF, (1, 2, 0))
 
             CRF_result_CAM = CRF(args,img*255,CAM_binary) 
             CRF_result_CAM = CRF_result_CAM.reshape(img.shape[2],img.shape[3],img.shape[1])
            
+            CRF_result_SA_CAM = CRF(args,img*255,SA_CAM_binary) 
+            CRF_result_SA_CAM = CRF_result_SA_CAM.reshape(img.shape[2],img.shape[3],img.shape[1])
+            
             CRF_result_SA = CRF(args,img*255,SA_binary) 
             CRF_result_SA = CRF_result_SA.reshape(img.shape[2],img.shape[3],img.shape[1])
 
+
             imwrite(args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png',CRF_result_CAM)
-            imwrite(args.segmentation_out_dir_SA_CRF+path_name+'_'+pred_mani+'_binary_SAF.png',CRF_result_SA)
+            imwrite(args.segmentation_out_dir_SA_CAM_CRF+path_name+'_'+pred_mani+'_binary_SA_CAM_CRF.png',CRF_result_SA_CAM)
+            imwrite(args.segmentation_out_dir_SA_CRF+path_name+'_'+pred_mani+'_binary_SA_CRF.png',CRF_result_SA)
             save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])　#リザルトというのはheatmapと実画像を重ね合わせているということ
             save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
             print(path_name,":",pred_mani,"(",preds[i].item(),",",labels[i].item(),")")
             
             if pred_mani == "TP":
-                #img_mask = imread(MASK_ROOT+path_name+'_mask.png')
-                img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg')
+                img_mask = imread(MASK_ROOT+path_name+'_mask.png')
+                #img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg')
                 img_mask = cv2.resize(img_mask, dsize=(args.cam_crop_size, args.cam_crop_size)).astype(np.uint32)
                 #img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg').astype(np.uint32)
                 img_numpy = torch.squeeze(img).to('cpu').detach().numpy().copy()
@@ -291,22 +330,28 @@ def run(args):
                
                 plt.figure(figsize=(5,5))
                 plt.title(path_name)
-                plt.subplot(3, 2, 1)
+                plt.subplot(4, 2, 1)
                 plt.imshow(img_numpy_hwc)
                 plt.axis('off')
-                plt.subplot(3, 2, 2)
+                plt.subplot(4, 2, 2)
                 plt.imshow(img_mask)
                 plt.axis('off')
-                plt.subplot(3, 2, 3)    
+                plt.subplot(4, 2, 3)    
                 plt.imshow(CAM_binary)
                 plt.axis('off')
-                plt.subplot(3, 2, 4)
+                plt.subplot(4, 2, 4)
                 plt.imshow(CRF_result_CAM)
                 plt.axis('off')
-                plt.subplot(3, 2, 5)
+                plt.subplot(4, 2, 5)
+                plt.imshow(SA_CAM_binary)
+                plt.axis('off')
+                plt.subplot(4, 2, 6)
+                plt.imshow(CRF_result_SA_CAM)
+                plt.axis('off')
+                plt.subplot(4, 2, 7)
                 plt.imshow(SA_binary)
                 plt.axis('off')
-                plt.subplot(3, 2, 6)
+                plt.subplot(4, 2, 8)
                 plt.imshow(CRF_result_SA)
                 plt.axis('off')
                 plt.savefig(args.segmentation_out_dir_CRF+path_name+"_plot.png")
