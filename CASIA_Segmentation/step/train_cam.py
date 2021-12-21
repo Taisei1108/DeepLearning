@@ -16,8 +16,8 @@ import mlflow
 
 import importlib
 
-#from data_manage.data_loader import ImageDataset
-from data_manage_CASIA.data_loader import ImageDataset
+from data_manage.data_loader import ImageDataset
+#from data_manage_CASIA.data_loader import ImageDataset
 
 from torchvision.models import resnet50
 

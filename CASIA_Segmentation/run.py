@@ -2,14 +2,14 @@ import argparse
 import os
 import mlflow
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '4,5'
+os.environ['CUDA_VISIBLE_DEVICES'] = '8,9'
 
 #../../datasets/Columbia/data/
 #python run.py --dataset_root ../../datasets/Columbia/ --cam_num_epochs 100
 #pip install git+https://github.com/lucasb-eyer/pydensecrf.git
 if __name__ == '__main__':
 
-    print("CASIAでうまくやるべくパラメータ調整をするのであった・・・")#実験メモを書く
+    print("CRFに連続値をいれるぞ！")#実験メモを書く
 
     parser = argparse.ArgumentParser()
 

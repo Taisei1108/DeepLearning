@@ -10,8 +10,8 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
 
-from data_manage_CASIA.data_loader import ImageDataset
-#from data_manage.data_loader import ImageDataset
+#from data_manage_CASIA.data_loader import ImageDataset
+from data_manage.data_loader import ImageDataset
 # Grad-CAM
 from gradcam.utils import visualize_cam
 from gradcam import GradCAM, GradCAMpp
@@ -22,6 +22,9 @@ from pydensecrf.utils import unary_from_labels, create_pairwise_bilateral, creat
 from cv2 import imread, imwrite
 from utils import np_img_HWC_debug
 from matplotlib import pyplot as plt
+
+MASK_EX = '_edgemask_3.jpg'
+#MASK_EX = '_mask.png'
 
 def normalize(v, axis=None, order=2):
     l2 = np.linalg.norm(v, ord = order, axis=axis, keepdims=True)
@@ -121,7 +124,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         d = dcrf.DenseCRF(img.shape[1] * img.shape[0], n_labels)
 
                  # Get a dollar potential (negative log probability)
-        U = unary_from_labels(labels, n_labels, gt_prob=0.9, zero_unsure=None)  
+        U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=None)  
                  #U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=HAS_UNK)## If there is an indeterminate area, replace the previous line with this line of code
         d.setUnaryEnergy(U)
 
@@ -150,7 +153,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
         # Convert predicted_image back to the appropriate color and save the image
         MAP = colorize[MAP,:]
         print("CRF Done!")
-
+        
         return MAP
 
 def save_SA_CAM(args,SA_output,path_name,model,pred):
@@ -194,6 +197,51 @@ def save_SA(args,attention,CAM,path_name,pred):
     imwrite(args.segmentation_out_dir_SA+path_name+'_'+str(pred)+'_binary_SA.png',im_th) #バイナリで保存される。
     #attention_resize = cv2.resize(attention,(64,256,256))
     #return im_th
+
+def save_image_func(args,path_name,pred_mani,CRF_result_CAM,CRF_result_SA_CAM,CRF_result_SA,result_pp,heatmap_pp):
+
+    imwrite(args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png',CRF_result_CAM)
+    imwrite(args.segmentation_out_dir_SA_CAM_CRF+path_name+'_'+pred_mani+'_binary_SA_CAM_CRF.png',CRF_result_SA_CAM)
+    imwrite(args.segmentation_out_dir_SA_CRF+path_name+'_'+pred_mani+'_binary_SA_CRF.png',CRF_result_SA)
+    save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])　#リザルトというのはheatmapと実画像を重ね合わせているということ
+    save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
+
+def images_prot(args,path_name,MASK_ROOT,img,CAM_binary,CRF_result_CAM,SA_CAM_binary,CRF_result_SA_CAM,SA_binary,CRF_result_SA):
+    
+    img_mask = imread(MASK_ROOT+path_name+MASK_EX)
+    img_mask = cv2.resize(img_mask, dsize=(args.cam_crop_size, args.cam_crop_size)).astype(np.uint32)
+    
+    img_numpy = torch.squeeze(img).to('cpu').detach().numpy().copy()
+    img_numpy_hwc =np_img = np.transpose(img_numpy, (1, 2, 0))
+    
+    plt.figure(figsize=(5,5))
+    plt.title(path_name)
+    plt.subplot(4, 2, 1)
+    plt.imshow(img_numpy_hwc)
+    plt.axis('off')
+    plt.subplot(4, 2, 2)
+    plt.imshow(img_mask)
+    plt.axis('off')
+    plt.subplot(4, 2, 3)    
+    plt.imshow(CAM_binary)
+    plt.axis('off')
+    plt.subplot(4, 2, 4)
+    plt.imshow(CRF_result_CAM)
+    plt.axis('off')
+    plt.subplot(4, 2, 5)
+    plt.imshow(SA_CAM_binary)
+    plt.axis('off')
+    plt.subplot(4, 2, 6)
+    plt.imshow(CRF_result_SA_CAM)
+    plt.axis('off')
+    plt.subplot(4, 2, 7)
+    plt.imshow(SA_binary)
+    plt.axis('off')
+    plt.subplot(4, 2, 8)
+    plt.imshow(CRF_result_SA)
+    plt.axis('off')
+    plt.savefig(args.segmentation_out_dir_CRF+path_name+"_plot.png")
+    plt.close()
 
 def run(args):
     #乱数の初期設定
@@ -260,11 +308,14 @@ def run(args):
 
         outputs = model(inputs)
         _, preds = torch.max(outputs, 1)
-        SA_output,attention = model_s(inputs)
+        x,attention = model_s(inputs)
         
         #grad-cam参考https://www.yurui-deep-learning.com/2021/02/08/grad-campytorch-google-colab/
         
         for i in range(inputs.shape[0]):
+              #パス保存用
+            path_name = im_paths[i].split('/')[-1].split('.')[0]
+
             epoch_corrects += torch.sum(preds[i] == labels[i])
             pred_mani = get_prediction_manipulation(preds[i].item(),labels[i].item())
             # pred 1 label 1 -> TP ,pred 1 label0 ->FP, pred 0 label -> 1 FN, pred 0 label 0 -> TN
@@ -276,19 +327,15 @@ def run(args):
             mask_pp, _ = gradcam_pp(img)
             heatmap_pp, result_pp = visualize_cam(mask_pp, img)
          
-
-             #パス保存用
-            path_name = im_paths[i].split('/')[-1].split('.')[0]
-            
-            #SAの出力を保存
-            SA_CAM_kasika = save_SA_CAM(args,SA_output[i],path_name,model_s,preds[i].item())
+            #SAのCAM
+            SA_CAM_kasika = save_SA_CAM(args,x[i],path_name,model_s,preds[i].item())
             SA2binary(args,SA_CAM_kasika,path_name,pred_mani)
 
+           
             CAM_image2binary_save(args,heatmap_pp,path_name,pred_mani) #評価に使います
             
-            
 
-            #保存したやつらを読み込んで、CRFかけたりplotしたりする。
+            #バイナリCAMを読み込んで、SAの可視化やCRFなどをしていく
             CAM_binary = imread(args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png').astype(np.uint32)
 
             #SAの可視化する(attentionベース)
@@ -299,63 +346,36 @@ def run(args):
             SA_binary = imread(args.segmentation_out_dir_SA+path_name+'_'+pred_mani+'_binary_SA.png').astype(np.uint32)
             
             
-
-            CAMforCRF = heatmap_pp.to('cpu').detach().numpy().copy()
-            CAMforCRF = np.transpose(CAMforCRF, (1, 2, 0))
-
-            CRF_result_CAM = CRF(args,img*255,CAM_binary) 
-            CRF_result_CAM = CRF_result_CAM.reshape(img.shape[2],img.shape[3],img.shape[1])
-           
-            CRF_result_SA_CAM = CRF(args,img*255,SA_CAM_binary) 
-            CRF_result_SA_CAM = CRF_result_SA_CAM.reshape(img.shape[2],img.shape[3],img.shape[1])
+            """
+            CAMforCRF = np.squeeze(mask_pp.to('cpu').detach().numpy().copy())
+            print(CAMforCRF.shape)
+            CAMforCRF_gray = np.stack([CAMforCRF,CAMforCRF,CAMforCRF], -1) #[256,256,1]を重ねて３チャンにしたい
+            print(CAMforCRF_gray.shape)
+            #CAMforCRF = np.transpose(CAMforCRF, (1, 2, 0))
+            """
             
-            CRF_result_SA = CRF(args,img*255,SA_binary) 
-            CRF_result_SA = CRF_result_SA.reshape(img.shape[2],img.shape[3],img.shape[1])
 
+            CRF_result_CAM = CRF(args,img*255,CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+         
+            #CRF_result_CAM = CRF(args,img*255,CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+            CRF_result_SA_CAM = CRF(args,img*255,SA_CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+            CRF_result_SA = CRF(args,img*255,SA_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+            
 
-            imwrite(args.segmentation_out_dir_CRF+path_name+'_'+pred_mani+'_binary_CRF.png',CRF_result_CAM)
-            imwrite(args.segmentation_out_dir_SA_CAM_CRF+path_name+'_'+pred_mani+'_binary_SA_CAM_CRF.png',CRF_result_SA_CAM)
-            imwrite(args.segmentation_out_dir_SA_CRF+path_name+'_'+pred_mani+'_binary_SA_CRF.png',CRF_result_SA)
-            save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])　#リザルトというのはheatmapと実画像を重ね合わせているということ
-            save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
+            save_image_func(args,path_name,pred_mani,CRF_result_CAM,CRF_result_SA_CAM,CRF_result_SA,result_pp,heatmap_pp)
+            """
+            CRF_result_CAM numpy
+            CRF_result_SA_CAM numpy
+            CRF_result_SA numpy
+            result_pp torch
+            heatmap_pp torch
+            """
+           
             print(path_name,":",pred_mani,"(",preds[i].item(),",",labels[i].item(),")")
             
             if pred_mani == "TP":
-                img_mask = imread(MASK_ROOT+path_name+'_mask.png')
-                #img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg')
-                img_mask = cv2.resize(img_mask, dsize=(args.cam_crop_size, args.cam_crop_size)).astype(np.uint32)
-                #img_mask = imread(MASK_ROOT+path_name+'_edgemask_3.jpg').astype(np.uint32)
-                img_numpy = torch.squeeze(img).to('cpu').detach().numpy().copy()
-                img_numpy_hwc =np_img = np.transpose(img_numpy, (1, 2, 0))
+                images_prot(args,path_name,MASK_ROOT,img,CAM_binary,CRF_result_CAM,SA_CAM_binary,CRF_result_SA_CAM,SA_binary,CRF_result_SA)
                
-                plt.figure(figsize=(5,5))
-                plt.title(path_name)
-                plt.subplot(4, 2, 1)
-                plt.imshow(img_numpy_hwc)
-                plt.axis('off')
-                plt.subplot(4, 2, 2)
-                plt.imshow(img_mask)
-                plt.axis('off')
-                plt.subplot(4, 2, 3)    
-                plt.imshow(CAM_binary)
-                plt.axis('off')
-                plt.subplot(4, 2, 4)
-                plt.imshow(CRF_result_CAM)
-                plt.axis('off')
-                plt.subplot(4, 2, 5)
-                plt.imshow(SA_CAM_binary)
-                plt.axis('off')
-                plt.subplot(4, 2, 6)
-                plt.imshow(CRF_result_SA_CAM)
-                plt.axis('off')
-                plt.subplot(4, 2, 7)
-                plt.imshow(SA_binary)
-                plt.axis('off')
-                plt.subplot(4, 2, 8)
-                plt.imshow(CRF_result_SA)
-                plt.axis('off')
-                plt.savefig(args.segmentation_out_dir_CRF+path_name+"_plot.png")
-                plt.close()
     #一応２値分類結果も表示        
     epoch_acc = epoch_corrects.double() / len(test_loader.dataset)
     print("test_acc=",epoch_acc)

@@ -76,8 +76,8 @@ def run(args,seg_dir_path):
             # mask_path = seg_name[:-7] #_TP_segのところを削る
             mask_path = seg_name[:-3]
         
-            mask_image_gray = Image.open(MASK_ROOT+mask_path+'_mask.png').convert('L')
-            #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
+            #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_mask.png').convert('L')
+            mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
             #mask_image_gray = Image.open(MASK_ROOT+mask_path+'_edgemask_3.jpg').convert('L')
             mask_image_gray = mask_image_gray.resize((args.cam_crop_size,args.cam_crop_size))
             mask_image_crop = transform(mask_image_gray)
