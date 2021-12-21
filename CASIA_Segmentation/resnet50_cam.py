@@ -33,7 +33,7 @@ class Net(nn.Module):
         self.Self_Attn2 = Self_Attn(2048)
         self.avgpool = self.resnet50.avgpool
         self.fc = self.resnet50.fc
-
+        
         #self.classifier = nn.Conv2d(2048, CLASS_NUM, 1, bias=False)
 
         #self.backbone = nn.ModuleList([self.layer1, self.layer2, self.layer3, self.layer4])
@@ -47,11 +47,11 @@ class Net(nn.Module):
         x = self.layer3(x)
         #x = self.Self_Attn1(x)
         x = self.layer4(x)
-        x , _ = self.Self_Attn2(x)
+        x, _ = self.Self_Attn2(x)
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
         x = self.fc(x)
-        
+
         #x = gap2d(x, keepdims=True)
         #x = self.classifier(x)
         #x = x.view(-1, CLASS_NUM)
@@ -82,7 +82,7 @@ class out_selfA(Net):
         x = self.layer3(x)
         #x = self.Self_Attn1(x)
         x = self.layer4(x)
-        x,attention = self.Self_Attn2(x)
+        x, attention = self.Self_Attn2(x)
        
         return x,attention
 
@@ -110,13 +110,16 @@ class Self_Attn(nn.Module):
         #proj_query [64,256] proj_key [256,64]
         energy = torch.bmm(proj_query, proj_key)  # transpose check
         attention = self.softmax(energy)  # B X (N) X (N)
+        
         proj_value = self.value_conv(input).view(batchsize, -1, width * height)  # B X C X N
         out = torch.bmm(proj_value, attention.permute(0, 2, 1))
         out = out.view(batchsize, C, width, height)
 
         out = self.gamma * out + input
-        return out, attention
-
+    
+        
+        return out,attention
+        
 def gap2d(x, keepdims=False):
     out = torch.mean(x.view(x.size(0), x.size(1), -1), -1)
     if keepdims:
