@@ -17,7 +17,7 @@ from gradcam.utils import visualize_cam
 from gradcam import GradCAM, GradCAMpp
 #CRF
 import pydensecrf.densecrf as dcrf
-from pydensecrf.utils import unary_from_labels, create_pairwise_bilateral, create_pairwise_gaussian
+from pydensecrf.utils import unary_from_labels, create_pairwise_bilateral, create_pairwise_gaussian,unary_from_softmax,softmax_to_unary
 
 from cv2 import imread, imwrite
 from utils import np_img_HWC_debug
@@ -26,6 +26,14 @@ from matplotlib import pyplot as plt
 MASK_EX = '_edgemask_3.jpg'
 #MASK_EX = '_mask.png'
 
+
+def softmax_2(x): #二次元用
+    
+    max = np.max(x,axis=1,keepdims=True) #returns max of each row and keeps same dims
+    e_x = np.exp(x - max) #subtracts each row with its max value
+    sum = np.sum(e_x,axis=1,keepdims=True) #returns sum of each row and keeps same dims
+    f_x = e_x / sum 
+    return f_x
 def normalize(v, axis=None, order=2):
     l2 = np.linalg.norm(v, ord = order, axis=axis, keepdims=True)
     l2[l2==0] = 1
@@ -59,7 +67,7 @@ def SA2binary(args,SA_output,path_name,pred_mani,thr=115):
     input Self-Attention(256,256) 0~255 numpyだった
     output 閾値処理をして(256,256,3),画像を保存
     """
-    print(SA_output.shape)
+    
     image0=transforms.functional.to_pil_image(SA_output)
     pixelSizeTuple = image0.size
     new_image0 = Image.new('RGB', image0.size)
@@ -83,10 +91,47 @@ def get_prediction_manipulation(pred,label): #item()して入力されること�
         pred_mani = "TN"
     return pred_mani
 
-def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionがanno_rgb
+def CRF_prob(args,img,CAM): #両引数numpyとして渡したい 連続値を入力する。(n_labels,256,256)→(n_labels,-1)
+    
+    img = img.to('cpu').detach().numpy().copy() #tensorからnumpyへ
+    img = np.squeeze(img).transpose(1,2,0) #256,256,3に合わせる
+
+    # Use densecrf class
+    d = dcrf.DenseCRF(img.shape[1] * img.shape[0], 2)#2がベタ打ち,識別クラス数のこと
+
+    # Get a dollar potential (negative log probability)
+    #U = unary_from_labels(labels, n_labels, gt_prob=0.7, zero_unsure=HAS_UNK)## If there is an indeterminate area, replace the previous line with this line of code
+    U = -np.log(CAM)
+    d.setUnaryEnergy(U)
+
+    # This will create color-independent features and then add them to the CRF
+    feats = create_pairwise_gaussian(sdims=(3, 3), shape=img.shape[:2])
+    d.addPairwiseEnergy(feats, compat=3,kernel=dcrf.DIAG_KERNEL,normalization=dcrf.NORMALIZE_SYMMETRIC)
+    # This will create color-related features and then add them to the CRF
+    
+    feats = create_pairwise_bilateral(sdims=(80, 80), schan=(13, 13, 13),img=img, chdim=2)
+    d.addPairwiseEnergy(feats, compat=10,kernel=dcrf.DIAG_KERNEL,normalization=dcrf.NORMALIZE_SYMMETRIC)
+    
+    
+    # 5 times reasoning
+    Q = d.inference(10)
+
+    # Find the most likely class for each pixel
+    Q_np = np.array(Q)
+    MAP = np.argmax(Q_np, axis=0).reshape(256,256)
+
+    # Convert predicted_image back to the appropriate color and save the image
+    #MAP = colorize[MAP,:]
+    print("CRF Done!")
+    
+    return MAP
+
+def CRF_labels(args,img,CAM_binary): #両引数numpyとして渡したい predictionがanno_rgb
     anno_rgb=np.array(CAM_binary,dtype=np.uint32)
     img = img.to('cpu').detach().numpy().copy() #tensorからnumpyへ
     img = np.squeeze(img).transpose(1,2,0) #256,256,3に合わせる
+    print("way",anno_rgb.shape)
+    
     anno_lbl = anno_rgb[:,:,0] + (anno_rgb[:,:,1] << 8) + (anno_rgb[:,:,2] << 16)
     colors, labels = np.unique(anno_lbl, return_inverse=True) #color [  0 16777215] labels[1 1 1 ... 0 0 0] (.shape = 65536,)
    
@@ -100,6 +145,7 @@ def CRF(args,img,CAM_binary): #両引数numpyとして渡したい predictionが
     n_labels = len(set(labels.flat))
 
     #n_labels = len(set(labels.flat)) - int(HAS_UNK)
+    
     use_2d = False     
 
     if use_2d:                   
@@ -206,39 +252,31 @@ def save_image_func(args,path_name,pred_mani,CRF_result_CAM,CRF_result_SA_CAM,CR
     save_image(result_pp,args.cam_out_dir+path_name+pred_mani+"_result.png") #確認用 #torch.Size([3, 256, 256])　#リザルトというのはheatmapと実画像を重ね合わせているということ
     save_image(heatmap_pp,args.cam_out_dir+path_name+pred_mani+"_heatmap.png") #確認用
 
-def images_prot(args,path_name,MASK_ROOT,img,CAM_binary,CRF_result_CAM,SA_CAM_binary,CRF_result_SA_CAM,SA_binary,CRF_result_SA):
+#images_prot(args,path_name,MASK_ROOT,img,CAM_binary,CRF_result_CAM,SA_CAM_binary,CRF_result_SA_CAM,SA_binary,CRF_result_SA):
+def images_prot(args,path_name,MASK_ROOT,img,SA_CAM_kasika_0,SA_CAM_kasika,CRF_SA_CAM):
     
     img_mask = imread(MASK_ROOT+path_name+MASK_EX)
     img_mask = cv2.resize(img_mask, dsize=(args.cam_crop_size, args.cam_crop_size)).astype(np.uint32)
     
-    img_numpy = torch.squeeze(img).to('cpu').detach().numpy().copy()
-    img_numpy_hwc =np_img = np.transpose(img_numpy, (1, 2, 0))
-    
+    h = 3
+    w = 2
+    #2021-12-27ここfor文にしたいな
     plt.figure(figsize=(5,5))
     plt.title(path_name)
-    plt.subplot(4, 2, 1)
-    plt.imshow(img_numpy_hwc)
+    plt.subplot(h, w, 1)
+    plt.imshow(img)
     plt.axis('off')
-    plt.subplot(4, 2, 2)
+    plt.subplot(h, w, 2)
     plt.imshow(img_mask)
     plt.axis('off')
-    plt.subplot(4, 2, 3)    
-    plt.imshow(CAM_binary)
+    plt.subplot(h, w, 3)    
+    plt.imshow(SA_CAM_kasika_0)
     plt.axis('off')
-    plt.subplot(4, 2, 4)
-    plt.imshow(CRF_result_CAM)
+    plt.subplot(h, w, 4)
+    plt.imshow(SA_CAM_kasika)
     plt.axis('off')
-    plt.subplot(4, 2, 5)
-    plt.imshow(SA_CAM_binary)
-    plt.axis('off')
-    plt.subplot(4, 2, 6)
-    plt.imshow(CRF_result_SA_CAM)
-    plt.axis('off')
-    plt.subplot(4, 2, 7)
-    plt.imshow(SA_binary)
-    plt.axis('off')
-    plt.subplot(4, 2, 8)
-    plt.imshow(CRF_result_SA)
+    plt.subplot(h, w, 5)
+    plt.imshow(CRF_SA_CAM)
     plt.axis('off')
     plt.savefig(args.segmentation_out_dir_CRF+path_name+"_plot.png")
     plt.close()
@@ -313,7 +351,7 @@ def run(args):
         #grad-cam参考https://www.yurui-deep-learning.com/2021/02/08/grad-campytorch-google-colab/
         
         for i in range(inputs.shape[0]):
-              #パス保存用
+            #パス保存用
             path_name = im_paths[i].split('/')[-1].split('.')[0]
 
             epoch_corrects += torch.sum(preds[i] == labels[i])
@@ -322,47 +360,92 @@ def run(args):
 
             #grad-camの部分
             img = torch.unsqueeze(inputs[i],0)
+            img_numpy = torch.squeeze(img).to('cpu').detach().numpy().copy()
+            img_numpy_hwc = np.transpose(img_numpy, (1, 2, 0))
             mask, _ = gradcam(img)
             heatmap, result = visualize_cam(mask, img)
             mask_pp, _ = gradcam_pp(img)
             heatmap_pp, result_pp = visualize_cam(mask_pp, img)
          
             #SAのCAM
-            SA_CAM_kasika = save_SA_CAM(args,x[i],path_name,model_s,preds[i].item())
-            SA2binary(args,SA_CAM_kasika,path_name,pred_mani)
+            
+            SA_CAM_kasika_0 = save_SA_CAM(args,x[i],path_name+"0",model_s,0)
+            SA_CAM_kasika = save_SA_CAM(args,x[i],path_name,model_s,1)
+            #SA_CAM_kasika = save_SA_CAM(args,x[i],path_name,model_s,preds[i].item())
 
-           
+
+            CAM_prob = np.stack([SA_CAM_kasika_0,SA_CAM_kasika], 0)
+            print("CAM_prob",CAM_prob.shape)
+            CAM_prob = CAM_prob.reshape(CAM_prob.shape[0],-1)
+            print("CAM_prob",CAM_prob.shape)
+            print(CAM_prob)
+            #CAM_prob = np.ascontiguousarray(CAM_prob, dtype=np.float32)
+            #print("conti",CAM_prob.flags['C_CONTIGUOUS'])
+            CRF_SA_CAM = CRF_prob(args,img,CAM_prob) #CAM_probの値幅が0~255のため
+            print("way:",CRF_SA_CAM)
+            """
+            SA2binary(args,SA_CAM_kasika,path_name,pred_mani)
+            
+            SA_pil=transforms.functional.to_pil_image(SA_CAM_kasika_0)
+            pixelSizeTuple = SA_pil.size
+            new_image0 = Image.new('RGB', SA_pil.size)
+            
+            for k in range(pixelSizeTuple[0]):
+                for j in range(pixelSizeTuple[1]):
+                    r = SA_pil.getpixel((k,j))
+                    
+                    if r > 115:  #R100~120くらいがよさそう、30くらいまで下げると黄色も含む、10くらいまで下げると緑とかも
+                        new_image0.putpixel((k,j), (255,255,255)) 
+                    else:
+                        new_image0.putpixel((k,j), (0,0,0)) 
+            
+            print("binay",np.array(new_image0).shape)
+            """
+
             CAM_image2binary_save(args,heatmap_pp,path_name,pred_mani) #評価に使います
             
 
             #バイナリCAMを読み込んで、SAの可視化やCRFなどをしていく
             CAM_binary = imread(args.segmentation_out_dir_CAM+path_name+'_'+pred_mani+'_binary_CAM.png').astype(np.uint32)
-
+            img_numpy_hwc_gray = cv2.cvtColor(img_numpy_hwc, cv2.COLOR_BGR2GRAY) #cv2.COLOR_RGB2GRAY?
+            img_numpy_hwc_gray =np.uint8(img_numpy_hwc_gray.reshape(256,256)*255)#ベタ打ち
+            #np_img_HWC_debug(img_numpy_hwc_gray,np_img_str="gray_check")
+           
+            """
+            edges = cv2.Canny(img_numpy_hwc_gray,100,200)
+            
+            edges_3 = np.stack([edges,edges,edges],2)
+            print("a",edges_3.shape)
+            print("b",CAM_binary.shape)
+            
+            CAM_p_edges = CAM_binary + edges_3
+            #print("way",CAM_p_edges)
+            """
             #SAの可視化する(attentionベース)
-            save_SA(args,attention[i],CAM_binary,path_name,pred_mani)
+            #save_SA(args,attention[i],CAM_binary,path_name,pred_mani)
 
             #保存したやつらを読み込んで、CRFかけたりplotしたりする。
             SA_CAM_binary = imread(args.segmentation_out_dir_SA_CAM+path_name+'_'+pred_mani+'_binary_SA_CAM.png').astype(np.uint32)
             SA_binary = imread(args.segmentation_out_dir_SA+path_name+'_'+pred_mani+'_binary_SA.png').astype(np.uint32)
             
             
-            """
+            
             CAMforCRF = np.squeeze(mask_pp.to('cpu').detach().numpy().copy())
             print(CAMforCRF.shape)
             CAMforCRF_gray = np.stack([CAMforCRF,CAMforCRF,CAMforCRF], -1) #[256,256,1]を重ねて３チャンにしたい
             print(CAMforCRF_gray.shape)
             #CAMforCRF = np.transpose(CAMforCRF, (1, 2, 0))
-            """
+            
             
 
-            CRF_result_CAM = CRF(args,img*255,CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+            #CRF_result_CAM = CRF_labels(args,img*255,CAMforCRF_gray).reshape(img.shape[2],img.shape[3],img.shape[1])
          
-            #CRF_result_CAM = CRF(args,img*255,CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
-            CRF_result_SA_CAM = CRF(args,img*255,SA_CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
-            CRF_result_SA = CRF(args,img*255,SA_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+            #CRF_result_CAM = CRF_labels(args,img*255,CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+            #CRF_result_SA_CAM = CRF_labels(args,img*255,SA_CAM_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
+            #CRF_result_SA = CRF_labels(args,img*255,SA_binary).reshape(img.shape[2],img.shape[3],img.shape[1])
             
 
-            save_image_func(args,path_name,pred_mani,CRF_result_CAM,CRF_result_SA_CAM,CRF_result_SA,result_pp,heatmap_pp)
+            #save_image_func(args,path_name,pred_mani,CRF_result_CAM,CRF_result_SA_CAM,CRF_result_SA,result_pp,heatmap_pp)
             """
             CRF_result_CAM numpy
             CRF_result_SA_CAM numpy
@@ -374,8 +457,9 @@ def run(args):
             print(path_name,":",pred_mani,"(",preds[i].item(),",",labels[i].item(),")")
             
             if pred_mani == "TP":
-                images_prot(args,path_name,MASK_ROOT,img,CAM_binary,CRF_result_CAM,SA_CAM_binary,CRF_result_SA_CAM,SA_binary,CRF_result_SA)
+                #images_prot(args,path_name,MASK_ROOT,img_numpy_hwc,CAM_binary,CRF_result_CAM,SA_CAM_binary,new_image0,SA_binary,CRF_result_SA)
+                images_prot(args,path_name,MASK_ROOT,img_numpy_hwc,SA_CAM_kasika_0,SA_CAM_kasika,CRF_SA_CAM)
                
-    #一応２値分類結果も表示        
+    #一応２値分類結果も表示
     epoch_acc = epoch_corrects.double() / len(test_loader.dataset)
     print("test_acc=",epoch_acc)
